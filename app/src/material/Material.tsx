@@ -1,7 +1,11 @@
 import { MaterialDescription } from '@gamepark/react-game'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
-import { fireworksStoreDescription } from './FireworksStoreDescription'
+import { applauseTokenDescription } from './ApplauseTokenDescription'
+import { fireworkDescription } from './FireworkDescription'
+import { rocketStoreDescription } from './RocketStoreDescription'
 
 export const Material: Partial<Record<MaterialType, MaterialDescription>> = {
-  [MaterialType.FireworksStore]: fireworksStoreDescription
+  [MaterialType.FireworksStore]: rocketStoreDescription,
+  [MaterialType.ApplauseToken]: applauseTokenDescription,
+  [MaterialType.Firework]: fireworkDescription
 }
