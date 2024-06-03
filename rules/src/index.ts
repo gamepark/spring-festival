@@ -1,3 +1,3 @@
-export { GameTemplateRules } from './GameTemplateRules'
-export { GameTemplateOptionsSpec } from './GameTemplateOptions'
-export { GameTemplateSetup } from './GameTemplateSetup'
+export { SpringFestivalRules } from './SpringFestivalRules'
+export { SpringFestivalOptions } from './SpringFestivalOptions'
+export { SpringFestivalSetup } from './SpringFestivalSetup'

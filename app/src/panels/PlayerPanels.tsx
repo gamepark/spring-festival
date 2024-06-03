@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerColor } from '@gamepark/game-template/PlayerColor'
+import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { PlayerPanel, usePlayers } from '@gamepark/react-game'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
@@ -29,9 +29,9 @@ const panelPosition = (index: number) => css`
   height: 14em;
 `
 
-export const playerColorCode: Record<PlayerColor, string> = {
-  [PlayerColor.Red]: 'red',
-  [PlayerColor.Blue]: 'blue',
-  [PlayerColor.Green]: 'green',
-  [PlayerColor.Yellow]: 'yellow'
+export const playerColorCode: Record<PlayerSymbol, string> = {
+  [PlayerSymbol.One]: 'One',
+  [PlayerSymbol.Two]: 'Two',
+  [PlayerSymbol.Three]: 'Three',
+  [PlayerSymbol.Four]: 'Four'
 }
