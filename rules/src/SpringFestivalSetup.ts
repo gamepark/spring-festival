@@ -13,6 +13,16 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
   Rules = SpringFestivalRules
 
   setupMaterial(_options: SpringFestivalOptions) {
+    this.setupStore()
+  }
+
+  setupStore() {
+    this.material(MaterialType.FireworksStore)
+      .createItem({
+        location: {
+          type: LocationType.FireworksStore
+        }
+      })
   }
 
   start() {
