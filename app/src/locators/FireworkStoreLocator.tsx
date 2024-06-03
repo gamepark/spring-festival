@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { ItemLocator } from '@gamepark/react-game'
 
-export class RocketStoreLocator extends ItemLocator {
+export class FireworkStoreLocator extends ItemLocator {
   coordinates = { x: 0, y: 0 }
 }
 
-export const rocketStoreLocator = new RocketStoreLocator();
+export const fireworkStoreLocator = new FireworkStoreLocator();
