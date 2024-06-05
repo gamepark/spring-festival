@@ -1,3 +1,5 @@
+import { isEnumValue } from '@gamepark/rules-api'
+
 export enum Firework {
   BaseFirework1_1 = 1,
   BaseFirework1_2,
@@ -64,3 +66,7 @@ export enum Firework {
   Firework47,
   Firework48
 }
+
+export const fireworks = Object.values(Firework).filter(isEnumValue)
+export const baseFireworks = fireworks.filter((f) => f < Firework.Firework1)
+export const storeFireworks = fireworks.filter((f) => f >= Firework.Firework1)

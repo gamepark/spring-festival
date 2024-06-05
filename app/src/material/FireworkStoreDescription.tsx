@@ -20,7 +20,7 @@ class FireworkStoreDescription extends BoardDescription {
 
   getRotateZ(_item: MaterialItem, context: ItemContext): number {
     const { rules } = context
-    const boardRotation = rules.remind(Memory.StoreRotation) ?? 1
+    const boardRotation = rules.remind(Memory.StoreRotation) ?? 0
     return boardRotation * 45
   }
 }
