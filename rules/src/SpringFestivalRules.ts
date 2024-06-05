@@ -1,4 +1,4 @@
-import { MaterialRules } from '@gamepark/rules-api'
+import { MaterialRules, PositiveSequenceStrategy } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
@@ -13,5 +13,11 @@ import { RuleId } from './rules/RuleId'
 export class SpringFestivalRules extends MaterialRules<PlayerId, MaterialType, LocationType> {
   rules = {
     [RuleId.PlayerTurn]: PlayerTurn
+  }
+
+  locationsStrategies = {
+    [MaterialType.Firework]: {
+      [LocationType.FireworksStorePile]: new PositiveSequenceStrategy()
+    }
   }
 }

@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { CardDescription } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
 import BaseFirework1_1Back from '../images/firework/explosion/BaseFirework1_1.jpg'
 import BaseFirework1_2Back from '../images/firework/explosion/BaseFirework1_2.jpg'
@@ -18,14 +20,6 @@ import BaseFirework4_2Back from '../images/firework/explosion/BaseFirework4_2.jp
 import BaseFirework4_3Back from '../images/firework/explosion/BaseFirework4_3.jpg'
 import BaseFirework4_4Back from '../images/firework/explosion/BaseFirework4_4.jpg'
 import Firework1Back from '../images/firework/explosion/Firework1.jpg'
-import Firework2Back from '../images/firework/explosion/Firework2.jpg'
-import Firework3Back from '../images/firework/explosion/Firework3.jpg'
-import Firework4Back from '../images/firework/explosion/Firework4.jpg'
-import Firework5Back from '../images/firework/explosion/Firework5.jpg'
-import Firework6Back from '../images/firework/explosion/Firework6.jpg'
-import Firework7Back from '../images/firework/explosion/Firework7.jpg'
-import Firework8Back from '../images/firework/explosion/Firework8.jpg'
-import Firework9Back from '../images/firework/explosion/Firework9.jpg'
 import Firework10Back from '../images/firework/explosion/Firework10.jpg'
 import Firework11Back from '../images/firework/explosion/Firework11.jpg'
 import Firework12Back from '../images/firework/explosion/Firework12.jpg'
@@ -36,6 +30,7 @@ import Firework16Back from '../images/firework/explosion/Firework16.jpg'
 import Firework17Back from '../images/firework/explosion/Firework17.jpg'
 import Firework18Back from '../images/firework/explosion/Firework18.jpg'
 import Firework19Back from '../images/firework/explosion/Firework19.jpg'
+import Firework2Back from '../images/firework/explosion/Firework2.jpg'
 import Firework20Back from '../images/firework/explosion/Firework20.jpg'
 import Firework21Back from '../images/firework/explosion/Firework21.jpg'
 import Firework22Back from '../images/firework/explosion/Firework22.jpg'
@@ -46,6 +41,7 @@ import Firework26Back from '../images/firework/explosion/Firework26.jpg'
 import Firework27Back from '../images/firework/explosion/Firework27.jpg'
 import Firework28Back from '../images/firework/explosion/Firework28.jpg'
 import Firework29Back from '../images/firework/explosion/Firework29.jpg'
+import Firework3Back from '../images/firework/explosion/Firework3.jpg'
 import Firework30Back from '../images/firework/explosion/Firework30.jpg'
 import Firework31Back from '../images/firework/explosion/Firework31.jpg'
 import Firework32Back from '../images/firework/explosion/Firework32.jpg'
@@ -56,6 +52,7 @@ import Firework36Back from '../images/firework/explosion/Firework36.jpg'
 import Firework37Back from '../images/firework/explosion/Firework37.jpg'
 import Firework38Back from '../images/firework/explosion/Firework38.jpg'
 import Firework39Back from '../images/firework/explosion/Firework39.jpg'
+import Firework4Back from '../images/firework/explosion/Firework4.jpg'
 import Firework40Back from '../images/firework/explosion/Firework40.jpg'
 import Firework41Back from '../images/firework/explosion/Firework41.jpg'
 import Firework42Back from '../images/firework/explosion/Firework42.jpg'
@@ -65,6 +62,11 @@ import Firework45Back from '../images/firework/explosion/Firework45.jpg'
 import Firework46Back from '../images/firework/explosion/Firework46.jpg'
 import Firework47Back from '../images/firework/explosion/Firework47.jpg'
 import Firework48Back from '../images/firework/explosion/Firework48.jpg'
+import Firework5Back from '../images/firework/explosion/Firework5.jpg'
+import Firework6Back from '../images/firework/explosion/Firework6.jpg'
+import Firework7Back from '../images/firework/explosion/Firework7.jpg'
+import Firework8Back from '../images/firework/explosion/Firework8.jpg'
+import Firework9Back from '../images/firework/explosion/Firework9.jpg'
 import BaseFirework1_1Front from '../images/firework/rocket/BaseFirework1_1.jpg'
 import BaseFirework1_2Front from '../images/firework/rocket/BaseFirework1_2.jpg'
 import BaseFirework1_3Front from '../images/firework/rocket/BaseFirework1_3.jpg'
@@ -267,6 +269,18 @@ class FireworkDescription extends CardDescription {
     [Firework.Firework46]: Firework46Back,
     [Firework.Firework47]: Firework47Back,
     [Firework.Firework48]: Firework48Back,
+  }
+
+  getItemExtraCss(_item: MaterialItem) {
+    return css`
+      transform: translateZ(10em);
+      &:after {
+        content: '${_item.location.id}';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+    `
   }
 }
 

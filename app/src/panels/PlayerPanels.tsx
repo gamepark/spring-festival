@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { StyledPlayerPanel, usePlayers } from '@gamepark/react-game'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
-import { PlayerPanel, usePlayers } from '@gamepark/react-game'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -15,7 +15,7 @@ export const PlayerPanels: FC<any> = () => {
   return createPortal(
     <>
       {players.map((player, index) =>
-        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index)}/>
+        <StyledPlayerPanel key={player.id} player={player} css={panelPosition(index)}/>
       )}
     </>,
     root
@@ -23,10 +23,9 @@ export const PlayerPanels: FC<any> = () => {
 }
 const panelPosition = (index: number) => css`
   position: absolute;
-  right: 1em;
-  top: ${8.5 + index * 16}em;
-  width: 28em;
-  height: 14em;
+  top: 8.5em;
+  left: ${index === 0? '1em': 'unset'};
+  right: ${index === 1? '1em': 'unset'};
 `
 
 export const playerColorCode: Record<PlayerSymbol, string> = {
