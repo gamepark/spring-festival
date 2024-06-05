@@ -2,7 +2,7 @@ import { MaterialRules, PositiveSequenceStrategy } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
-import { PlayerTurn } from './rules/PlayerTurn'
+import { RotateStoreRule } from './rules/RotateStoreRule'
 import { RuleId } from './rules/RuleId'
 
 
@@ -12,7 +12,7 @@ import { RuleId } from './rules/RuleId'
  */
 export class SpringFestivalRules extends MaterialRules<PlayerId, MaterialType, LocationType> {
   rules = {
-    [RuleId.PlayerTurn]: PlayerTurn
+    [RuleId.RotateStore]: RotateStoreRule
   }
 
   locationsStrategies = {

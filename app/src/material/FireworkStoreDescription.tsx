@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { BoardDescription, ItemContext } from '@gamepark/react-game'
-import { MaterialItem, MaterialMove, MoveKind } from '@gamepark/rules-api'
+import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import RocketStore from '../images/dispenser.jpg'
@@ -18,8 +18,8 @@ class FireworkStoreDescription extends BoardDescription {
     return boardRotation * 90
   }
 
-  getShortClickLocalMove(_context: ItemContext): MaterialMove {
-    return { kind: MoveKind.CustomMove, type: CustomMoveType.RotateStore, data: 1 }
+  canShortClick(move: MaterialMove): boolean {
+    return isCustomMoveType(CustomMoveType.RotateStore)(move)
   }
 }
 

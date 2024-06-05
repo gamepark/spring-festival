@@ -63,6 +63,6 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
   }
 
   start() {
-    this.startPlayerTurn(RuleId.PlayerTurn, this.game.players[0])
+    this.startPlayerTurn(RuleId.RotateStore, this.game.players[0])
   }
 }
