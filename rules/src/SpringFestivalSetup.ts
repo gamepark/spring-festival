@@ -1,7 +1,7 @@
 import { MaterialGameSetup } from '@gamepark/rules-api'
 import chunk from 'lodash/chunk'
 import shuffle from 'lodash/shuffle'
-import { storeFireworks } from './material/Firework'
+import { getBaseFirework, storeFireworks } from './material/Firework'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
@@ -17,6 +17,24 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
 
   setupMaterial(_options: SpringFestivalOptions) {
     this.setupStore()
+    this.setupPlayers()
+  }
+
+  setupPlayers() {
+    for (const player of this.players) {
+      const base = getBaseFirework(player)
+      this.material(MaterialType.Firework)
+        .createItems(base.map((f) => ({
+          id: {
+            back: f,
+            front: f
+          },
+          location: {
+            type: LocationType.PlayerHand,
+            player: player
+          }
+        })))
+    }
   }
 
   setupStore() {

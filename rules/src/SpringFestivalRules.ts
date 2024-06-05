@@ -17,7 +17,8 @@ export class SpringFestivalRules extends MaterialRules<PlayerId, MaterialType, L
 
   locationsStrategies = {
     [MaterialType.Firework]: {
-      [LocationType.FireworksStorePile]: new PositiveSequenceStrategy()
+      [LocationType.FireworksStorePile]: new PositiveSequenceStrategy(),
+      [LocationType.PlayerHand]: new PositiveSequenceStrategy()
     }
   }
 }

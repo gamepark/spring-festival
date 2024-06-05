@@ -1,4 +1,5 @@
 import { isEnumValue } from '@gamepark/rules-api'
+import { PlayerSymbol } from '../PlayerSymbol'
 
 export enum Firework {
   BaseFirework1_1 = 1,
@@ -70,3 +71,5 @@ export enum Firework {
 export const fireworks = Object.values(Firework).filter(isEnumValue)
 export const baseFireworks = fireworks.filter((f) => f < Firework.Firework1)
 export const storeFireworks = fireworks.filter((f) => f >= Firework.Firework1)
+
+export const getBaseFirework = (playerId: PlayerSymbol) => baseFireworks.filter((f) => Math.floor(f / 10) === playerId - 1)
