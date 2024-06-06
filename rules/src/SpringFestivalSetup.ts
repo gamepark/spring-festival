@@ -5,6 +5,7 @@ import { getBaseFirework, storeFireworks } from './material/Firework'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
+import { Memory } from './rules/Memory'
 import { RuleId } from './rules/RuleId'
 import { SpringFestivalOptions } from './SpringFestivalOptions'
 import { SpringFestivalRules } from './SpringFestivalRules'
@@ -63,6 +64,8 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
   }
 
   start() {
+    this.memorize(Memory.StartPlayer, this.game.players[0])
+    this.memorize(Memory.ChosenPile, 1)
     this.startPlayerTurn(RuleId.RotateStore, this.game.players[0])
   }
 }

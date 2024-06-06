@@ -1,3 +1,4 @@
 export enum Memory {
-  StoreRotation = 1
+  ChosenPile = 1,
+  StartPlayer
 }
