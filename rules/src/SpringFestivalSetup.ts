@@ -39,6 +39,7 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
   }
 
   setupStore() {
+
     this.material(MaterialType.FireworksStore)
       .createItem({
         location: {
@@ -65,7 +66,7 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
 
   start() {
     this.memorize(Memory.StartPlayer, this.game.players[0])
-    this.memorize(Memory.ChosenPile, 1)
+    this.memorize(Memory.StoreRotation, 0)
     this.startPlayerTurn(RuleId.RotateStore, this.game.players[0])
   }
 }

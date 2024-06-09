@@ -7,26 +7,20 @@ export class RotateStoreRule extends PlayerTurnRule {
   getPlayerMoves() {
     return [
       this.rules().customMove(CustomMoveType.RotateStore),
-      this.rules().startSimultaneousRule(RuleId.PlaceFirework)
+      this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players)
     ]
   }
 
   onCustomMove(move: CustomMove): MaterialMove[] {
     if (!isCustomMoveType(CustomMoveType.RotateStore)(move)) return []
 
-    this.memorize<number>(Memory.ChosenPile, this.nextPile)
+
+    this.memorize<number>(Memory.StoreRotation, this.nextPile)
     return []
   }
 
   get nextPile(): number {
-    const pile = this.remind(Memory.ChosenPile)
-    const piles = [1, 2, 3, 4]
-    return piles[(piles.indexOf(pile) + piles.length - 1) % piles.length]
-  }
-
-  get previousPile(): number {
-    const pile = this.remind(Memory.ChosenPile)
-    const piles = [1, 2, 3, 4]
-    return piles[(piles.indexOf(pile) + 1) % piles.length]
+    const rotation = this.remind(Memory.StoreRotation)
+    return (rotation ?? 0) + 1
   }
 }

@@ -14,7 +14,7 @@ class FireworkStoreDescription extends BoardDescription {
 
   getRotateZ(_item: MaterialItem, context: ItemContext): number {
     const { rules } = context
-    const boardRotation = rules.remind(Memory.ChosenPile) - 1
+    const boardRotation = rules.remind(Memory.StoreRotation)
     return boardRotation * 90 + this.getAdditionalRotationForCurrentPlayer(context)
   }
 

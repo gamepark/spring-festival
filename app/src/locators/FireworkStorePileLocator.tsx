@@ -10,7 +10,7 @@ export class FireworkStorePileLocator extends DeckLocator {
   delta = { y: -0.1 }
 
   getPositionOnParent(location: Location, context: ItemContext): Coordinates {
-    const angle = this.getAngle(location.id + ((context.rules.remind(Memory.ChosenPile) - 1) * 45), context)
+    const angle = this.getAngle(location.id + ((context.rules.remind(Memory.StoreRotation)) * 45), context)
     const radius = 30.1
     const x = Math.cos(angle * Math.PI / 180) * radius + 50
     const y = -Math.sin(angle * Math.PI / 180) * radius + 50
@@ -26,14 +26,14 @@ export class FireworkStorePileLocator extends DeckLocator {
     const { location } = item
     switch (location.id) {
       case 1:
-        return 45 + ((context.rules.remind(Memory.ChosenPile) - 1) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
+        return 45 + ((context.rules.remind(Memory.StoreRotation)) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
       case 2:
-        return 135 + ((context.rules.remind(Memory.ChosenPile) - 1) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
+        return 135 + ((context.rules.remind(Memory.StoreRotation)) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
       case 3:
-        return 225 + ((context.rules.remind(Memory.ChosenPile) - 1) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
+        return 225 + ((context.rules.remind(Memory.StoreRotation)) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
       case 4:
       default:
-        return 315 + ((context.rules.remind(Memory.ChosenPile) - 1) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
+        return 315 + ((context.rules.remind(Memory.StoreRotation)) * 90) - fireworkStoreDescription.getAdditionalRotationForCurrentPlayer(context)
 
     }
   }
