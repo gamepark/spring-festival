@@ -2,6 +2,7 @@ import { MaterialRules, PositiveSequenceStrategy } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
+import { PlaceBaseFireworkRule } from './rules/PlaceBaseFireworkRule'
 import { PlaceFireworkRule } from './rules/PlaceFireworkRule'
 import { RotateStoreRule } from './rules/RotateStoreRule'
 import { RuleId } from './rules/RuleId'
@@ -14,7 +15,8 @@ import { RuleId } from './rules/RuleId'
 export class SpringFestivalRules extends MaterialRules<PlayerId, MaterialType, LocationType> {
   rules = {
     [RuleId.RotateStore]: RotateStoreRule,
-    [RuleId.PlaceFirework]: PlaceFireworkRule
+    [RuleId.PlaceFirework]: PlaceFireworkRule,
+    [RuleId.PlaceBaseFirework]: PlaceBaseFireworkRule
   }
 
   locationsStrategies = {

@@ -1,4 +1,5 @@
 export enum RuleId {
-  RotateStore = 1,
+  PlaceBaseFirework = 1,
+  RotateStore,
   PlaceFirework
 }
