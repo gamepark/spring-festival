@@ -43,7 +43,8 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
     this.material(MaterialType.FireworksStore)
       .createItem({
         location: {
-          type: LocationType.FireworksStore
+          type: LocationType.FireworksStore,
+          rotation: 0
         }
       })
 
@@ -58,7 +59,8 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
           },
           location: {
             type: LocationType.FireworksStorePile,
-            id: id + 1
+            id: id + 1,
+            parent: 0
           }
         }) ))
     }
