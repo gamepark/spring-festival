@@ -15,7 +15,6 @@ export class SearchPileHelper extends MaterialRulesPart {
     const startingPosition = this.game.players.findIndex(p => p === starting)
     const distance = position - startingPosition
     const step = this.getStepForPosition(distance)
-    console.log(`The player ${this.player} =`, startingPile)
     return distance < 0 ? (((startingPile - 1 + 4 + step) % 4) + 1): (((startingPile - 1 + step)% 4) + 1)
   }
 

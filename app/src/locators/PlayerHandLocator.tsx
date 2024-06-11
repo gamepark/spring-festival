@@ -7,7 +7,9 @@ import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, 
 export class PlayerHandLocator extends HandLocator {
   getCoordinates(location: Location, context: LocationContext) {
     const index = getComputedIndex(context, location.player!)
-    return getHandCoordinates(index, context.rules.players)
+    const coordinates = getHandCoordinates(index, context.rules.players)
+    coordinates.z = 0.05
+    return coordinates
   }
 
   getBaseAngle(item: MaterialItem, context: ItemContext): number {

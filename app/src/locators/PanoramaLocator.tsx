@@ -8,13 +8,15 @@ export class PanoramaLocator extends ItemLocator {
   locationDescription = new PanoramaDescription()
   
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    return this.locationDescription.getCoordinates(item.location, context)
+    const coordinates = this.locationDescription.getCoordinates(item.location, context)
+    coordinates.z = 0.05
+    return coordinates
   }
 
   getRotateZ(item: MaterialItem, context: ItemContext): number {
     const index = getComputedIndex(context, item.location.player!)
     if (index === 1 || index === 2) {
-      return 180
+      return 0
     }
 
     return 0
