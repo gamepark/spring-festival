@@ -1,4 +1,4 @@
 export enum Memory {
-  StoreRotation = 1,
-  StartPlayer
+  StartPlayer = 1,
+  HasRotated
 }

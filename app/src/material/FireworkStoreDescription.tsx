@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { BoardDescription } from '@gamepark/react-game'
-import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
+import { isCustomMoveType, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import RocketStore from '../images/dispenser.jpg'
 
 class FireworkStoreDescription extends BoardDescription {
@@ -12,7 +13,10 @@ class FireworkStoreDescription extends BoardDescription {
   image = RocketStore
 
   canShortClick(move: MaterialMove): boolean {
-    return isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation !== undefined
+    return (
+      isCustomMoveType(CustomMoveType.RotateStore)(move) ||
+      (isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation !== undefined)
+    )
   }
 }
 

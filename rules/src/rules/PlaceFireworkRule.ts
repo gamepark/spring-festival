@@ -3,6 +3,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { PlayerSymbol } from '../PlayerSymbol'
 import { AvailableSpaceHelper } from './helper/AvailableSpaceHelper'
+import { SearchPileHelper } from './helper/SearchPileHelper'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 
@@ -14,38 +15,12 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   }
 
   getTile(playerId: PlayerSymbol): Material {
+    const pile = new SearchPileHelper(this.game, playerId).pile
     return this
       .material(MaterialType.Firework)
       .location(LocationType.FireworksStorePile)
-      .locationId(this.getPileFor(playerId))
+      .locationId(pile)
       .maxBy((item) => item.location.x!)
-  }
-
-  getPileFor(player: PlayerSymbol) {
-    const position = this.game.players.findIndex(p => player === p)
-    const rotation = this.storeRotation
-    const step = rotation + this.getStepForPosition(position)
-    const pile = (4 - step) % 4
-    return pile < 0 ? (4 + pile + 1): (pile + 1)
-  }
-
-  get storeRotation() {
-    return this
-      .material(MaterialType.FireworksStore)
-      .getItem()!
-      .location
-      .rotation
-  }
-
-  getStepForPosition(position: number) {
-    switch (this.game.players.length) {
-      case 2:
-        return position === 1? 2: 0
-      case 3:
-      case 4:
-      default:
-        return position
-    }
   }
 
   afterItemMove(move: ItemMove) {
@@ -62,9 +37,7 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
 
   getMovesAfterPlayersDone(): MaterialMove<PlayerSymbol, MaterialType, LocationType>[] {
     // TODO:  NEXT PLAYER
-    console.log("CALLED")
     const nextPlayer = this.nextPlayer
-    this.memorize(Memory.StartPlayer, nextPlayer)
     return [this.rules().startPlayerTurn(RuleId.RotateStore, nextPlayer)]
   }
 }

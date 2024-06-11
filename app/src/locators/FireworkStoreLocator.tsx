@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
+import { Memory } from '@gamepark/spring-festival/rules/Memory'
 
 export class FireworkStoreLocator extends ItemLocator {
   getPosition() {
@@ -8,29 +9,16 @@ export class FireworkStoreLocator extends ItemLocator {
   }
 
   getRotateZ(item: MaterialItem, context: ItemContext): number {
-    return item.location.rotation * 90 + this.getAdditionalRotationForCurrentPlayer(context)
+    return (item.location.rotation - 1) * -90 + this.getAdditionalRotationForCurrentPlayer(context)
   }
 
   getAdditionalRotationForCurrentPlayer(context: ItemContext) {
-    const players = context.rules.players.length
-    const index = context.rules.players.findIndex((p) => p === context.player)
-    if (index === -1) return 0
-    if (players === 2 && index === 1) {
-      return 180
-    }
-
-    if (players === 3) {
-      if (index === 1) return 90
-      if (index === 2) return 180
-    }
-
-    if (players === 4) {
-      if (index === 1) return 90
-      if (index === 2) return 180
-      if (index === 3) return -90
-    }
-
-    return 0
+    const { rules } = context
+    const position = rules.game.players.findIndex(p => context.player === p)
+    const starting = rules.remind(Memory.StartPlayer)
+    const startingPosition = rules.game.players.findIndex(p => p === starting)
+    const distance = position - startingPosition
+    return distance * -90
   }
 }
 
