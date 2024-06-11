@@ -27,10 +27,8 @@ export class SearchPileHelper extends MaterialRulesPart {
   }
 
   getStepForPosition(distance: number) {
-    const starting = this.remind(Memory.StartPlayer)
     switch (this.game.players.length) {
       case 2:
-        console.log(distance, starting, this.player, this.storeRotation)
         return Math.abs(distance) === 1? 2: 0
       case 3:
       case 4:

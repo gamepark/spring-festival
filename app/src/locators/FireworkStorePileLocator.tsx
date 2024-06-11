@@ -1,24 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { DeckLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
+import { DeckLocator, ItemContext } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { SearchPileHelper } from '@gamepark/spring-festival/rules/helper/SearchPileHelper'
 
 export class FireworkStorePileLocator extends DeckLocator {
   parentItemType = MaterialType.FireworksStore
   delta = { y: -0.1 }
 
   getDelta(_item: MaterialItem, context: ItemContext): Partial<Coordinates> {
-    const storeLocation = this.getStoreRotation(context)
+    const storeLocation = new SearchPileHelper(context.rules.game, context.player ?? context.rules.players[0]).pile
     switch (storeLocation) {
-      case 0:
-        return { y: -0.1 }
       case 1:
-        return { x: -0.1 }
+        return { y: -0.1 }
       case 2:
+        return { x: 0.1 }
+      case 3:
         return { y: 0.1 }
       default:
-        return { x: 0.1 }
-
+        return { x: -0.1 }
     }
   }
 
@@ -29,14 +29,6 @@ export class FireworkStorePileLocator extends DeckLocator {
     const y = -Math.sin(angle * Math.PI / 180) * radius + 50
     const z = 0.05
     return { x, y, z }
-  }
-
-  getStoreRotation(context: MaterialContext): number {
-    return context.rules
-      .material(MaterialType.FireworksStore)
-      .getItem()!
-      .location
-      .rotation
   }
 
   getAngle(id: number) {
