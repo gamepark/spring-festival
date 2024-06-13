@@ -6,8 +6,8 @@ const baseX = 28.5
 
 export const getTwoPlayerCoordinates = (index: number, { x, y }: Partial<{ x? : number, y?: number}> = {}) => {
 
-  if (index === 0) return { x: -baseX + (x ?? 0), y: baseY - (y ?? 0), z: 0 }
-  return { x: baseX - (x ?? 0), y: -baseY + (y ?? 0), z: 0 }
+  if (index === 0) return { x: -baseX + (x ?? 0), y: 0 - (y ?? 0), z: 0 }
+  return { x: baseX - (x ?? 0), y: -0 + (y ?? 0), z: 0 }
 }
 
 export const getThreePlayerCoordinates = (index: number, { x, y }: Partial<{ x? : number, y?: number}> = {}) => {

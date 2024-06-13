@@ -26,7 +26,7 @@ const getHandCoordinates = (index: number, players: PlayerSymbol[]): Coordinates
   const count = players.length
   switch (count) {
     case 2:
-      return getTwoPlayerCoordinates(index)
+      return getTwoPlayerCoordinates(index, { y: -20})
     case 3:
       return getThreePlayerCoordinates(index)
     default:

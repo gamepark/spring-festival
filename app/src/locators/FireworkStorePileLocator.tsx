@@ -10,15 +10,16 @@ export class FireworkStorePileLocator extends DeckLocator {
 
   getDelta(_item: MaterialItem, context: ItemContext): Partial<Coordinates> {
     const storeLocation = new SearchPileHelper(context.rules.game, context.player ?? context.rules.players[0]).pile
+    const twoPlayer = context.rules.players.length === 2
     switch (storeLocation) {
       case 1:
-        return { y: -0.1 }
+        return twoPlayer? { x: -0.1 }: { y: -0.1 }
       case 2:
-        return { x: 0.1 }
+        return twoPlayer? { y: -0.1 }:{ x: 0.1 }
       case 3:
-        return { y: 0.1 }
+        return twoPlayer? { x: 0.1 }: { y: 0.1 }
       default:
-        return { x: -0.1 }
+        return twoPlayer? { y: 0.1 }: { x: -0.1 }
     }
   }
 
