@@ -7,7 +7,7 @@ import { FC, useMemo } from 'react'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { PlayerPanels } from './panels/PlayerPanels'
-import { getComputedIndex } from './utils/PlayerPosition'
+import { getComputedIndex, gridHeight, gridMinX, gridMinY, gridWidth } from './utils/PlayerPosition'
 
 type GameDisplayProps = {
   players: number
@@ -18,14 +18,15 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
   const rules = useRules<SpringFestivalRules>()!
   const context: MaterialContext = { locators: Locators, material: Material, rules, player }
   const extraSpace = useMemo(() => getExtraSpace(context), [context])
+  const additionalY = context.rules.players.length === 2? 1.5: 0
   return <>
     <GameTable
-      xMin={-47.3 - extraSpace.xMin}
-      xMax={47.3 + extraSpace.xMax}
-      yMin={-27.5 - extraSpace.yMin}
-      yMax={27.5 + extraSpace.yMax}
-      margin={{ top: 7, left: 0, right: 0, bottom: 0 }}
-      css={css`background-color: rgba(255, 255, 255, 0.5)`}
+      xMin={-46 - extraSpace.xMin}
+      xMax={46 + extraSpace.xMax}
+      yMin={-23 - extraSpace.yMin - additionalY}
+      yMax={23 + extraSpace.yMax + additionalY}
+      margin={{ top: 10, left: 0, right: 0, bottom: 0 }}
+      //css={css`background-color: rgba(255, 255, 255, 0.5)`}
     >
       <GameTableNavigation css={navigationCss}/>
       <PlayerPanels/>
@@ -39,10 +40,10 @@ const getExtraSpace = (context: MaterialContext) => {
   let additionalMaxXSpaces = 0
   let additionalMinYSpaces = 0
   let additionalMaxYSpaces = 0
-  const gridHeight = context.rules.players.length === 2? 9: 5
-  const gridWidth = 7
-  const gridMinY = Math.floor(gridHeight / 2)
   const { rules: { players } } = context
+  const height = gridHeight(players.length)
+  const minY = gridMinY(players.length)
+  const isTwoPlayer = players.length === 2
   for (const p of players) {
     const index = getComputedIndex(context, p)
     const boundaries = new PlayerBoundaries(context.rules.game, p).boudaries
@@ -52,51 +53,37 @@ const getExtraSpace = (context: MaterialContext) => {
       case 0:
         if (deltaX >= gridWidth) additionalMinXSpaces = Math.max(additionalMinXSpaces, deltaX - gridWidth + 1)
         if (deltaX < gridWidth && boundaries.minX <= -3) additionalMinXSpaces = Math.max(additionalMinXSpaces, 1)
-        if (deltaY >= gridHeight) additionalMaxYSpaces = Math.max(additionalMaxYSpaces, deltaY - gridHeight + 1)
-        if (deltaY < gridHeight && boundaries.maxY >= gridMinY) additionalMaxYSpaces = Math.max(additionalMaxYSpaces, 1)
+        if (isTwoPlayer && (boundaries.deltaX >= gridWidth || (boundaries.maxX >= gridMinX && boundaries.deltaX === (gridWidth - 1)))) additionalMinXSpaces += 1
+        if (deltaY >= height) additionalMaxYSpaces = Math.max(additionalMaxYSpaces, deltaY - height + 1)
+        if (deltaY < height && boundaries.maxY >= minY) additionalMaxYSpaces = Math.max(additionalMaxYSpaces, 1)
+        if (isTwoPlayer && (boundaries.deltaY >= height || (boundaries.minY <= -minY))) additionalMinYSpaces += 1
         break
       case 1:
-        if (deltaX >= gridWidth) additionalMinXSpaces = Math.max(additionalMinXSpaces, deltaX - gridWidth + 1)
-        if (deltaX < gridWidth && boundaries.minX <= -3) additionalMinXSpaces = Math.max(additionalMinXSpaces, 1)
-        if (deltaY >= gridHeight) additionalMinYSpaces = Math.max(additionalMinYSpaces, deltaY - gridHeight + 1)
-        if (deltaY < gridHeight && boundaries.minY <= -gridMinY) additionalMinYSpaces = Math.max(additionalMinYSpaces, 1)
+        if (deltaX >= gridWidth) additionalMinXSpaces = Math.max(additionalMinXSpaces, deltaX - gridWidth)
+        if (deltaY >= height) additionalMinYSpaces = Math.max(additionalMinYSpaces, deltaY - height)
         break
       case 2:
-        if (deltaX >= gridWidth) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, deltaX - gridWidth + 1)
-        if (deltaX < gridWidth && boundaries.maxX >= 3) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, 1)
-        if (deltaY >= gridHeight) additionalMinYSpaces = Math.max(additionalMinYSpaces,  deltaY - gridHeight + 1)
-        if (deltaY < gridHeight && boundaries.minY <= -gridMinY) additionalMinYSpaces = Math.max(additionalMinYSpaces, 1)
+        if (deltaX >= gridWidth) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, deltaX - gridWidth)
+        if (deltaY >= height) additionalMinYSpaces = Math.max(additionalMinYSpaces,  deltaY - height)
         break
       case 3:
-        if (deltaX >= gridWidth) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, deltaX - gridWidth + 1)
-        if (deltaX < gridWidth && boundaries.maxX >= 3) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, 1)
-        if (deltaY >= gridHeight) additionalMaxYSpaces = Math.max(additionalMaxYSpaces,  deltaY - gridHeight + 1)
-        if (deltaY < gridHeight && boundaries.maxY >= gridMinY) additionalMaxYSpaces = Math.max(additionalMaxYSpaces, 1)
+        if (deltaX >= gridWidth) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, deltaX - gridWidth)
+        if (deltaY >= height) additionalMaxYSpaces = Math.max(additionalMaxYSpaces,  deltaY - height)
         break
 
     }
   }
 
-  console.log(
-    additionalMinXSpaces,
-    additionalMaxXSpaces,
-    additionalMinYSpaces,
-    additionalMaxYSpaces
-  )
-
-  const margins = {
-    xMin: 5 * additionalMinXSpaces,
-    xMax: 5 * additionalMaxXSpaces,
-    yMin: 5 * additionalMinYSpaces,
-    yMax: 5 * additionalMaxYSpaces
+  return {
+    xMin: 5.2 * additionalMinXSpaces,
+    xMax: 5.2 * additionalMaxXSpaces,
+    yMin: 5.2 * additionalMinYSpaces,
+    yMax: 5.2 * additionalMaxYSpaces
   }
-
-  console.log(margins)
-
-  return margins
 }
 
 
 const navigationCss = css`
-  left: 80em;
+  left: 50%;
+  transform: translateX(-50%);
 `

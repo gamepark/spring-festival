@@ -1,8 +1,8 @@
 import { getRelativePlayerIndex, MaterialContext } from '@gamepark/react-game'
 import { PlayerSymbol } from "@gamepark/spring-festival/PlayerSymbol"
 
-const baseY = 24
-const baseX = 28.5
+const baseY = 12
+const baseX = 27.5
 
 export const getTwoPlayerCoordinates = (index: number, { x, y }: Partial<{ x? : number, y?: number}> = {}) => {
 
@@ -13,8 +13,6 @@ export const getTwoPlayerCoordinates = (index: number, { x, y }: Partial<{ x? : 
 export const getThreePlayerCoordinates = (index: number, { x, y }: Partial<{ x? : number, y?: number}> = {}) => {
   if (index === 0) return { x: -baseX + (x ?? 0), y: baseY - (y ?? 0), z: 0 }
   if (index === 1) return { x: -baseX + (x ?? 0), y: -baseY + (y ?? 0), z: 0 }
-  if (index === 2) return { x: baseX - (x ?? 0), y: -baseY + (y ?? 0), z: 0 }
-  if (index === 3) return { x: baseX - (x ?? 0), y: baseY - (y ?? 0), z: 0 }
   return { x: baseX - (x ?? 0), y: -baseY + (y ?? 0), z: 0 }
 }
 
@@ -33,8 +31,12 @@ export const getComputedIndex = (context: MaterialContext, player: PlayerSymbol)
 }
 
 export const getFourPlayerCoordinates = (index: number, { x, y }: Partial<{ x? : number, y?: number}> = {}) => {
-  if (index === 0) return { x: -30 + (x ?? 0), y: 25 - (y ?? 0), z: 0 }
-  if (index === 1) return { x: -30 + (x ?? 0), y: -25 + (y ?? 0), z: 0 }
-  if (index === 2) return { x: 30 - (x ?? 0), y: -25 + (y ?? 0), z: 0 }
-  return { x: 30 - (x ?? 0), y: 25 - (y ?? 0), z: 0 }
+  if (index === 0) return { x: -baseX + (x ?? 0), y: baseY - (y ?? 0), z: 0 }
+  if (index === 1) return { x: -baseX + (x ?? 0), y: -baseY + (y ?? 0), z: 0 }
+  if (index === 2) return { x: baseX - (x ?? 0), y: -baseY + (y ?? 0), z: 0 }
+  return { x: baseX - (x ?? 0), y: baseY - (y ?? 0), z: 0 }
 }
+export const gridHeight = (players: number) => players === 2? 9: 5
+export const gridWidth = 7
+export const gridMinY = (players: number) => Math.floor(gridHeight(players) / 2)
+export const gridMinX = Math.floor(gridWidth / 2)

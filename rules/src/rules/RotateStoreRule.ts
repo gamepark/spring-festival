@@ -59,7 +59,6 @@ export class RotateStoreRule extends PlayerTurnRule {
   onRuleEnd() {
     if (!this.remind(Memory.HasRotated)) {
       const newRotation = new SearchPileHelper(this.game, this.player).pile
-      console.log(newRotation, this.store.location.rotation)
       if (this.store.location.rotation === newRotation) return []
       this.memorize(Memory.StartPlayer, this.player)
       return [

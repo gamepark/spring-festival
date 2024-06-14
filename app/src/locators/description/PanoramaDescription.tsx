@@ -7,7 +7,14 @@ import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { AvailableSpaceHelper } from '@gamepark/spring-festival/rules/helper/AvailableSpaceHelper'
 import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
 import { fireworkDescription } from '../../material/FireworkDescription'
-import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates } from '../../utils/PlayerPosition'
+import {
+  getComputedIndex,
+  getFourPlayerCoordinates,
+  getThreePlayerCoordinates,
+  getTwoPlayerCoordinates,
+  gridHeight, gridMinX, gridMinY,
+  gridWidth
+} from '../../utils/PlayerPosition'
 
 export class PanoramaDescription extends LocationDescription {
   height = fireworkDescription.height
@@ -36,8 +43,8 @@ export class PanoramaDescription extends LocationDescription {
     } else {
       // TODO: Move it to specific location ?
       return {
-        height: (fireworkDescription.height + 0.2) * (context.rules.players.length === 2? 9: 5),
-        width: (fireworkDescription.width + 0.2) * 7
+        height: (fireworkDescription.height + 0.2) * gridHeight(context.rules.players.length),
+        width: (fireworkDescription.width + 0.2) * gridWidth
       }
     }
   }
@@ -66,26 +73,29 @@ export class PanoramaDescription extends LocationDescription {
   computeDelta(index: number, player: PlayerSymbol, context: LocationContext) {
     const boundaries = new PlayerBoundaries(context.rules.game, player).boudaries
     const delta: Partial<XYCoordinates> = {}
-    const gridHeight = context.rules.players.length === 2? 9: 5
-    const gridWidth = 7
-    const gridMinY = Math.floor(gridHeight / 2)
-    const gridMinX = Math.floor(gridWidth / 2)
+    const height = gridHeight(context.rules.players.length)
+    const width = gridWidth
+    const minY = gridMinY(context.rules.players.length)
+    const minX = gridMinX
+    const isTwoPlayers = context.rules.players.length === 2
     switch (index) {
       case 0:
-        delta.x = boundaries.maxX > gridMinX ? -(boundaries.maxX - gridMinX): (boundaries.deltaX < gridWidth && boundaries.minX < -gridMinX? (boundaries.minX + gridMinX): (boundaries.deltaX >= gridWidth? Math.min(0, boundaries.maxX - gridMinX): 0))
-        delta.y = boundaries.minY < -gridMinY ? (-gridMinY - boundaries.minY): (boundaries.deltaY < gridHeight && boundaries.maxY > gridMinY ? -(boundaries.maxY - gridMinY): (boundaries.deltaY >= gridHeight? Math.min(0, -gridMinY - boundaries.minY): 0))
+        console.log(boundaries.minY < -minY, -minY - boundaries.minY)
+        delta.x = boundaries.maxX > minX ? -(boundaries.maxX - minX): (boundaries.deltaX < width && boundaries.minX < -minX? -(boundaries.minX + minX): (boundaries.deltaX >= width? Math.min(0, boundaries.maxX - minX): 0))
+        if (isTwoPlayers && (boundaries.deltaX >= width || (boundaries.maxX >= minX))) delta.x -= 1
+        delta.y = boundaries.minY < -minY ? (-minY - boundaries.minY): (boundaries.deltaY < height && boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY >= height? Math.min(0, -minY - boundaries.minY): 0))
         return delta
       case 1:
-        delta.x = boundaries.maxX > gridMinX ? -(boundaries.maxX - gridMinX): (boundaries.deltaX < gridWidth && boundaries.minX < -gridMinX? (boundaries.minX + gridMinX): (boundaries.deltaX >= gridWidth? Math.min(0, boundaries.maxX - gridMinX): 0))
-        delta.y = boundaries.maxY > gridMinY ? -(boundaries.maxY - gridMinY): (boundaries.deltaY < gridHeight && boundaries.minY < -gridMinY ? (boundaries.minY + gridMinY): (boundaries.deltaY >= gridHeight? Math.max(0, gridMinY - boundaries.maxY): 0))
+        delta.x = boundaries.maxX > minX ? -(boundaries.maxX - minX): (boundaries.deltaX < width && boundaries.minX < -minX? -(boundaries.minX + minX): (boundaries.deltaX >= width? Math.min(0, boundaries.maxX - minX): 0))
+        delta.y = boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY < height && boundaries.minY < -minY ? (boundaries.minY + minY): (boundaries.deltaY >= height? Math.max(0, minY - boundaries.maxY): 0))
         return delta
       case 2:
-        delta.x = boundaries.minX < -gridMinX ? (-gridMinX - boundaries.minX): (boundaries.deltaX < gridWidth && boundaries.maxX > gridMinX ? -(boundaries.minX - gridMinX): (boundaries.deltaX >= gridWidth? Math.max(0, -gridMinX - boundaries.minX): 0))
-        delta.y = boundaries.maxY > gridMinY ? -(boundaries.maxY - gridMinY): (boundaries.deltaY < gridHeight && boundaries.minY < -gridMinY ? -(boundaries.minY + gridMinY): (boundaries.deltaY >= gridHeight? Math.max(0, gridMinY - boundaries.maxY): 0))
+        delta.x = boundaries.minX < -minX ? (-minX - boundaries.minX): (boundaries.deltaX < width && boundaries.maxX > minX ? -(boundaries.minX - minX): (boundaries.deltaX >= width? Math.max(0, -minX - boundaries.minX): 0))
+        delta.y = boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY < height && boundaries.minY < -minY ? -(boundaries.minY + minY): (boundaries.deltaY >= height? Math.max(0, minY - boundaries.maxY): 0))
         return delta
       default:
-        delta.x = boundaries.minX < -gridMinX ? (-gridMinX - boundaries.minX): (boundaries.deltaX < gridWidth && boundaries.maxX > gridMinX ? -(boundaries.minX - gridMinX): (boundaries.deltaX >= gridWidth? Math.max(0, -gridMinX - boundaries.minX): 0))
-        delta.y = boundaries.minY < -gridMinY ? (-gridMinY - boundaries.minY): (boundaries.deltaY < gridHeight && boundaries.maxY > gridMinY ? -(boundaries.maxY - gridMinY): (boundaries.deltaY >= gridHeight? Math.min(0, -gridMinY - boundaries.minY): 0))
+        delta.x = boundaries.minX < -minX ? (-minX - boundaries.minX): (boundaries.deltaX < width && boundaries.maxX > minX ? -(boundaries.minX - minX): (boundaries.deltaX >= width? Math.max(0, -minX - boundaries.minX): 0))
+        delta.y = boundaries.minY < -minY ? (-minY - boundaries.minY): (boundaries.deltaY < height && boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY >= height? Math.min(0, -minY - boundaries.minY): 0))
         return delta
     }
   }
@@ -108,11 +118,11 @@ export class PanoramaDescription extends LocationDescription {
     const count = players.length
     switch (count) {
       case 2:
-        return getTwoPlayerCoordinates(index, { y: 0 })
+        return getTwoPlayerCoordinates(index)
       case 3:
-        return getThreePlayerCoordinates(index, { y: 10 })
+        return getThreePlayerCoordinates(index, {y: -2})
       default:
-        return getFourPlayerCoordinates(index, { y: 10 })
+        return getFourPlayerCoordinates(index, {y: -2})
     }
   }
 
@@ -126,11 +136,11 @@ export class PanoramaDescription extends LocationDescription {
     const count = players.length
     switch (count) {
       case 2:
-        return getTwoPlayerCoordinates(index, { y: 0 })
+        return getTwoPlayerCoordinates(index)
       case 3:
-        return getThreePlayerCoordinates(index, { y: 10 })
+        return getThreePlayerCoordinates(index, {y: -2})
       default:
-        return getFourPlayerCoordinates(index, { y: 10 })
+        return getFourPlayerCoordinates(index, {y: -2})
     }
   }
 }
