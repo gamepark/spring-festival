@@ -44,7 +44,6 @@ export class FireworkHelper extends MaterialRulesPart {
       treatedIndex.push(...fireworks.getIndexes())
       for (const index of fireworks.getIndexes()) {
         treatedIndex.push(index)
-        console.log(index, fireworks.index(index))
         const firework = fireworks.index(index)
         moves.push(firework.rotateItem(true))
         this.fillAdjacentFireworks(moves, treatedIndex, firework)

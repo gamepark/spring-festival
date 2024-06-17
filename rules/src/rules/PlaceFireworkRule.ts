@@ -51,8 +51,35 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   }
 
   getMovesAfterPlayersDone(): MaterialMove<PlayerSymbol, MaterialType, LocationType>[] {
-    // TODO:  NEXT PLAYER
     const nextPlayer = this.nextPlayer
-    return [this.rules().startPlayerTurn(RuleId.RotateStore, nextPlayer)]
+    const moves: MaterialMove[] = this.discardOtherPilesMoves
+    moves.push(this.rules().startPlayerTurn(RuleId.RotateStore, nextPlayer))
+    return moves
+  }
+
+  get discardOtherPilesMoves() {
+    let pileToClean: number[] = []
+    const piles = this.piles
+    let maxPileSize: number = 0
+    for (let pile = 1; pile <= 4; pile++) {
+      const maxPile = piles.locationId(pile).maxBy((item) => item.location.x!)!.getItem()!.location.x!
+      if (maxPileSize === maxPile + 1) {
+        maxPileSize = maxPile + 1
+        pileToClean.push(pile)
+      }
+
+      if (maxPile + 1 > maxPileSize) {
+        maxPileSize = maxPile + 1
+        pileToClean = [pile]
+      }
+    }
+
+    return pileToClean.map((p) => piles.locationId(p).maxBy((item) => item.location.x!).deleteItem())
+  }
+
+  get piles() {
+    return this
+      .material(MaterialType.Firework)
+      .location(LocationType.FireworksStorePile)
   }
 }

@@ -3,6 +3,7 @@ import equal from 'fast-deep-equal'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PlayerSymbol } from '../../PlayerSymbol'
+import { RuleId } from '../RuleId'
 
 export class AvailableSpaceHelper extends MaterialRulesPart {
   constructor(game: MaterialGame, readonly player: PlayerSymbol) {
@@ -31,7 +32,10 @@ export class AvailableSpaceHelper extends MaterialRulesPart {
       if (this.canPlaceItemInLocation(top, locations)) locations.push(top)
       const bottom = { ...l, y: l.y! + 1 }
       if (this.canPlaceItemInLocation(bottom, locations)) locations.push(bottom)
-      locations.push(l)
+
+      if (this.game.rule?.id !== RuleId.PlaceBaseFirework) {
+        locations.push(l)
+      }
     }
 
     return locations
