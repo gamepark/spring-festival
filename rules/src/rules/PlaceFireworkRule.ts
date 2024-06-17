@@ -3,6 +3,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { PlayerSymbol } from '../PlayerSymbol'
 import { AvailableSpaceHelper } from './helper/AvailableSpaceHelper'
+import { FireworkHelper } from './helper/FireworkHelper'
 import { SearchPileHelper } from './helper/SearchPileHelper'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
@@ -23,11 +24,25 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
       .maxBy((item) => item.location.x!)
   }
 
+  beforeItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama || move.location.rotation !== undefined) return []
+    const player = move.location.player!
+    const tileOnTarget = this
+      .material(MaterialType.Firework)
+      .location((l) => l.type === LocationType.Panorama && l.player === player && l.x === move.location.x && l.y === move.location.y)
+    if (tileOnTarget.length > 0) {
+      return [tileOnTarget.deleteItem()]
+    }
+
+    return []
+  }
+
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return []
-    return [
-      this.rules().endPlayerTurn(move.location.player!)
-    ]
+    if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama || move.location.rotation !== undefined) return []
+    const player = move.location.player!
+    const moves: MaterialMove[] = new FireworkHelper(this.game, player).afterItemMove(move)
+    moves.push(this.rules().endPlayerTurn(move.location.player!))
+    return moves
   }
 
   get nextPlayer() {

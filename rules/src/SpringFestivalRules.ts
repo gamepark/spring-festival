@@ -25,4 +25,6 @@ export class SpringFestivalRules extends MaterialRules<PlayerId, MaterialType, L
       [LocationType.PlayerHand]: new PositiveSequenceStrategy()
     }
   }
+
+
 }

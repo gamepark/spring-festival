@@ -22,22 +22,26 @@ export class AvailableSpaceHelper extends MaterialRulesPart {
     const locations = []
     const items = this.panorama.getItems()
     for (const item of items) {
-      const left = { ...item.location, x: item.location.x! - 1 }
+      const { location: { rotation, ...l } } = item
+      const left = { ...l, x: l.x! - 1 }
       if (this.canPlaceItemInLocation(left, locations)) locations.push(left)
-      const right = { ...item.location, x: item.location.x! + 1 }
+      const right = { ...l, x: l.x! + 1 }
       if (this.canPlaceItemInLocation(right, locations)) locations.push(right)
-      const top = { ...item.location, y: item.location.y! - 1 }
+      const top = { ...l, y: l.y! - 1 }
       if (this.canPlaceItemInLocation(top, locations)) locations.push(top)
-      const bottom = { ...item.location, y: item.location.y! + 1 }
+      const bottom = { ...l, y: l.y! + 1 }
       if (this.canPlaceItemInLocation(bottom, locations)) locations.push(bottom)
+      locations.push(l)
     }
-
 
     return locations
   }
 
   canPlaceItemInLocation(location: Location, allowedLocations: Location[]): boolean {
-    return !this.panorama.getItems().some((item) => equal(item.location, location))
+    return !this.panorama.getItems().some((item) => {
+        const { location: { rotation, ...l } } = item
+        return equal(l, location)
+      })
       && !allowedLocations.some((l) => equal(l, location))
   }
 

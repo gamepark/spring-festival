@@ -21,7 +21,7 @@ export class PanoramaDescription extends LocationDescription {
   width = fireworkDescription.width
 
   isAlwaysVisible(location: Location): boolean {
-    return location.x === undefined && location.y === undefined && false
+    return location.x === undefined && location.y === undefined
   }
 
   getExtraCss(location: Location, _context: LocationContext) {
@@ -59,14 +59,12 @@ export class PanoramaDescription extends LocationDescription {
       const coordinates = this.getPanoramaPosition(index, context.rules.players)
       coordinates.x += (location.x! + (delta?.x ?? 0)) * (fireworkDescription.width + 0.2)
       coordinates.y += (location.y! + (delta?.y ?? 0)) * (fireworkDescription.height + 0.2)
+      coordinates.z = 5
 
       return coordinates
     } else {
       // TODO: Move it to specific location ?
-      return {
-        ...this.getPlayerAreaPosition(index, context.rules.players),
-        z: 0
-      }
+      return this.getPlayerAreaPosition(index, context.rules.players)
     }
   }
 
@@ -80,7 +78,6 @@ export class PanoramaDescription extends LocationDescription {
     const isTwoPlayers = context.rules.players.length === 2
     switch (index) {
       case 0:
-        console.log(boundaries.minY < -minY, -minY - boundaries.minY)
         delta.x = boundaries.maxX > minX ? -(boundaries.maxX - minX): (boundaries.deltaX < width && boundaries.minX < -minX? -(boundaries.minX + minX): (boundaries.deltaX >= width? Math.min(0, boundaries.maxX - minX): 0))
         if (isTwoPlayers && (boundaries.deltaX >= width || (boundaries.maxX >= minX))) delta.x -= 1
         delta.y = boundaries.minY < -minY ? (-minY - boundaries.minY): (boundaries.deltaY < height && boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY >= height? Math.min(0, -minY - boundaries.minY): 0))

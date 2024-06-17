@@ -271,6 +271,10 @@ class FireworkDescription extends CardDescription {
     [Firework.Firework48]: Firework48Back,
   }
 
+  isFlipped(item: Partial<MaterialItem>): boolean {
+    return item.location?.rotation
+  }
+
   getItemExtraCss(_item: MaterialItem) {
     return css`
       transform: translateZ(10em);

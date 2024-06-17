@@ -15,13 +15,12 @@ export class PlaceBaseFireworkRule extends SimultaneousRule<PlayerSymbol, Materi
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return []
     const player = move.location.player!
+    const moves = []
     if (!this.getHand(player).length) {
-      return [
-        this.rules().endPlayerTurn(player)
-      ]
+      moves.push(this.rules().endPlayerTurn(player))
     }
 
-    return []
+    return moves
   }
 
   getHand(playerId: PlayerSymbol) {
