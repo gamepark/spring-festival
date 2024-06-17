@@ -62,7 +62,9 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
     const piles = this.piles
     let maxPileSize: number = 0
     for (let pile = 1; pile <= 4; pile++) {
-      const maxPile = piles.locationId(pile).maxBy((item) => item.location.x!)!.getItem()!.location.x!
+      const thePile = piles.locationId(pile)
+      if (!thePile.length) continue
+      const maxPile = thePile.maxBy((item) => item.location.x!)!.getItem()!.location.x!
       if (maxPileSize === maxPile + 1) {
         maxPileSize = maxPile + 1
         pileToClean.push(pile)

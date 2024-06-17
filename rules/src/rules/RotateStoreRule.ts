@@ -1,4 +1,5 @@
-import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isEndGame, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
+import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { CustomMoveType } from './CustomMoveType'
 import { SearchPileHelper } from './helper/SearchPileHelper'
@@ -7,6 +8,7 @@ import { RuleId } from './RuleId'
 
 export class RotateStoreRule extends PlayerTurnRule {
   onRuleStart() {
+    if (!this.piles.length) return [this.rules().endGame()]
     this.forget(Memory.HasRotated)
     return []
   }
@@ -56,7 +58,14 @@ export class RotateStoreRule extends PlayerTurnRule {
     return this.material(MaterialType.FireworksStore).getItem()!
   }
 
-  onRuleEnd() {
+  get piles() {
+    return this
+      .material(MaterialType.Firework)
+      .location(LocationType.FireworksStorePile)
+  }
+
+  onRuleEnd(move: RuleMove) {
+    if (isEndGame(move)) return []
     if (!this.remind(Memory.HasRotated)) {
       const newRotation = new SearchPileHelper(this.game, this.player).pile
       if (this.store.location.rotation === newRotation) return []
