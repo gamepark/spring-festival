@@ -3,6 +3,8 @@ export enum LocationType {
   FireworksStorePile,
   PlayerHand,
   Panorama,
+  ColorComposition,
+  PatternComposition,
   PlayerColorComposition,
   PlayerPatternComposition
 }

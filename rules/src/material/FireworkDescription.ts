@@ -15,24 +15,24 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
     extinguishes: [
       { x: 0, y: -1 },
       { x: -1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.BaseFirework1_2]: {
     explosions: [
       { x: -1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.BaseFirework1_3]: {
     explosions: [
       { x: -1, y: -1 },
       { x: 0, y: -1 },
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ]
   },
   [Firework.BaseFirework1_4]: {
@@ -40,6 +40,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: 0, y: -1 },
       { x: 1, y: -1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.BaseFirework2_1]: {
@@ -49,35 +50,36 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
     extinguishes: [
       { x: -1, y: 0 },
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.BaseFirework2_2]: {
     explosions: [
       { x: -1, y: 0 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: -1 },
-      { x: 0, y: 1 },
-    ]},
+      { x: 0, y: 1 }
+    ]
+  },
   [Firework.BaseFirework2_3]: {
     explosions: [
       { x: 0, y: -1 },
       { x: 1, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
-      { x: -1, y: 0 },
-    ],
+      { x: -1, y: 0 }
+    ]
   },
   [Firework.BaseFirework2_4]: {
     explosions: [
       { x: 0, y: -1 },
       { x: 1, y: -1 },
       { x: 1, y: 1 },
-      { x: 0, y: 1 },
-    ],
+      { x: 0, y: 1 }
+    ]
   },
   [Firework.BaseFirework3_1]: {
     explosions: [
@@ -86,8 +88,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
     extinguishes: [
       { x: -1, y: 0 },
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
-    ],
+      { x: 0, y: 1 }
+    ]
   },
   [Firework.BaseFirework3_2]: {
     explosions: [
@@ -97,7 +99,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
     extinguishes: [
       { x: 0, y: -1 },
       { x: 0, y: 1 }
-    ],
+    ]
   },
   [Firework.BaseFirework3_3]: {
     explosions: [
@@ -107,15 +109,15 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
     ],
     extinguishes: [
       { x: 1, y: 0 }
-    ],
+    ]
   },
   [Firework.BaseFirework3_4]: {
     explosions: [
       { x: -1, y: -1 },
       { x: 0, y: -1 },
       { x: -1, y: 1 },
-      { x: 0, y: 1 },
-    ],
+      { x: 0, y: 1 }
+    ]
   },
   [Firework.BaseFirework4_1]: {
     explosions: [
@@ -124,35 +126,35 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
     extinguishes: [
       { x: 0, y: -1 },
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
-    ],
+      { x: 0, y: 1 }
+    ]
   },
   [Firework.BaseFirework4_2]: {
     explosions: [
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
-      { x: 0, y: -1 },
-    ],
+      { x: 0, y: -1 }
+    ]
   },
   [Firework.BaseFirework4_3]: {
     explosions: [
       { x: 0, y: -1 },
       { x: 1, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
-      { x: -1, y: 0 },
-    ],
+      { x: -1, y: 0 }
+    ]
   },
   [Firework.BaseFirework4_4]: {
     explosions: [
       { x: 0, y: -1 },
       { x: 1, y: 1 },
       { x: 0, y: 1 },
-      { x: -1, y: 1 },
+      { x: -1, y: 1 }
     ]
   },
   [Firework.Firework1]: {
@@ -160,7 +162,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: -1, y: 0 },
       { x: -1, y: 1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework2]: {
@@ -168,7 +170,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 1 },
       { x: -1, y: -1 },
       { x: 1, y: -1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ]
   },
   [Firework.Firework3]: {
@@ -176,7 +178,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 0, y: -1 },
       { x: 1, y: 0 },
       { x: 0, y: 1 },
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ]
   },
   [Firework.Firework4]: {
@@ -184,7 +186,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 0 },
       { x: 1, y: -1 },
       { x: 1, y: 0 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ]
   },
   [Firework.Firework5]: {
@@ -192,7 +194,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 1 },
       { x: -1, y: -1 },
       { x: 1, y: -1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ]
   },
   [Firework.Firework6]: {
@@ -200,7 +202,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 0, y: -1 },
       { x: 1, y: 0 },
       { x: 0, y: 1 },
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ]
   },
   [Firework.Firework7]: {
@@ -208,7 +210,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 1 },
       { x: -1, y: -1 },
       { x: 1, y: -1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ]
   },
   [Firework.Firework8]: {
@@ -216,7 +218,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: 1, y: -1 },
       { x: -1, y: 0 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework9]: {
@@ -224,7 +226,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 0, y: -1 },
       { x: 1, y: 0 },
       { x: 0, y: 1 },
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ]
   },
   [Firework.Firework10]: {
@@ -232,7 +234,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 1 },
       { x: -1, y: -1 },
       { x: 1, y: -1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ]
   },
   [Firework.Firework11]: {
@@ -240,7 +242,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 0 },
       { x: 1, y: 0 },
       { x: -1, y: 1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ]
   },
   [Firework.Firework12]: {
@@ -248,108 +250,108 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 0, y: -1 },
       { x: 1, y: 0 },
       { x: 0, y: 1 },
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ]
   },
   [Firework.Firework13]: {
     explosions: [
       { x: 1, y: -1 },
       { x: 1, y: 0 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ]
   },
   [Firework.Firework14]: {
     explosions: [
       { x: -1, y: 0 },
       { x: -1, y: 1 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.Firework15]: {
     explosions: [
       { x: 0, y: -1 },
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ]
   },
   [Firework.Firework16]: {
     explosions: [
       { x: -1, y: -1 },
       { x: -1, y: 0 },
-      { x: -1, y: 1 },
+      { x: -1, y: 1 }
     ],
     extinguishes: [
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.Firework17]: {
     explosions: [
       { x: 1, y: 0 },
       { x: 1, y: 1 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ]
   },
   [Firework.Firework18]: {
     explosions: [
       { x: 0, y: -1 },
       { x: -1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework19]: {
     explosions: [
       { x: -1, y: -1 },
       { x: 0, y: -1 },
-      { x: 1, y: -1 },
+      { x: 1, y: -1 }
     ],
     extinguishes: [
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.Firework20]: {
     explosions: [
       { x: 1, y: 0 },
       { x: 1, y: 1 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ]
   },
   [Firework.Firework21]: {
     explosions: [
       { x: -1, y: 0 },
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.Firework22]: {
     explosions: [
       { x: -1, y: 1 },
       { x: 0, y: 1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ],
     extinguishes: [
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework23]: {
     explosions: [
       { x: -1, y: 0 },
       { x: -1, y: -1 },
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ],
     extinguishes: [
       { x: 0, y: 1 }
@@ -359,7 +361,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
     explosions: [
       { x: -1, y: 0 },
       { x: 0, y: 1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: -1 }
@@ -368,7 +370,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework25]: {
     explosions: [
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -378,7 +380,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework26]: {
     explosions: [
       { x: -1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: 0, y: -1 },
@@ -388,7 +390,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework27]: {
     explosions: [
       { x: -1, y: 0 },
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ],
     extinguishes: [
       { x: 0, y: 1 },
@@ -398,7 +400,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework28]: {
     explosions: [
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -408,7 +410,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework29]: {
     explosions: [
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -418,7 +420,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework30]: {
     explosions: [
       { x: -1, y: 0 },
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ],
     extinguishes: [
       { x: 1, y: 0 },
@@ -428,7 +430,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework31]: {
     explosions: [
       { x: -1, y: 1 },
-      { x: -1, y: -1 },
+      { x: -1, y: -1 }
     ],
     extinguishes: [
       { x: 0, y: -1 },
@@ -438,7 +440,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework32]: {
     explosions: [
       { x: 1, y: -1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -448,7 +450,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework33]: {
     explosions: [
       { x: 0, y: -1 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -458,7 +460,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework34]: {
     explosions: [
       { x: -1, y: 1 },
-      { x: 1, y: 1 },
+      { x: 1, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -468,7 +470,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework35]: {
     explosions: [
       { x: -1, y: -1 },
-      { x: 1, y: -1 },
+      { x: 1, y: -1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -478,7 +480,7 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   [Firework.Firework36]: {
     explosions: [
       { x: 0, y: -1 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
@@ -487,123 +489,123 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
   },
   [Firework.Firework37]: {
     explosions: [
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework38]: {
     explosions: [
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: 1 },
       { x: -1, y: 0 },
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ]
   },
   [Firework.Firework39]: {
     explosions: [
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
       { x: 0, y: 1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework40]: {
     explosions: [
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: -1 },
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.Firework41]: {
     explosions: [
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework42]: {
     explosions: [
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: 1 },
       { x: -1, y: 0 },
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ]
   },
   [Firework.Firework43]: {
     explosions: [
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: 1 },
       { x: 1, y: 0 },
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ]
   },
   [Firework.Firework44]: {
     explosions: [
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: 1 },
       { x: -1, y: 0 },
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ]
   },
   [Firework.Firework45]: {
     explosions: [
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
       { x: 0, y: 1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework46]: {
     explosions: [
-      { x: -1, y: 0 },
+      { x: -1, y: 0 }
     ],
     extinguishes: [
       { x: 0, y: -1 },
       { x: 1, y: 0 },
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ]
   },
   [Firework.Firework47]: {
     explosions: [
-      { x: 0, y: 1 },
+      { x: 0, y: 1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
       { x: 0, y: -1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
   },
   [Firework.Firework48]: {
     explosions: [
-      { x: 0, y: -1 },
+      { x: 0, y: -1 }
     ],
     extinguishes: [
       { x: -1, y: 0 },
       { x: 0, y: 1 },
-      { x: 1, y: 0 },
+      { x: 1, y: 0 }
     ]
-  },
+  }
 
 }

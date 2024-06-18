@@ -9,7 +9,7 @@ export class PanoramaLocator extends ItemLocator {
   
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     const coordinates = this.locationDescription.getCoordinates(item.location, context)
-    coordinates.z = 0.05
+    coordinates.z = 2.5
     return coordinates
   }
 

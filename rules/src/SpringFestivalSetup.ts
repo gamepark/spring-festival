@@ -1,6 +1,7 @@
 import { MaterialGameSetup } from '@gamepark/rules-api'
 import chunk from 'lodash/chunk'
 import shuffle from 'lodash/shuffle'
+import { colorCompositions, patternCompositions } from './material/Composition'
 import { getBaseFirework, storeFireworks } from './material/Firework'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
@@ -18,10 +19,35 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
 
   setupMaterial(_options: SpringFestivalOptions) {
     this.setupStore()
+    this.setupComposition()
     this.setupPlayers()
   }
 
+  setupComposition() {
+    const colors = colorCompositions.map((c) => ({
+      id: c,
+      location: {
+        type: LocationType.ColorComposition,
+      }
+    }))
+
+    this.material(MaterialType.ColorComposition).createItems(colors)
+    this.material(MaterialType.ColorComposition).shuffle()
+
+    const patterns = patternCompositions.map((c) => ({
+      id: c,
+      location: {
+        type: LocationType.ColorComposition,
+      }
+    }))
+
+    this.material(MaterialType.PatternComposition).createItems(patterns)
+    this.material(MaterialType.PatternComposition).shuffle()
+  }
+
   setupPlayers() {
+    const colorCompositions = this.material(MaterialType.ColorComposition).deck()
+    const patternCompositions = this.material(MaterialType.PatternComposition).deck()
     for (const player of this.players) {
       const base = getBaseFirework(player)
       this.material(MaterialType.Firework)
@@ -35,6 +61,16 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
             player: player
           }
         })))
+
+      colorCompositions.deal({
+        type: LocationType.PlayerColorComposition,
+        player: player
+      }, 2)
+
+      patternCompositions.deal({
+        type: LocationType.PlayerPatternComposition,
+        player: player
+      }, 2)
     }
   }
 
@@ -51,7 +87,8 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
     const fireworks = shuffle(storeFireworks)
     const chunks = chunk(fireworks, 12)
     for (let id = 0; id < chunks.length; id++) {
-      this.material(MaterialType.Firework)
+      this
+        .material(MaterialType.Firework)
         .createItems(chunks[id].map((firework) => ({
           id: {
             back: firework,

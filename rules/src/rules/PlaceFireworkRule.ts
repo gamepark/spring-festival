@@ -76,6 +76,7 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
       }
     }
 
+    if (pileToClean.length === 4) return []
     return pileToClean.map((p) => piles.locationId(p).maxBy((item) => item.location.x!).deleteItem())
   }
 

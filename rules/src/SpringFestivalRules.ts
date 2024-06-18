@@ -1,4 +1,4 @@
-import { MaterialRules, PositiveSequenceStrategy } from '@gamepark/rules-api'
+import { FillGapStrategy, MaterialRules, PositiveSequenceStrategy } from '@gamepark/rules-api'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerId } from './PlayerId'
@@ -23,6 +23,12 @@ export class SpringFestivalRules extends MaterialRules<PlayerId, MaterialType, L
     [MaterialType.Firework]: {
       [LocationType.FireworksStorePile]: new PositiveSequenceStrategy(),
       [LocationType.PlayerHand]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.ColorComposition]: {
+      [LocationType.PlayerColorComposition]: new FillGapStrategy(),
+      [LocationType.PlayerPatternComposition]: new FillGapStrategy(),
+      [LocationType.ColorComposition]: new PositiveSequenceStrategy(),
+      [LocationType.PatternComposition]: new PositiveSequenceStrategy()
     }
   }
 

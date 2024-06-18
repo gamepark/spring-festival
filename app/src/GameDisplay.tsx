@@ -67,6 +67,7 @@ const getExtraSpace = (context: MaterialContext) => {
         if (deltaY >= height) additionalMinYSpaces = Math.max(additionalMinYSpaces,  deltaY - height)
         break
       case 3:
+        console.log(deltaX, gridWidth, additionalMaxXSpaces)
         if (deltaX >= gridWidth) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, deltaX - gridWidth)
         if (deltaY >= height) additionalMaxYSpaces = Math.max(additionalMaxYSpaces,  deltaY - height)
         break
