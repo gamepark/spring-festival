@@ -7,6 +7,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { AvailableSpaceHelper } from '@gamepark/spring-festival/rules/helper/AvailableSpaceHelper'
 import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
+import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import equal from 'fast-deep-equal'
 import { fireworkDescription } from '../../material/FireworkDescription'
 import {
@@ -23,10 +24,10 @@ import {
 export class PanoramaDescription extends LocationDescription {
   height = fireworkDescription.height
   width = fireworkDescription.width
+  borderRadius = fireworkDescription.borderRadius
 
   isAlwaysVisible(_location: Location, context: MaterialContext): boolean {
-    return context !== undefined
-    //return context.rules.game.rule?.id === RuleId.PlaceFirework
+    return context.rules.game.rule?.id === RuleId.PlaceFirework
   }
 
   getExtraCss(location: Location, _context: LocationContext) {
