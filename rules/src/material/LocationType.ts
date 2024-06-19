@@ -5,6 +5,5 @@ export enum LocationType {
   Panorama,
   ColorComposition,
   PatternComposition,
-  PlayerColorComposition,
-  PlayerPatternComposition
+  PlayerComposition
 }

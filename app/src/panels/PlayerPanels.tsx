@@ -32,9 +32,10 @@ const panelPosition = (index: number) => {
   const position = getPosition(index)
   return css`
     position: absolute;
-    right: 1em;
-    top: ${position.top? `${position.top}em` : 'unset'};
-    bottom: ${position.bottom? `${position.bottom}em` : 'unset'};
+    right: ${position.right ? `${position.right}em` : 'unset'};
+    top: ${position.top ? `${position.top}em` : 'unset'};
+    left: ${position.left ? `${position.left}em` : 'unset'};
+    bottom: ${position.bottom ? `${position.bottom}em` : 'unset'};
   `
 }
 
@@ -43,19 +44,23 @@ const getPosition = (index: number): { top?: number, right?: number, bottom?: nu
     case 0:
       return {
         bottom: 1,
+        left: 1
       }
     case 1:
       return {
         top: 8.5,
+        left: 1
       }
-      case 2:
-        return {
-          top: 8.5,
-        }
+    case 2:
+      return {
+        top: 8.5,
+        right: 1
+      }
     case 3:
     default:
       return {
         bottom: 1,
+        right: 1
       }
   }
 }

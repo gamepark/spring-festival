@@ -2,7 +2,7 @@ import { getRelativePlayerIndex, MaterialContext } from '@gamepark/react-game'
 import { PlayerSymbol } from "@gamepark/spring-festival/PlayerSymbol"
 
 const baseY = 12
-const baseX = 27.5
+const baseX = 31.5
 
 export const getTwoPlayerCoordinates = (index: number, { x, y }: Partial<{ x? : number, y?: number}> = {}) => {
 
@@ -36,7 +36,7 @@ export const getFourPlayerCoordinates = (index: number, { x, y }: Partial<{ x? :
   if (index === 2) return { x: baseX - (x ?? 0), y: -baseY + (y ?? 0), z: 0 }
   return { x: baseX - (x ?? 0), y: baseY - (y ?? 0), z: 0 }
 }
-export const gridHeight = (players: number) => players === 2? 9: 5
-export const gridWidth = 7
+export const gridHeight = (players: number) => players === 2? 10: 5
+export const gridWidth = 8
 export const gridMinY = (players: number) => Math.floor(gridHeight(players) / 2)
 export const gridMinX = Math.floor(gridWidth / 2)

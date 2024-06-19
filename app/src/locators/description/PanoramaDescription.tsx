@@ -1,18 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { ComponentSize, ItemContext, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Location, MaterialMove, XYCoordinates } from '@gamepark/rules-api'
+import { isMoveItemType, Location, MaterialMove, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
+import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { AvailableSpaceHelper } from '@gamepark/spring-festival/rules/helper/AvailableSpaceHelper'
 import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
+import equal from 'fast-deep-equal'
 import { fireworkDescription } from '../../material/FireworkDescription'
 import {
   getComputedIndex,
   getFourPlayerCoordinates,
   getThreePlayerCoordinates,
   getTwoPlayerCoordinates,
-  gridHeight, gridMinX, gridMinY,
+  gridHeight,
+  gridMinX,
+  gridMinY,
   gridWidth
 } from '../../utils/PlayerPosition'
 
@@ -20,8 +24,9 @@ export class PanoramaDescription extends LocationDescription {
   height = fireworkDescription.height
   width = fireworkDescription.width
 
-  isAlwaysVisible(location: Location): boolean {
-    return location.x === undefined && location.y === undefined
+  isAlwaysVisible(_location: Location, context: MaterialContext): boolean {
+    return context !== undefined
+    //return context.rules.game.rule?.id === RuleId.PlaceFirework
   }
 
   getExtraCss(location: Location, _context: LocationContext) {
@@ -75,16 +80,16 @@ export class PanoramaDescription extends LocationDescription {
     const width = gridWidth
     const minY = gridMinY(context.rules.players.length)
     const minX = gridMinX
-    const isTwoPlayers = context.rules.players.length === 2
     switch (index) {
       case 0:
         delta.x = boundaries.maxX > minX ? -(boundaries.maxX - minX): (boundaries.deltaX < width && boundaries.minX < -minX? -(boundaries.minX + minX): (boundaries.deltaX >= width? Math.min(0, boundaries.maxX - minX): 0))
-        if (isTwoPlayers && (boundaries.deltaX >= width || (boundaries.maxX >= minX))) delta.x -= 1
+        if ((boundaries.deltaX >= width || (boundaries.maxX >= minX))) delta.x -= 1
         delta.y = boundaries.minY < -minY ? (-minY - boundaries.minY): (boundaries.deltaY < height && boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY >= height? Math.min(0, -minY - boundaries.minY): 0))
         return delta
       case 1:
+        // 2, 0, 4, -3
         delta.x = boundaries.maxX > minX ? -(boundaries.maxX - minX): (boundaries.deltaX < width && boundaries.minX < -minX? -(boundaries.minX + minX): (boundaries.deltaX >= width? Math.min(0, boundaries.maxX - minX): 0))
-        delta.y = boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY < height && boundaries.minY < -minY ? (boundaries.minY + minY): (boundaries.deltaY >= height? Math.max(0, minY - boundaries.maxY): 0))
+        delta.y = boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY < height && boundaries.minY < -minY ? -(boundaries.minY + minY): (boundaries.deltaY >= height? Math.max(0, minY - boundaries.maxY): 0))
         return delta
       case 2:
         delta.x = boundaries.minX < -minX ? (-minX - boundaries.minX): (boundaries.deltaX < width && boundaries.maxX > minX ? -(boundaries.minX - minX): (boundaries.deltaX >= width? Math.max(0, -minX - boundaries.minX): 0))
@@ -133,11 +138,17 @@ export class PanoramaDescription extends LocationDescription {
     const count = players.length
     switch (count) {
       case 2:
-        return getTwoPlayerCoordinates(index)
+        return getTwoPlayerCoordinates(index, { y: -2.5, x: -2.5})
       case 3:
-        return getThreePlayerCoordinates(index, {y: -2})
+        return getThreePlayerCoordinates(index, {y: -2, x: -2.5})
       default:
-        return getFourPlayerCoordinates(index, {y: -2})
+        return getFourPlayerCoordinates(index, {y: -2, x: -2.5})
     }
+  }
+
+  canShortClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
+    if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return false
+    if (context.rules.material(MaterialType.Firework).getItem(move.itemIndex)?.location.type === LocationType.PlayerHand) return false
+    return equal(move.location, location)
   }
 }

@@ -1,7 +1,7 @@
 import { MaterialGameSetup } from '@gamepark/rules-api'
 import chunk from 'lodash/chunk'
 import shuffle from 'lodash/shuffle'
-import { colorCompositions, patternCompositions } from './material/Composition'
+import { colorCompositions, CompositionType, patternCompositions } from './material/Composition'
 import { getBaseFirework, storeFireworks } from './material/Firework'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
@@ -24,30 +24,28 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
   }
 
   setupComposition() {
-    const colors = colorCompositions.map((c) => ({
-      id: c,
+    const colors = shuffle(colorCompositions).map((c) => ({
+      id: { front: c, back: CompositionType.Color },
       location: {
         type: LocationType.ColorComposition,
       }
     }))
 
-    this.material(MaterialType.ColorComposition).createItems(colors)
-    this.material(MaterialType.ColorComposition).shuffle()
+    this.material(MaterialType.Composition).createItems(colors)
 
-    const patterns = patternCompositions.map((c) => ({
-      id: c,
+    const patterns = shuffle(patternCompositions).map((c) => ({
+      id: { front: c, back: CompositionType.Pattern },
       location: {
-        type: LocationType.ColorComposition,
+        type: LocationType.PatternComposition,
       }
     }))
 
-    this.material(MaterialType.PatternComposition).createItems(patterns)
-    this.material(MaterialType.PatternComposition).shuffle()
+    this.material(MaterialType.Composition).createItems(patterns)
   }
 
   setupPlayers() {
-    const colorCompositions = this.material(MaterialType.ColorComposition).deck()
-    const patternCompositions = this.material(MaterialType.PatternComposition).deck()
+    const colorCompositions = this.material(MaterialType.Composition).location(LocationType.ColorComposition).deck()
+    const patternCompositions = this.material(MaterialType.Composition).location(LocationType.PatternComposition).deck()
     for (const player of this.players) {
       const base = getBaseFirework(player)
       this.material(MaterialType.Firework)
@@ -63,12 +61,14 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
         })))
 
       colorCompositions.deal({
-        type: LocationType.PlayerColorComposition,
+        type: LocationType.PlayerComposition,
+        id: CompositionType.Color,
         player: player
       }, 2)
 
       patternCompositions.deal({
-        type: LocationType.PlayerPatternComposition,
+        type: LocationType.PlayerComposition,
+        id: CompositionType.Pattern,
         player: player
       }, 2)
     }

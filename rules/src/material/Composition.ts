@@ -74,6 +74,15 @@ export enum Composition {
   PatternComposition35,
 }
 
+export enum CompositionType {
+  Color = 1,
+  Pattern
+}
+
+export const getColor = (c: Composition) => Math.floor(c / 100) + 1
+export const isPattern = (c: Composition) => c > Composition.ColorComposition36
+export const isColor = (c: Composition) => c < Composition.PatternComposition1
+
 export const compositions = Object.values(Composition).filter(isEnumValue)
-export const patternCompositions = compositions.filter((p) => p > Composition.ColorComposition36)
-export const colorCompositions = compositions.filter((p) => p < Composition.PatternComposition1)
+export const patternCompositions = compositions.filter(isPattern)
+export const colorCompositions = compositions.filter(isColor)
