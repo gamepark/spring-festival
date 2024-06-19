@@ -26,11 +26,11 @@ const getHandCoordinates = (index: number, players: PlayerSymbol[]): Coordinates
   const count = players.length
   switch (count) {
     case 2:
-      return getTwoPlayerCoordinates(index, { y: -23, x: 5})
+      return getTwoPlayerCoordinates(index, { y: -21, x: 5})
     case 3:
-      return getThreePlayerCoordinates(index, { y: -12, x: 5 })
+      return getThreePlayerCoordinates(index, { y: -10, x: 5 })
     default:
-      return getFourPlayerCoordinates(index, { y: -12, x: 5 })
+      return getFourPlayerCoordinates(index, { y: -10, x: 5 })
   }
 }
 export const playerHandLocator = new PlayerHandLocator()

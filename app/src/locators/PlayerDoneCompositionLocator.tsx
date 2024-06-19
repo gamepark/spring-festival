@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { LineLocator, LocationContext } from '@gamepark/react-game'
+import { DeckLocator, LocationContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { fireworkDescription } from '../material/FireworkDescription'
 import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates, gridMinX } from '../utils/PlayerPosition'
 
-export class PlayerCompositionLocator extends LineLocator {
-  delta = { y: fireworkDescription.height + 0.2 }
+export class PlayerDoneCompositionLocator extends DeckLocator {
+  delta = { x: -0.05, y: -0.05 }
 
   getCoordinates(item: MaterialItem, context: LocationContext) {
     const player = item.location.player!
@@ -17,13 +17,13 @@ export class PlayerCompositionLocator extends LineLocator {
 
     if (context.rules.players.length > 2) {
       if (index === 0 || index === 3) {
-        coordinates.y -= heightWithMargin
+        coordinates.y += heightWithMargin * 2
       } else {
         coordinates.y -= heightWithMargin * 2
       }
     } else {
       if (index === 0) {
-        coordinates.y += 1.77 * heightWithMargin
+        coordinates.y += 4.77 * heightWithMargin
       } else {
         coordinates.y -= 4.77 * heightWithMargin
       }
@@ -44,18 +44,17 @@ export class PlayerCompositionLocator extends LineLocator {
     return coordinates
   }
 
-
   getCompositionLocation(index: number, players: PlayerSymbol[]) {
     const count = players.length
     switch (count) {
       case 2:
-        return getTwoPlayerCoordinates(index, { x: -2 })
+        return getTwoPlayerCoordinates(index, { x: 3.7 })
       case 3:
-        return getThreePlayerCoordinates(index, {x: -2})
+        return getThreePlayerCoordinates(index, { x: 3.7 })
       default:
-        return getFourPlayerCoordinates(index, {x: -2})
+        return getFourPlayerCoordinates(index, {x: 3.7 })
     }
   }
 }
 
-export const playerCompositionLocator = new PlayerCompositionLocator()
+export const playerDoneCompositionLocator = new PlayerDoneCompositionLocator()

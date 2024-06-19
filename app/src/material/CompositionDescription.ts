@@ -1,5 +1,7 @@
-import { CardDescription } from '@gamepark/react-game'
+import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { MaterialItem } from '@gamepark/rules-api'
 import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
+import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
 import ColorComposition10 from '../images/composition/color/ColorComposition10.jpg'
 import ColorComposition11 from '../images/composition/color/ColorComposition11.jpg'
@@ -154,6 +156,10 @@ export class CompositionDescription extends CardDescription {
     [Composition.PatternComposition33]: PatternComposition33,
     [Composition.PatternComposition34]: PatternComposition34,
     [Composition.PatternComposition35]: PatternComposition35,
+  }
+
+  isFlipped(item: Partial<MaterialItem>, context: ItemContext) {
+    return super.isFlipped(item, context) || item.location?.type === LocationType.PlayerDoneComposition
   }
 
 }

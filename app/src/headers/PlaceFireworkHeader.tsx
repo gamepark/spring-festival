@@ -6,7 +6,7 @@ import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import equal from 'fast-deep-equal'
 
-export const PlaceFireworkRule = () => {
+export const PlaceFireworkHeader = () => {
   const moves = useLegalMoves((move) => isCustomMoveType(CustomMoveType.ColorComposition)(move))
   const pass = useLegalMove((move) => isEndPlayerTurn(move))
   const rules = useRules<SpringFestivalRules>()!

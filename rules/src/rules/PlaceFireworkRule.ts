@@ -91,15 +91,26 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama || move.location.rotation !== undefined) return []
+    if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return []
+
     const player = move.location.player!
-    const moves: MaterialMove[] = new FireworkHelper(this.game, player).afterItemMove(move)
-    this.memorize(Memory.Placed, true, player)
-    const compositionMoves = new CompositionHelper(this.game, player).compositionMoves
-    if (!compositionMoves.length) {
-      return [this.rules().endPlayerTurn(player)]
+    if (move.location.rotation === undefined) {
+      const moves: MaterialMove[] = new FireworkHelper(this.game, player).afterItemMove(move)
+      this.memorize(Memory.RemainingExplosion, moves.length, player)
+      this.memorize(Memory.Placed, true, player)
+      return moves
+    } else {
+      this.memorize(Memory.RemainingExplosion, (r: number) => r--, player)
+      if (!this.remind(Memory.RemainingExplosion, player)) {
+        this.forget(Memory.RemainingExplosion, player)
+        const compositionMoves = new CompositionHelper(this.game, player).compositionMoves
+        if (!compositionMoves.length) {
+          return [this.rules().endPlayerTurn(player)]
+        }
+      }
     }
-    return moves
+
+    return []
   }
 
   get nextPlayer() {

@@ -1,7 +1,7 @@
 import { getRelativePlayerIndex, MaterialContext } from '@gamepark/react-game'
 import { PlayerSymbol } from "@gamepark/spring-festival/PlayerSymbol"
 
-const baseY = 12
+const baseY = 14
 const baseX = 31.5
 
 export const getTwoPlayerCoordinates = (index: number, { x, y }: Partial<{ x? : number, y?: number}> = {}) => {
