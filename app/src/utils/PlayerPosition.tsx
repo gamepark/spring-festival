@@ -38,5 +38,5 @@ export const getFourPlayerCoordinates = (index: number, { x, y }: Partial<{ x? :
 }
 export const gridHeight = (players: number) => players === 2? 10: 5
 export const gridWidth = 8
-export const gridMinY = (players: number) => Math.floor(gridHeight(players) / 2)
-export const gridMinX = Math.floor(gridWidth / 2)
+export const gridMinY = (players: number) => gridHeight(players) / 2
+export const gridMinX = gridWidth / 2

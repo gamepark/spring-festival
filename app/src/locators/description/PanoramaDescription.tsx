@@ -35,8 +35,8 @@ export class PanoramaDescription extends LocationDescription {
     }
     // TODO: Move it to specific location ?
     return css`
-      background-color: rgba(0, 128, 0, 0.5);
-      border: 0.1em solid green;
+      //background-color: rgba(0, 128, 0, 0.5);
+      //border: 0.1em solid green;
       pointer-events: none;
     `
 
@@ -76,30 +76,93 @@ export class PanoramaDescription extends LocationDescription {
   computeDelta(index: number, player: PlayerSymbol, context: LocationContext) {
     const boundaries = new PlayerBoundaries(context.rules.game, player).boudaries
     const delta: Partial<XYCoordinates> = {}
-    const height = gridHeight(context.rules.players.length)
-    const width = gridWidth
-    const minY = gridMinY(context.rules.players.length)
-    const minX = gridMinX
     switch (index) {
       case 0:
-        delta.x = boundaries.maxX > minX ? -(boundaries.maxX - minX): (boundaries.deltaX < width && boundaries.minX < -minX? -(boundaries.minX + minX): (boundaries.deltaX >= width? Math.min(0, boundaries.maxX - minX): 0))
-        if ((boundaries.deltaX >= width || (boundaries.maxX >= minX))) delta.x -= 1
-        delta.y = boundaries.minY < -minY ? (-minY - boundaries.minY): (boundaries.deltaY < height && boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY >= height? Math.min(0, -minY - boundaries.minY): 0))
+        delta.x = this.computeXForLeftPlayers(boundaries, true)
+        delta.y = this.computeYForBottomPlayer(boundaries, context, true)
         return delta
       case 1:
-        // 2, 0, 4, -3
-        delta.x = boundaries.maxX > minX ? -(boundaries.maxX - minX): (boundaries.deltaX < width && boundaries.minX < -minX? -(boundaries.minX + minX): (boundaries.deltaX >= width? Math.min(0, boundaries.maxX - minX): 0))
-        delta.y = boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY < height && boundaries.minY < -minY ? -(boundaries.minY + minY): (boundaries.deltaY >= height? Math.max(0, minY - boundaries.maxY): 0))
+        delta.x = this.computeXForLeftPlayers(boundaries)
+        delta.y = this.computeYForTopPlayer(boundaries, context)
         return delta
       case 2:
-        delta.x = boundaries.minX < -minX ? (-minX - boundaries.minX): (boundaries.deltaX < width && boundaries.maxX > minX ? -(boundaries.minX - minX): (boundaries.deltaX >= width? Math.max(0, -minX - boundaries.minX): 0))
-        delta.y = boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY < height && boundaries.minY < -minY ? -(boundaries.minY + minY): (boundaries.deltaY >= height? Math.max(0, minY - boundaries.maxY): 0))
+        delta.x = this.computeXForRightPlayers(boundaries)
+        delta.y = this.computeYForTopPlayer(boundaries, context)
         return delta
       default:
-        delta.x = boundaries.minX < -minX ? (-minX - boundaries.minX): (boundaries.deltaX < width && boundaries.maxX > minX ? -(boundaries.minX - minX): (boundaries.deltaX >= width? Math.max(0, -minX - boundaries.minX): 0))
-        delta.y = boundaries.minY < -minY ? (-minY - boundaries.minY): (boundaries.deltaY < height && boundaries.maxY > minY ? -(boundaries.maxY - minY): (boundaries.deltaY >= height? Math.min(0, -minY - boundaries.minY): 0))
+        delta.x = this.computeXForRightPlayers(boundaries)
+        delta.y = this.computeYForBottomPlayer(boundaries, context)
         return delta
     }
+  }
+
+  computeYForTopPlayer(boundaries: any, context: LocationContext) {
+    const yLimit = gridMinY(context.rules.players.length) - 0.5
+
+    const overflowTop = boundaries.minY < -yLimit
+    const overflowBottom = boundaries.maxY >= yLimit
+    let y = 0
+
+
+    if (overflowBottom) {
+      y = yLimit - boundaries.maxY
+    } else if (overflowTop) {
+      y = Math.min(-boundaries.minY - yLimit, yLimit - boundaries.maxY)
+    }
+
+
+    return y
+  }
+
+  computeYForBottomPlayer(boundaries: any, context: LocationContext, margin?: boolean) {
+    const yLimit = gridMinY(context.rules.players.length) - (margin ? 1.5 : 0.5)
+
+
+    const overflowTop = boundaries.minY < -yLimit
+    const overflowBottom = boundaries.maxY > yLimit
+    let y = 0
+
+    if (overflowTop) {
+      y = -yLimit - boundaries.minY
+    } else if (overflowBottom) {
+      console.log(boundaries.maxY, yLimit, boundaries.minY)
+      y = Math.max(-boundaries.maxY + yLimit, -yLimit - boundaries.minY)
+    }
+
+    return y
+  }
+
+  computeXForRightPlayers(boundaries: any) {
+    const xLimit = gridMinX - 0.5
+
+    const overflowLeft = boundaries.minX < -xLimit
+    const overflowRight = boundaries.maxX > xLimit
+    let x = 0
+
+    if (overflowLeft) {
+      x = -xLimit - boundaries.minX
+    } else if (overflowRight) {
+      x = Math.max(-boundaries.maxX + xLimit, -xLimit - boundaries.minX)
+    }
+
+    return x
+  }
+
+  computeXForLeftPlayers(boundaries: any, margin?: boolean) {
+
+    const xLimit = gridMinX - (margin ? 1.5 : 0.5)
+
+    const overflowLeft = boundaries.minX < -xLimit
+    const overflowRight = boundaries.maxX > xLimit
+    let x = 0
+
+    if (overflowRight) {
+      x = xLimit - boundaries.maxX
+    } else if (overflowLeft) {
+      x = Math.min(-boundaries.minX - xLimit, xLimit - boundaries.maxX)
+    }
+
+    return x
   }
 
   getLocations(context: MaterialContext): Location[] {
@@ -120,17 +183,17 @@ export class PanoramaDescription extends LocationDescription {
     const count = players.length
     switch (count) {
       case 2:
-        return getTwoPlayerCoordinates(index)
+        return getTwoPlayerCoordinates(index, { x: -2})
       case 3:
-        return getThreePlayerCoordinates(index, {y: -2})
+        return getThreePlayerCoordinates(index, { y: -2, x: -2 })
       default:
-        return getFourPlayerCoordinates(index, {y: -2})
+        return getFourPlayerCoordinates(index, { y: -2, x: -2 })
     }
   }
 
   canDrop(move: MaterialMove, location: Location, context: ItemContext) {
     if (location.x === undefined && location.y === undefined) return false
-     return super.canDrop(move, location, context)
+    return super.canDrop(move, location, context)
   }
 
 
@@ -138,11 +201,11 @@ export class PanoramaDescription extends LocationDescription {
     const count = players.length
     switch (count) {
       case 2:
-        return getTwoPlayerCoordinates(index, { y: -2.5, x: -2.5})
+        return getTwoPlayerCoordinates(index, { x: -2})
       case 3:
-        return getThreePlayerCoordinates(index, {y: -2, x: -2.5})
+        return getThreePlayerCoordinates(index, { y: -2, x: -2 })
       default:
-        return getFourPlayerCoordinates(index, {y: -2, x: -2.5})
+        return getFourPlayerCoordinates(index, { y: -2, x: -2 })
     }
   }
 

@@ -7,7 +7,7 @@ import { FC, useMemo } from 'react'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { PlayerPanels } from './panels/PlayerPanels'
-import { getComputedIndex, gridHeight, gridMinX, gridMinY, gridWidth } from './utils/PlayerPosition'
+import { getComputedIndex, gridHeight, gridWidth } from './utils/PlayerPosition'
 
 type GameDisplayProps = {
   players: number
@@ -20,12 +20,12 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
   const extraSpace = useMemo(() => getExtraSpace(context), [context])
   return <>
     <GameTable
-      xMin={-53 - extraSpace.xMin}
-      xMax={53 + extraSpace.xMax}
+      xMin={-55 - extraSpace.xMin}
+      xMax={55 + extraSpace.xMax}
       yMin={-28 - extraSpace.yMin}
       yMax={28 + extraSpace.yMax}
       margin={{ top: 7.5, left: 0, right: 0, bottom: 0 }}
-      css={css`background-color: rgba(255, 255, 255, 0.5)`}
+      //css={css`background-color: rgba(255, 255, 255, 0.5)`}
     >
       <GameTableNavigation css={navigationCss}/>
       <PlayerPanels/>
@@ -41,33 +41,25 @@ const getExtraSpace = (context: MaterialContext) => {
   let additionalMaxYSpaces = 0
   const { rules: { players } } = context
   const height = gridHeight(players.length)
-  const minY = gridMinY(players.length)
   for (const p of players) {
     const index = getComputedIndex(context, p)
     const boundaries = new PlayerBoundaries(context.rules.game, p).boudaries
-    const deltaX = boundaries.deltaX
-    const deltaY = boundaries.deltaY
     switch (index) {
       case 0:
-        if (deltaX >= gridWidth) additionalMinXSpaces = Math.max(additionalMinXSpaces, deltaX - gridWidth + 1)
-        if (deltaX < gridWidth && boundaries.minX <= -3) additionalMinXSpaces = Math.max(additionalMinXSpaces, 1)
-        if ((boundaries.deltaX >= gridWidth || (boundaries.maxX >= gridMinX && boundaries.deltaX === (gridWidth - 1)))) additionalMinXSpaces += 1
-        if (deltaY >= height) additionalMaxYSpaces = Math.max(additionalMaxYSpaces, deltaY - height + 1)
-        if (deltaY < height && boundaries.maxY >= minY) additionalMaxYSpaces = Math.max(additionalMaxYSpaces, 1)
-        if ((boundaries.deltaY >= height || (boundaries.minY <= -minY))) additionalMinYSpaces += 1
+        if (boundaries.deltaY >= (height - 1)) additionalMaxYSpaces = Math.max(2 + (boundaries.deltaY - height), additionalMaxYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMinXSpaces = Math.max(2 + (boundaries.deltaX - gridWidth), additionalMinXSpaces)
         break
       case 1:
-        if (deltaX >= gridWidth) additionalMinXSpaces = Math.max(additionalMinXSpaces, deltaX - gridWidth)
-        if (deltaY >= height) additionalMinYSpaces = Math.max(additionalMinYSpaces, deltaY - height)
+        if (boundaries.deltaY >= (height - 1)) additionalMinYSpaces = Math.max(1 + (boundaries.deltaY - height), additionalMinYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMinXSpaces = Math.max(1 + (boundaries.deltaX - gridWidth), additionalMinXSpaces)
         break
       case 2:
-        if (deltaX >= gridWidth) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, deltaX - gridWidth)
-        if (deltaY >= height) additionalMinYSpaces = Math.max(additionalMinYSpaces,  deltaY - height)
+        if (boundaries.deltaY >= (height - 1)) additionalMinYSpaces = Math.max(1 + (boundaries.deltaY - height), additionalMinYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max(1 + (boundaries.deltaX - gridWidth), additionalMaxXSpaces)
         break
       case 3:
-        console.log(deltaX, gridWidth, additionalMaxXSpaces)
-        if (deltaX >= gridWidth) additionalMaxXSpaces = Math.max(additionalMaxXSpaces, deltaX - gridWidth)
-        if (deltaY >= height) additionalMaxYSpaces = Math.max(additionalMaxYSpaces,  deltaY - height)
+        if (boundaries.deltaY >= (height - 1)) additionalMaxYSpaces = Math.max(1 + (boundaries.deltaY - height), additionalMaxYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max(1 + (boundaries.deltaX - gridWidth), additionalMaxXSpaces)
         break
 
     }

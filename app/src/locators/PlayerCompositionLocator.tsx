@@ -4,7 +4,7 @@ import { MaterialItem } from '@gamepark/rules-api'
 import { CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { fireworkDescription } from '../material/FireworkDescription'
-import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates, gridMinX, gridMinY } from '../utils/PlayerPosition'
+import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates, gridMinX } from '../utils/PlayerPosition'
 
 export class PlayerCompositionLocator extends DeckLocator {
   delta = { y: fireworkDescription.height + 0.2 }
@@ -17,9 +17,10 @@ export class PlayerCompositionLocator extends DeckLocator {
     const coordinates = this.getCompositionLocation(index, context.rules.players)
 
     if (context.rules.players.length > 2) {
-      coordinates.y -= gridMinY(context.rules.players.length) * heightWithMargin
       if (index === 0 || index === 3) {
-        coordinates.y += heightWithMargin
+        coordinates.y -= heightWithMargin
+      } else {
+        coordinates.y -= heightWithMargin * 2
       }
     } else {
       if (index === 0) {
@@ -49,11 +50,11 @@ export class PlayerCompositionLocator extends DeckLocator {
     const count = players.length
     switch (count) {
       case 2:
-        return getTwoPlayerCoordinates(index)
+        return getTwoPlayerCoordinates(index, { x: -2 })
       case 3:
-        return getThreePlayerCoordinates(index, {y: -2})
+        return getThreePlayerCoordinates(index, {y: -2, x: -2})
       default:
-        return getFourPlayerCoordinates(index, {y: -2})
+        return getFourPlayerCoordinates(index, {y: -2, x: -2})
     }
   }
 }
