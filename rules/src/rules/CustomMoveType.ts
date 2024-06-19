@@ -1,3 +1,4 @@
 export enum CustomMoveType {
-  RotateStore = 1
+  RotateStore = 1,
+  ColorComposition
 }

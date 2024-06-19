@@ -9,6 +9,7 @@ import { RuleId } from './RuleId'
 export class RotateStoreRule extends PlayerTurnRule {
   onRuleStart() {
     // TODO : return [this.rules().startSimultaneousRules(RuleId.GrandFinale, this.game.players)]
+    this.game.players.forEach((p) => this.forget(Memory.Placed, p))
     if (!this.piles.length) return [this.rules().endGame()]
     this.forget(Memory.HasRotated)
     return []

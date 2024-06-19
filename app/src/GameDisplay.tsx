@@ -25,14 +25,13 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
       yMin={-28 - extraSpace.yMin}
       yMax={28 + extraSpace.yMax}
       margin={{ top: 7.5, left: 0, right: 0, bottom: 0 }}
-      //css={css`background-color: rgba(255, 255, 255, 0.5)`}
+      css={css`background-color: rgba(255, 255, 255, 0.5)`}
     >
       <GameTableNavigation css={navigationCss}/>
       <PlayerPanels/>
     </GameTable>
   </>
 }
-
 
 const getExtraSpace = (context: MaterialContext) => {
   let additionalMinXSpaces = 0
@@ -50,16 +49,16 @@ const getExtraSpace = (context: MaterialContext) => {
         if (boundaries.deltaX >= (gridWidth - 1)) additionalMinXSpaces = Math.max(2 + (boundaries.deltaX - gridWidth), additionalMinXSpaces)
         break
       case 1:
-        if (boundaries.deltaY >= (height - 1)) additionalMinYSpaces = Math.max(1 + (boundaries.deltaY - height), additionalMinYSpaces)
-        if (boundaries.deltaX >= (gridWidth - 1)) additionalMinXSpaces = Math.max(1 + (boundaries.deltaX - gridWidth), additionalMinXSpaces)
+        if (boundaries.deltaY >= (height - 1)) additionalMinYSpaces = Math.max((boundaries.deltaY - height), additionalMinYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMinXSpaces = Math.max((boundaries.deltaX - gridWidth), additionalMinXSpaces)
         break
       case 2:
-        if (boundaries.deltaY >= (height - 1)) additionalMinYSpaces = Math.max(1 + (boundaries.deltaY - height), additionalMinYSpaces)
-        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max(1 + (boundaries.deltaX - gridWidth), additionalMaxXSpaces)
+        if (boundaries.deltaY >= (height - 1)) additionalMinYSpaces = Math.max((boundaries.deltaY - height), additionalMinYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max((boundaries.deltaX - gridWidth), additionalMaxXSpaces)
         break
       case 3:
-        if (boundaries.deltaY >= (height - 1)) additionalMaxYSpaces = Math.max(1 + (boundaries.deltaY - height), additionalMaxYSpaces)
-        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max(1 + (boundaries.deltaX - gridWidth), additionalMaxXSpaces)
+        if (boundaries.deltaY >= (height - 1)) additionalMaxYSpaces = Math.max( (boundaries.deltaY - height), additionalMaxYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max( (boundaries.deltaX - gridWidth), additionalMaxXSpaces)
         break
 
     }

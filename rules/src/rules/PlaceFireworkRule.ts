@@ -1,8 +1,11 @@
-import { isMoveItemType, ItemMove, Material, MaterialMove, SimultaneousRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, Material, MaterialMove, SimultaneousRule } from '@gamepark/rules-api'
+import { CompositionType } from '../material/Composition'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { PlayerSymbol } from '../PlayerSymbol'
+import { CustomMoveType } from './CustomMoveType'
 import { AvailableSpaceHelper } from './helper/AvailableSpaceHelper'
+import { CompositionHelper } from './helper/CompositionHelper'
 import { FireworkHelper } from './helper/FireworkHelper'
 import { SearchPileHelper } from './helper/SearchPileHelper'
 import { Memory } from './Memory'
@@ -10,9 +13,23 @@ import { RuleId } from './RuleId'
 
 export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialType, LocationType> {
   getActivePlayerLegalMoves(playerId: PlayerSymbol): MaterialMove[] {
-    const helper = new AvailableSpaceHelper(this.game, playerId)
-    const tile = this.getTile(playerId)
-    return helper.availableSpaces.map((location) => tile.moveItem(location))
+
+    if (!this.hasPlacedFirework(playerId)) {
+      const helper = new AvailableSpaceHelper(this.game, playerId)
+      const tile = this.getTile(playerId)
+      return helper.availableSpaces.map((location) => tile.moveItem(location))
+    } else {
+      const moves = new CompositionHelper(this.game, playerId).compositionMoves
+      if (!moves.length) {
+        return [this.rules().endPlayerTurn(playerId)]
+      }
+
+      return moves
+    }
+  }
+
+  hasPlacedFirework(playerId: PlayerSymbol): boolean {
+    return this.remind(Memory.Placed, playerId)
   }
 
   getTile(playerId: PlayerSymbol): Material {
@@ -37,11 +54,51 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
     return []
   }
 
+  onCustomMove(move: CustomMove) {
+    if (!isCustomMoveType(CustomMoveType.ColorComposition)(move)) return []
+    this.material(MaterialType.Firework).indexes(move.data.indexes).selected().getItems().forEach((item) => delete item.selected)
+    const composition = this.material(MaterialType.Composition).index(move.data.comp)
+    const player = composition.getItem()!.location.player!
+
+    const moves: MaterialMove[] = [
+      this.material(MaterialType.Composition).index(move.data.comp).moveItem({ type: LocationType.PlayerDoneComposition, player: player }),
+      ...this.material(MaterialType.Firework).indexes(move.data.indexes).rotateItems(false)
+    ]
+
+    const drawCompositionFrom = composition.getItem()!.id.back === CompositionType.Color ? LocationType.ColorComposition : LocationType.PatternComposition
+    const drawCompositionTo = composition.getItem()!.id.back
+    const compositions = this.material(MaterialType.Composition).location(drawCompositionFrom)
+    if (compositions.length) {
+      moves.push(
+        compositions
+          .maxBy((item) => item.location.x!)
+          .moveItem({
+            type: LocationType.PlayerComposition,
+            id: drawCompositionTo,
+            player: player
+          })
+      )
+    }
+
+    const compositionMoves = new CompositionHelper(this.game, player)
+      .compositionMoves
+      .filter((c) => c.data.comp !== move.data.comp)
+    if (!compositionMoves.length) {
+      moves.push(this.rules().endPlayerTurn(player))
+    }
+
+    return moves
+  }
+
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama || move.location.rotation !== undefined) return []
     const player = move.location.player!
     const moves: MaterialMove[] = new FireworkHelper(this.game, player).afterItemMove(move)
-    moves.push(this.rules().endPlayerTurn(move.location.player!))
+    this.memorize(Memory.Placed, true, player)
+    const compositionMoves = new CompositionHelper(this.game, player).compositionMoves
+    if (!compositionMoves.length) {
+      return [this.rules().endPlayerTurn(player)]
+    }
     return moves
   }
 

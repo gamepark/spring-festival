@@ -7,6 +7,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { AvailableSpaceHelper } from '@gamepark/spring-festival/rules/helper/AvailableSpaceHelper'
 import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
+import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import equal from 'fast-deep-equal'
 import { fireworkDescription } from '../../material/FireworkDescription'
@@ -27,7 +28,8 @@ export class PanoramaDescription extends LocationDescription {
   borderRadius = fireworkDescription.borderRadius
 
   isAlwaysVisible(_location: Location, context: MaterialContext): boolean {
-    return context.rules.game.rule?.id === RuleId.PlaceFirework
+    if (!context.player) return false
+    return context.rules.game.rule?.id === RuleId.PlaceFirework && !context.rules.remind(Memory.Placed, context.player)
   }
 
   getExtraCss(location: Location, _context: LocationContext) {
@@ -126,7 +128,6 @@ export class PanoramaDescription extends LocationDescription {
     if (overflowTop) {
       y = -yLimit - boundaries.minY
     } else if (overflowBottom) {
-      console.log(boundaries.maxY, yLimit, boundaries.minY)
       y = Math.max(-boundaries.maxY + yLimit, -yLimit - boundaries.minY)
     }
 

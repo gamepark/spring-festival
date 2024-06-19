@@ -1,24 +1,29 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { CardDescription } from '@gamepark/react-game'
+import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
-import BaseFirework1_4Back from '../images/firework/explosion/BaseFirework1_4.jpg'
-import BaseFirework1_3Back from '../images/firework/explosion/BaseFirework1_3.jpg'
-import BaseFirework1_2Back from '../images/firework/explosion/BaseFirework1_2.jpg'
+import { LocationType } from '@gamepark/spring-festival/material/LocationType'
+import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
+import { Memory } from '@gamepark/spring-festival/rules/Memory'
+import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import BaseFirework1_1Back from '../images/firework/explosion/BaseFirework1_1.jpg'
-import BaseFirework2_4Back from '../images/firework/explosion/BaseFirework2_4.jpg'
-import BaseFirework2_3Back from '../images/firework/explosion/BaseFirework2_3.jpg'
-import BaseFirework2_2Back from '../images/firework/explosion/BaseFirework2_2.jpg'
+import BaseFirework1_2Back from '../images/firework/explosion/BaseFirework1_2.jpg'
+import BaseFirework1_3Back from '../images/firework/explosion/BaseFirework1_3.jpg'
+import BaseFirework1_4Back from '../images/firework/explosion/BaseFirework1_4.jpg'
 import BaseFirework2_1Back from '../images/firework/explosion/BaseFirework2_1.jpg'
-import BaseFirework3_4Back from '../images/firework/explosion/BaseFirework3_4.jpg'
-import BaseFirework3_3Back from '../images/firework/explosion/BaseFirework3_3.jpg'
-import BaseFirework3_2Back from '../images/firework/explosion/BaseFirework3_2.jpg'
+import BaseFirework2_2Back from '../images/firework/explosion/BaseFirework2_2.jpg'
+import BaseFirework2_3Back from '../images/firework/explosion/BaseFirework2_3.jpg'
+import BaseFirework2_4Back from '../images/firework/explosion/BaseFirework2_4.jpg'
 import BaseFirework3_1Back from '../images/firework/explosion/BaseFirework3_1.jpg'
-import BaseFirework4_4Back from '../images/firework/explosion/BaseFirework4_4.jpg'
-import BaseFirework4_3Back from '../images/firework/explosion/BaseFirework4_3.jpg'
-import BaseFirework4_2Back from '../images/firework/explosion/BaseFirework4_2.jpg'
+import BaseFirework3_2Back from '../images/firework/explosion/BaseFirework3_2.jpg'
+import BaseFirework3_3Back from '../images/firework/explosion/BaseFirework3_3.jpg'
+import BaseFirework3_4Back from '../images/firework/explosion/BaseFirework3_4.jpg'
 import BaseFirework4_1Back from '../images/firework/explosion/BaseFirework4_1.jpg'
+import BaseFirework4_2Back from '../images/firework/explosion/BaseFirework4_2.jpg'
+import BaseFirework4_3Back from '../images/firework/explosion/BaseFirework4_3.jpg'
+import BaseFirework4_4Back from '../images/firework/explosion/BaseFirework4_4.jpg'
 import Firework1Back from '../images/firework/explosion/Firework1.jpg'
 import Firework10Back from '../images/firework/explosion/Firework10.jpg'
 import Firework11Back from '../images/firework/explosion/Firework11.jpg'
@@ -67,22 +72,22 @@ import Firework6Back from '../images/firework/explosion/Firework6.jpg'
 import Firework7Back from '../images/firework/explosion/Firework7.jpg'
 import Firework8Back from '../images/firework/explosion/Firework8.jpg'
 import Firework9Back from '../images/firework/explosion/Firework9.jpg'
-import BaseFirework1_4Front from '../images/firework/rocket/BaseFirework1_4.jpg'
-import BaseFirework1_3Front from '../images/firework/rocket/BaseFirework1_3.jpg'
-import BaseFirework1_2Front from '../images/firework/rocket/BaseFirework1_2.jpg'
 import BaseFirework1_1Front from '../images/firework/rocket/BaseFirework1_1.jpg'
-import BaseFirework2_4Front from '../images/firework/rocket/BaseFirework2_4.jpg'
-import BaseFirework2_3Front from '../images/firework/rocket/BaseFirework2_3.jpg'
-import BaseFirework2_2Front from '../images/firework/rocket/BaseFirework2_2.jpg'
+import BaseFirework1_2Front from '../images/firework/rocket/BaseFirework1_2.jpg'
+import BaseFirework1_3Front from '../images/firework/rocket/BaseFirework1_3.jpg'
+import BaseFirework1_4Front from '../images/firework/rocket/BaseFirework1_4.jpg'
 import BaseFirework2_1Front from '../images/firework/rocket/BaseFirework2_1.jpg'
-import BaseFirework3_4Front from '../images/firework/rocket/BaseFirework3_4.jpg'
-import BaseFirework3_3Front from '../images/firework/rocket/BaseFirework3_3.jpg'
-import BaseFirework3_2Front from '../images/firework/rocket/BaseFirework3_2.jpg'
+import BaseFirework2_2Front from '../images/firework/rocket/BaseFirework2_2.jpg'
+import BaseFirework2_3Front from '../images/firework/rocket/BaseFirework2_3.jpg'
+import BaseFirework2_4Front from '../images/firework/rocket/BaseFirework2_4.jpg'
 import BaseFirework3_1Front from '../images/firework/rocket/BaseFirework3_1.jpg'
-import BaseFirework4_4Front from '../images/firework/rocket/BaseFirework4_4.jpg'
-import BaseFirework4_3Front from '../images/firework/rocket/BaseFirework4_3.jpg'
-import BaseFirework4_2Front from '../images/firework/rocket/BaseFirework4_2.jpg'
+import BaseFirework3_2Front from '../images/firework/rocket/BaseFirework3_2.jpg'
+import BaseFirework3_3Front from '../images/firework/rocket/BaseFirework3_3.jpg'
+import BaseFirework3_4Front from '../images/firework/rocket/BaseFirework3_4.jpg'
 import BaseFirework4_1Front from '../images/firework/rocket/BaseFirework4_1.jpg'
+import BaseFirework4_2Front from '../images/firework/rocket/BaseFirework4_2.jpg'
+import BaseFirework4_3Front from '../images/firework/rocket/BaseFirework4_3.jpg'
+import BaseFirework4_4Front from '../images/firework/rocket/BaseFirework4_4.jpg'
 import Firework1Front from '../images/firework/rocket/Firework1.jpg'
 import Firework10Front from '../images/firework/rocket/Firework10.jpg'
 import Firework11Front from '../images/firework/rocket/Firework11.jpg'
@@ -131,6 +136,7 @@ import Firework6Front from '../images/firework/rocket/Firework6.jpg'
 import Firework7Front from '../images/firework/rocket/Firework7.jpg'
 import Firework8Front from '../images/firework/rocket/Firework8.jpg'
 import Firework9Front from '../images/firework/rocket/Firework9.jpg'
+import equal from 'fast-deep-equal'
 
 
 class FireworkDescription extends CardDescription {
@@ -201,7 +207,7 @@ class FireworkDescription extends CardDescription {
     [Firework.Firework45]: Firework45Front,
     [Firework.Firework46]: Firework46Front,
     [Firework.Firework47]: Firework47Front,
-    [Firework.Firework48]: Firework48Front,
+    [Firework.Firework48]: Firework48Front
   }
 
   backImages = {
@@ -268,24 +274,60 @@ class FireworkDescription extends CardDescription {
     [Firework.Firework45]: Firework45Back,
     [Firework.Firework46]: Firework46Back,
     [Firework.Firework47]: Firework47Back,
-    [Firework.Firework48]: Firework48Back,
+    [Firework.Firework48]: Firework48Back
   }
 
   isFlipped(item: Partial<MaterialItem>): boolean {
     return item.location?.rotation
   }
 
-  getItemExtraCss(_item: MaterialItem) {
+  getItemExtraCss(item: MaterialItem, context: ItemContext) {
+    if (item.location.type !== LocationType.Panorama) return
+    if (!context.player || context.player !== item.location.player) return
+    const isSelect = !!item.selected
+    if (!isSelect) return
+    const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
+    const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
+    if (moves.some((move) => equal(selectedIndexes,move.data.indexes))) {
+      return css`
+        &:after {
+          content: '';
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          border: 0.2em solid green;
+          border-radius: 0.4em;
+        }
+      `
+    }
+
     return css`
-      transform: translateZ(10em);
       &:after {
-        content: '${_item.location.id}';
-        position: absolute;
+        content: '';
         height: 100%;
         width: 100%;
+        position: absolute;
+        border: 0.2em solid red;
+        border-radius: 0.4em;
       }
     `
   }
+
+  getShortClickLocalMove(context: ItemContext) {
+    if (!context.player) return
+    if (context.rules.game.rule?.id !== RuleId.PlaceFirework) return
+    const tile = context.rules.material(MaterialType.Firework).index(context.index)
+    const item = tile.getItem()!
+    if (context.player !== item.location.player) return
+    if (!context.rules.remind(Memory.Placed, context.player)) return
+
+    if (item.selected) {
+      return tile.unselectItem()
+    }
+
+    return tile.selectItem()
+  }
+
 }
 
 export const fireworkDescription = new FireworkDescription()
