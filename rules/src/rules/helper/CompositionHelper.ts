@@ -24,10 +24,10 @@ export class CompositionHelper extends MaterialRulesPart {
       for (let y = boundaries.minY; y <= boundaries.maxY; y++) {
 
         for (const compositionIndex of compositions.getIndexes()) {
-
-          const indexes = this.getIndexes(compositions.getItem(compositionIndex)!, compositionIndex, panorama, x, y)
+          const item = compositions.getItem(compositionIndex)!
+          const combinations = this.getValidCombinations(item, compositionIndex, panorama, x, y)
           moves.push(
-            ...indexes.map((i) => this.rules().customMove(CustomMoveType.ColorComposition, i))
+            ...combinations.map((c) => this.rules().customMove(CustomMoveType.ColorComposition, c))
           )
         }
       }
@@ -36,7 +36,7 @@ export class CompositionHelper extends MaterialRulesPart {
     return moves
   }
 
-  getIndexes(composition: MaterialItem, compositionIndex: number, panorama: Material, x: number, y: number) {
+  getValidCombinations(composition: MaterialItem, compositionIndex: number, panorama: Material, x: number, y: number) {
     const comp = colorCompositionDescriptions[composition.id.front].composition
     const indexes: { comp: number, indexes: number[] }[] = []
     for (const combination of comp) {
@@ -47,21 +47,26 @@ export class CompositionHelper extends MaterialRulesPart {
         if (!valid) continue
 
         for (let compY = 0; compY < yLine.length; compY++) {
-          const color = yLine[compY]
-          if (color === undefined || !valid) continue
+          if (!valid) continue
+          const requirement = yLine[compY]
+          if (!requirement) continue
 
-          const firework = panorama
-            .location((l) => l.x === (x + compY) && l.y === (y + compX) && l.rotation === true)
-          if (firework.length) {
-            const item = firework.getItem()!
-            const fireworkColor = fireworkDescriptions[item.id.front].color
-            if (color === Color.Any || color === fireworkColor) {
-              currentCombinationIndexes.push(firework.getIndex())
-              continue
+          if (composition.id.back === CompositionType.Pattern) {
+            const index = this.getValidPatternCombinations(requirement, compX, compY, panorama, x, y)
+            if (index !== undefined) {
+              currentCombinationIndexes.push(index)
+            } else {
+              valid = false
+            }
+          } else {
+            const index = this.getValidColorCombinations(requirement, compX, compY, panorama, x, y)
+            if (index !== undefined) {
+              console.log(colorCompositionDescriptions[composition.id.front].composition)
+              currentCombinationIndexes.push(index)
+            } else {
+              valid = false
             }
           }
-
-          valid = false
 
         }
       }
@@ -78,11 +83,41 @@ export class CompositionHelper extends MaterialRulesPart {
 
   }
 
+  getValidPatternCombinations(requiredExplosionCount: number | undefined, deltaX: number, deltaY: number, panorama: Material, x: number, y: number) {
+    const firework = panorama
+      .location((l) => l.x === (x + deltaY) && l.y === (y + deltaX) && l.rotation === true)
+    if (firework.length) {
+      const item = firework.getItem()!
+      const explosionCount = fireworkDescriptions[item.id.front].explosionCount
+      if (explosionCount === requiredExplosionCount) {
+        return firework.getIndex()
+      }
+    }
+
+    return
+  }
+
+  getValidColorCombinations(color: Color, deltaX: number, deltaY: number, panorama: Material, x: number, y: number) {
+
+    const firework = panorama
+      .location((l) => l.x === (x + deltaY) && l.y === (y + deltaX) && l.rotation === true)
+    if (firework.length) {
+      const item = firework.getItem()!
+      const fireworkColor = fireworkDescriptions[item.id.front].color
+      if (color === Color.Any || color === fireworkColor) {
+        return firework.getIndex()
+      }
+    }
+
+    return
+  }
+
   get compositions() {
     return this
       .material(MaterialType.Composition)
       .location(LocationType.PlayerComposition)
-      // TODO: remove
+      .player(this.player)
+    // TODO: REMOVE AFTER CODING COMPOSITION ON PATTERN
       .locationId(CompositionType.Color)
   }
 

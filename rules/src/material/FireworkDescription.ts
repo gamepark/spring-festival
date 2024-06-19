@@ -5,7 +5,8 @@ import { Firework } from './Firework'
 export type FireworkDescription = {
   explosions: XYCoordinates[]
   extinguishes?: XYCoordinates[]
-  color?: Color
+  color?: Color,
+  explosionCount?: number
 }
 
 
