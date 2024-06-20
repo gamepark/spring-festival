@@ -8,7 +8,7 @@ export class ApplausePileLocator extends PileLocator {
 
   delta = { x: -0.05, y: -0.05}
 
-  coordinates = { x: 0, y: 18, z: 0 }
+  coordinates = { x: 0, y: 17, z: 0 }
 
   radius = 1
 

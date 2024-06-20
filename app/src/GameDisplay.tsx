@@ -20,12 +20,13 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
   const extraSpace = useMemo(() => getExtraSpace(context), [context])
   return <>
     <GameTable
+      verticalCenter
       xMin={-55 - extraSpace.xMin}
       xMax={55 + extraSpace.xMax}
       yMin={-28 - extraSpace.yMin}
       yMax={28 + extraSpace.yMax}
       margin={{ top: 7.5, left: 0, right: 0, bottom: 0 }}
-      css={css`background-color: rgba(255, 255, 255, 0.5)`}
+      //css={css`background-color: rgba(255, 255, 255, 0.5)`}
     >
       <GameTableNavigation css={navigationCss}/>
       <PlayerPanels/>
