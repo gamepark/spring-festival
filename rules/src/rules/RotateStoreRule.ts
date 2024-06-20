@@ -23,15 +23,14 @@ export class RotateStoreRule extends PlayerTurnRule {
       if (this.store.location.rotation === newPile) {
         moves.push(this.rules().customMove(CustomMoveType.RotateStore))
       } else {
-        moves.push(this.material(MaterialType.FireworksStore).rotateItem(newPile))
+        moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
+        moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
       }
 
     } else {
-      moves.push(
-        this
-          .material(MaterialType.FireworksStore)
-          .rotateItem((item) => (((item.location.rotation - 1) + 4 - 1) % 4) + 1)
-      )
+
+      moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
+      moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
     }
 
     moves.push(this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players))
@@ -40,8 +39,19 @@ export class RotateStoreRule extends PlayerTurnRule {
 
   onCustomMove(move: CustomMove) {
     if (!isCustomMoveType(CustomMoveType.RotateStore)(move)) return []
-    this.memorize(Memory.HasRotated, true)
-    this.memorize(Memory.StartPlayer, this.player)
+    if (!move.data) {
+      this.memorize(Memory.HasRotated, true)
+      this.memorize(Memory.StartPlayer, this.player)
+    } else {
+
+      const pile = new SearchPileHelper(this.game, this.player).pile
+      const newPile = (((pile - 1) + 4 - 1) % 4) + 1
+      const previousPile = (this.store.location.rotation + 1 % 4)
+
+      if (move.data > 0) return [this.material(MaterialType.FireworksStore).rotateItem(newPile)]
+      if (move.data < 0) return [this.material(MaterialType.FireworksStore).rotateItem(previousPile)]
+    }
+
     return []
   }
 

@@ -16,9 +16,7 @@ export const PlayerPanels: FC<any> = () => {
   const rules = useRules<SpringFestivalRules>()!
   const player = usePlayerId()
   const context: MaterialContext = { locators: Locators, material: Material, rules, player }
-  if (!root) {
-    return null
-  }
+  if (!root) return null
 
   return createPortal(
     <>
