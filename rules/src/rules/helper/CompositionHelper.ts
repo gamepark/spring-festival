@@ -5,6 +5,7 @@ import { CompositionType } from '../../material/Composition'
 import { fireworkDescriptions } from '../../material/FireworkDescription'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { patternCompositionDescriptions } from '../../material/PatternCompositionDescription'
 import { PlayerSymbol } from '../../PlayerSymbol'
 import { CustomMoveType } from '../CustomMoveType'
 import { PlayerBoundaries } from './PlayerBoundaries'
@@ -37,7 +38,8 @@ export class CompositionHelper extends MaterialRulesPart {
   }
 
   getValidCombinations(composition: MaterialItem, compositionIndex: number, panorama: Material, x: number, y: number) {
-    const comp = colorCompositionDescriptions[composition.id.front].composition
+    const description = composition.id.back === CompositionType.Color? colorCompositionDescriptions: patternCompositionDescriptions
+    const comp = description[composition.id.front].composition
     const indexes: { comp: number, indexes: number[] }[] = []
     for (const combination of comp) {
       let valid = true
@@ -61,7 +63,6 @@ export class CompositionHelper extends MaterialRulesPart {
           } else {
             const index = this.getValidColorCombinations(requirement, compX, compY, panorama, x, y)
             if (index !== undefined) {
-              console.log(colorCompositionDescriptions[composition.id.front].composition)
               currentCombinationIndexes.push(index)
             } else {
               valid = false
@@ -89,7 +90,7 @@ export class CompositionHelper extends MaterialRulesPart {
     if (firework.length) {
       const item = firework.getItem()!
       const explosionCount = fireworkDescriptions[item.id.front].explosionCount
-      if (explosionCount === requiredExplosionCount) {
+      if (requiredExplosionCount === -1 || explosionCount === requiredExplosionCount) {
         return firework.getIndex()
       }
     }
@@ -117,8 +118,6 @@ export class CompositionHelper extends MaterialRulesPart {
       .material(MaterialType.Composition)
       .location(LocationType.PlayerComposition)
       .player(this.player)
-    // TODO: REMOVE AFTER CODING COMPOSITION ON PATTERN
-      .locationId(CompositionType.Color)
   }
 
 

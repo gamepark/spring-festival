@@ -72,6 +72,7 @@ export enum Composition {
   PatternComposition33,
   PatternComposition34,
   PatternComposition35,
+  PatternComposition36,
 }
 
 export enum CompositionType {

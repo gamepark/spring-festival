@@ -104,8 +104,6 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
       if (!this.remind(Memory.RemainingExplosion, player)) {
         this.forget(Memory.RemainingExplosion, player)
         const compositionMoves = new CompositionHelper(this.game, player).compositionMoves
-
-        console.log(this.remind(Memory.RemainingExplosion, player), compositionMoves)
         if (!compositionMoves.length) {
           return [this.rules().endPlayerTurn(player)]
         }

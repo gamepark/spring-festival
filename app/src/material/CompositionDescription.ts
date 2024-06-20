@@ -68,6 +68,7 @@ import PatternComposition32 from '../images/composition/pattern/PatternCompositi
 import PatternComposition33 from '../images/composition/pattern/PatternComposition33.jpg'
 import PatternComposition34 from '../images/composition/pattern/PatternComposition34.jpg'
 import PatternComposition35 from '../images/composition/pattern/PatternComposition35.jpg'
+import PatternComposition36 from '../images/composition/pattern/PatternComposition36.jpg'
 import PatternComposition4 from '../images/composition/pattern/PatternComposition4.jpg'
 import PatternComposition5 from '../images/composition/pattern/PatternComposition5.jpg'
 import PatternComposition6 from '../images/composition/pattern/PatternComposition6.jpg'
@@ -156,6 +157,7 @@ export class CompositionDescription extends CardDescription {
     [Composition.PatternComposition33]: PatternComposition33,
     [Composition.PatternComposition34]: PatternComposition34,
     [Composition.PatternComposition35]: PatternComposition35,
+    [Composition.PatternComposition36]: PatternComposition36,
   }
 
   isFlipped(item: Partial<MaterialItem>, context: ItemContext) {
