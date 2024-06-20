@@ -4,7 +4,7 @@ import { Firework } from './Firework'
 
 export type FireworkDescription = {
   explosions: XYCoordinates[]
-  extinguishes?: XYCoordinates[]
+  extinguishes: XYCoordinates[]
   color?: Color,
   explosionCount: number
 }
@@ -42,7 +42,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: 0, y: -1 },
       { x: -1, y: 0 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.BaseFirework1_4]: {
     color: Color.Blue,
@@ -52,7 +53,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 0, y: -1 },
       { x: 1, y: -1 },
       { x: 0, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.BaseFirework2_1]: {
     color: Color.Blue,
@@ -98,7 +100,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: -1 },
       { x: 1, y: 1 },
       { x: 0, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.BaseFirework3_1]: {
     color: Color.Green,
@@ -144,7 +147,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 0, y: -1 },
       { x: -1, y: 1 },
       { x: 0, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.BaseFirework4_1]: {
     color: Color.Yellow,
@@ -190,7 +194,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: 1 },
       { x: 0, y: 1 },
       { x: -1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework1]: {
     color: Color.Green,
@@ -200,7 +205,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 0 },
       { x: -1, y: 1 },
       { x: 1, y: 0 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework2]: {
     color: Color.Green,
@@ -210,7 +216,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: 1, y: -1 },
       { x: 1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework3]: {
     color: Color.Green,
@@ -220,7 +227,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: 0 },
       { x: 0, y: 1 },
       { x: -1, y: 0 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework4]: {
     color: Color.Yellow,
@@ -230,7 +238,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: -1 },
       { x: 1, y: 0 },
       { x: 1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework5]: {
     color: Color.Yellow,
@@ -240,7 +249,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: 1, y: -1 },
       { x: 1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework6]: {
     color: Color.Yellow,
@@ -250,7 +260,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: 0 },
       { x: 0, y: 1 },
       { x: -1, y: 0 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework7]: {
     color: Color.Red,
@@ -260,7 +271,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: 1, y: -1 },
       { x: 1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework8]: {
     color: Color.Red,
@@ -270,7 +282,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: -1 },
       { x: -1, y: 0 },
       { x: 1, y: 0 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework9]: {
     color: Color.Red,
@@ -280,7 +293,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: 0 },
       { x: 0, y: 1 },
       { x: -1, y: 0 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework10]: {
     color: Color.Blue,
@@ -290,7 +304,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: -1 },
       { x: 1, y: -1 },
       { x: 1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework11]: {
     color: Color.Blue,
@@ -300,7 +315,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: 0 },
       { x: -1, y: 1 },
       { x: 1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework12]: {
     color: Color.Blue,
@@ -310,7 +326,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: 0 },
       { x: 0, y: 1 },
       { x: -1, y: 0 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework13]: {
     color: Color.Green,
@@ -319,7 +336,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: 1, y: -1 },
       { x: 1, y: 0 },
       { x: 1, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework14]: {
     color: Color.Green,
@@ -328,7 +346,8 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 0 },
       { x: -1, y: 1 },
       { x: 0, y: 1 }
-    ]
+    ],
+    extinguishes: []
   },
   [Firework.Firework15]: {
     color: Color.Green,

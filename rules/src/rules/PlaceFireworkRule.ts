@@ -4,6 +4,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { PlayerSymbol } from '../PlayerSymbol'
 import { CustomMoveType } from './CustomMoveType'
+import { ApplauseHelper } from './helper/ApplauseHelper'
 import { AvailableSpaceHelper } from './helper/AvailableSpaceHelper'
 import { CompositionHelper } from './helper/CompositionHelper'
 import { FireworkHelper } from './helper/FireworkHelper'
@@ -95,8 +96,14 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
 
     const player = move.location.player!
     if (move.location.rotation === undefined) {
-      const moves: MaterialMove[] = new FireworkHelper(this.game, player).afterItemMove(move)
-      this.memorize(Memory.RemainingExplosion, moves.length, player)
+      const explosionMoves = new FireworkHelper(this.game, player).afterItemMove(move)
+      const applauseMoves: MaterialMove[] = new ApplauseHelper(this.game, player).afterItemMove(move)
+      const moves: MaterialMove[] = [
+        ...applauseMoves,
+        ...explosionMoves,
+      ]
+
+      this.memorize(Memory.RemainingExplosion, explosionMoves.length, player)
       this.memorize(Memory.Placed, true, player)
       return moves
     } else {
@@ -146,6 +153,12 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
 
     if (pileToClean.length === 4) return []
     return pileToClean.map((p) => piles.locationId(p).maxBy((item) => item.location.x!).deleteItem())
+  }
+
+  onRuleEnd() {
+    // TODO: prevent player to
+    this.material(MaterialType.Firework).selected().getItems().forEach((item) => delete item.selected)
+    return []
   }
 
   get piles() {

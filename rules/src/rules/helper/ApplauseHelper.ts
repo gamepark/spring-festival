@@ -5,7 +5,7 @@ import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PlayerSymbol } from '../../PlayerSymbol'
 
-export class FireworkHelper extends MaterialRulesPart {
+export class ApplauseHelper extends MaterialRulesPart {
   constructor(game: MaterialGame, readonly player: PlayerSymbol) {
     super(game)
 
@@ -14,44 +14,39 @@ export class FireworkHelper extends MaterialRulesPart {
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return []
     const tile = this.panorama.index(move.itemIndex)!
-    return this.getExplosionMoves(tile)
+    return this.getApplauseMoves(tile)
   }
 
-  getExplosionMoves(tile: Material) {
-    const treatedIndex: number[] = [tile.getIndex()]
-    const moves: MaterialMove[] = [tile.rotateItem(true)]
+  getApplauseMoves(tile: Material): MaterialMove[] {
     const item = tile.getItem()!
-    const originalCoordinates = { x: item.location.x!, y: item.location.y!}
-    this.fillAdjacentFireworks(moves, treatedIndex, tile, originalCoordinates)
-    return moves
-  }
-
-  fillAdjacentFireworks(moves: MaterialMove[], treatedIndex: number[], tile: Material, originalCoordinates: XYCoordinates) {
     const panorama = this.panorama
-    const item = tile.getItem()!
     const location = { x: item.location.x!, y: item.location.y! }
     const fireworks = panorama
       .location((l) => {
         return l.rotation !== true
-          && (l.x !== originalCoordinates.x || l.y !== originalCoordinates.y)
-          && fireworkDescriptions[item.id.front].explosions.some((e: XYCoordinates) => {
+          && fireworkDescriptions[item.id.front].extinguishes.some((e: XYCoordinates) => {
             return equal(
               { x: l.x, y: l.y },
               { x: location.x + e.x, y: location.y + e.y }
             )
           })
       })
-      .index((i) => !treatedIndex.includes(i))
 
-    if (fireworks.length) {
-      treatedIndex.push(...fireworks.getIndexes())
-      for (const index of fireworks.getIndexes()) {
-        treatedIndex.push(index)
-        const firework = fireworks.index(index)
-        moves.push(firework.rotateItem(true))
-        this.fillAdjacentFireworks(moves, treatedIndex, firework, originalCoordinates)
-      }
+    const applauseWon = fireworks.length
+    if (applauseWon) {
+      return [
+        this.material(MaterialType.ApplauseToken).createItem({
+          location: {
+            type: LocationType.PlayerApplause,
+            player: this.player
+          },
+          quantity: applauseWon
+        })
+      ]
     }
+
+    return []
+
   }
 
   get panorama() {

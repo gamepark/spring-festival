@@ -17,9 +17,9 @@ export class PlayerDoneCompositionLocator extends DeckLocator {
 
     if (context.rules.players.length > 2) {
       if (index === 0 || index === 3) {
-        coordinates.y += heightWithMargin * 2
+        coordinates.y += heightWithMargin
       } else {
-        coordinates.y -= heightWithMargin * 2
+        coordinates.y -= heightWithMargin
       }
     } else {
       if (index === 0) {

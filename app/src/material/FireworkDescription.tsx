@@ -8,6 +8,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
+import equal from 'fast-deep-equal'
 import BaseFirework1_1Back from '../images/firework/explosion/BaseFirework1_1.jpg'
 import BaseFirework1_2Back from '../images/firework/explosion/BaseFirework1_2.jpg'
 import BaseFirework1_3Back from '../images/firework/explosion/BaseFirework1_3.jpg'
@@ -136,7 +137,6 @@ import Firework6Front from '../images/firework/rocket/Firework6.jpg'
 import Firework7Front from '../images/firework/rocket/Firework7.jpg'
 import Firework8Front from '../images/firework/rocket/Firework8.jpg'
 import Firework9Front from '../images/firework/rocket/Firework9.jpg'
-import equal from 'fast-deep-equal'
 
 
 class FireworkDescription extends CardDescription {
@@ -288,26 +288,14 @@ class FireworkDescription extends CardDescription {
     if (!isSelect) return
     const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
-    if (moves.some((move) => equal(selectedIndexes,move.data.indexes))) {
-      return css`
-        &:after {
-          content: '';
-          height: 100%;
-          width: 100%;
-          position: absolute;
-          border: 0.2em solid green;
-          border-radius: 0.4em;
-        }
-      `
-    }
-
+    const valid = moves.some((move) => equal(selectedIndexes,move.data.indexes))
     return css`
       &:after {
         content: '';
         height: 100%;
         width: 100%;
         position: absolute;
-        border: 0.2em solid red;
+        border: 0.2em solid ${valid? 'green' : 'red'};
         border-radius: 0.4em;
       }
     `
@@ -320,6 +308,7 @@ class FireworkDescription extends CardDescription {
     const item = tile.getItem()!
     if (context.player !== item.location.player) return
     if (!context.rules.remind(Memory.Placed, context.player)) return
+    if (!context.rules.isTurnToPlay(context.player)) return
 
     if (item.selected) {
       return tile.unselectItem()

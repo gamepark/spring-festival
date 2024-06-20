@@ -6,5 +6,7 @@ export enum LocationType {
   ColorComposition,
   PatternComposition,
   PlayerComposition,
-  PlayerDoneComposition
+  PlayerDoneComposition,
+  ApplauseStock,
+  PlayerApplause
 }

@@ -11,7 +11,7 @@ import { CustomMoveType } from '../CustomMoveType'
 import { PlayerBoundaries } from './PlayerBoundaries'
 
 export class CompositionHelper extends MaterialRulesPart {
-  constructor(game: MaterialGame, readonly player: PlayerSymbol) {
+  constructor(game: MaterialGame<any, any, any>, readonly player: PlayerSymbol) {
     super(game)
   }
 

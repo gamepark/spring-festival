@@ -3,6 +3,7 @@ import { DeckLocator, ItemContext } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { SearchPileHelper } from '@gamepark/spring-festival/rules/helper/SearchPileHelper'
+import { fireworkStoreLocator } from './FireworkStoreLocator'
 
 export class FireworkStorePileLocator extends DeckLocator {
   parentItemType = MaterialType.FireworksStore
@@ -13,13 +14,13 @@ export class FireworkStorePileLocator extends DeckLocator {
     const twoPlayer = context.rules.players.length === 2
     switch (storeLocation) {
       case 1:
-        return twoPlayer? { x: -0.1 }: { y: -0.1 }
+        return twoPlayer? { x: -0.1 }: { y: -0.1, x: -0.1 }
       case 2:
-        return twoPlayer? { y: -0.1 }:{ x: 0.1 }
+        return twoPlayer? { y: -0.1 }:{ x: 0.1, y: -0.1 }
       case 3:
-        return twoPlayer? { x: 0.1 }: { y: 0.1 }
+        return twoPlayer? { x: 0.1 }: { y: 0.1, x: 0.1 }
       default:
-        return twoPlayer? { y: 0.1 }: { x: -0.1 }
+        return twoPlayer? { y: 0.1 }: { x: -0.1, y: 0.1 }
     }
   }
 
@@ -36,20 +37,10 @@ export class FireworkStorePileLocator extends DeckLocator {
     return (-45 - id * 360 / 4)
   }
 
-  getRotateZ(item: MaterialItem): number {
-    const { location } = item
-    switch (location.id) {
-      case 1:
-        return 45
-      case 2:
-        return 135
-      case 3:
-        return 225
-      case 4:
-      default:
-        return 315
-
-    }
+  getRotateZ(item: MaterialItem, context: ItemContext): number {
+    const { rules } = context
+    const parentRotation = rules.material(this.parentItemType).getItem(item.location.parent!)!
+    return -fireworkStoreLocator.getRotateZ(parentRotation, context)
   }
 
 }
