@@ -22,10 +22,9 @@ export class RotateStoreRule extends PlayerTurnRule {
       const newPile = (((pile - 1) + 4 - 1) % 4) + 1
       if (this.store.location.rotation === newPile) {
         moves.push(this.rules().customMove(CustomMoveType.RotateStore))
-      } else {
+      }
         moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
         moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
-      }
 
     } else {
 

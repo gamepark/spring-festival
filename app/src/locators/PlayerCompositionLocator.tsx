@@ -51,9 +51,9 @@ export class PlayerCompositionLocator extends DeckLocator {
       case 2:
         return getTwoPlayerCoordinates(index, { x: -2 })
       case 3:
-        return getThreePlayerCoordinates(index, {y: -2, x: -2})
+        return getThreePlayerCoordinates(index, { x: -2 })
       default:
-        return getFourPlayerCoordinates(index, {y: -2, x: -2})
+        return getFourPlayerCoordinates(index, { x: -2 })
     }
   }
 }
