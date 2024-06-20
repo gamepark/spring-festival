@@ -2,7 +2,6 @@
 import { css } from '@emotion/react'
 import { MaterialContext, StyledPlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
-import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
@@ -76,13 +75,7 @@ const getPosition = (index: number): { top?: number, right?: number, bottom?: nu
   }
 }
 
-export const playerColorCode: Record<PlayerSymbol, string> = {
-  [PlayerSymbol.One]: 'One',
-  [PlayerSymbol.Two]: 'Two',
-  [PlayerSymbol.Three]: 'Three',
-  [PlayerSymbol.Four]: 'Four'
-}
-
 const imageCss = css`
   border-radius: 5em;
+  border: 0.01em solid white;
 `

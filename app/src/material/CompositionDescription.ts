@@ -1,7 +1,12 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
 import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
+import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
+import equal from 'fast-deep-equal'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
 import ColorComposition10 from '../images/composition/color/ColorComposition10.jpg'
 import ColorComposition11 from '../images/composition/color/ColorComposition11.jpg'
@@ -162,6 +167,25 @@ export class CompositionDescription extends CardDescription {
 
   isFlipped(item: Partial<MaterialItem>, context: ItemContext) {
     return super.isFlipped(item, context) || item.location?.type === LocationType.PlayerDoneComposition
+  }
+
+  getItemExtraCss(item: MaterialItem, context: ItemContext) {
+    if (item.location.type !== LocationType.PlayerComposition) return
+    if (!context.player || context.player !== item.location.player) return
+    const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
+    if (!selectedIndexes.length) return
+    const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
+    const valid = moves.some((move) => equal(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
+    return css`
+      &:after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border: 0.2em solid ${valid? 'green': 'red'};
+        border-radius: 0.4em
+      }
+    `
   }
 
 }

@@ -27,6 +27,7 @@ export class SpringFestivalRules extends SecretMaterialRules<PlayerSymbol, Mater
     },
     [MaterialType.Composition]: {
       [LocationType.PlayerComposition]: new FillGapStrategy(),
+      [LocationType.PlayerDoneComposition]: new PositiveSequenceStrategy(),
       [LocationType.ColorComposition]: new PositiveSequenceStrategy(),
       [LocationType.PatternComposition]: new PositiveSequenceStrategy()
     }
