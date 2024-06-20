@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
 import equal from 'fast-deep-equal'
 import { fireworkDescriptions } from '../../material/FireworkDescription'
 import { LocationType } from '../../material/LocationType'
@@ -17,14 +17,12 @@ export class ApplauseHelper extends MaterialRulesPart {
     return this.getApplauseMoves(tile)
   }
 
-  getApplauseMoves(tile: Material): MaterialMove[] {
-    const item = tile.getItem()!
+  getExtinguishesCount(tile: MaterialItem) {
     const panorama = this.panorama
-    const location = { x: item.location.x!, y: item.location.y! }
+    const location = { x: tile.location.x!, y: tile.location.y! }
     const fireworks = panorama
       .location((l) => {
-        return l.rotation !== true
-          && fireworkDescriptions[item.id.front].extinguishes.some((e: XYCoordinates) => {
+        return fireworkDescriptions[tile.id.front].extinguishes.some((e: XYCoordinates) => {
             return equal(
               { x: l.x, y: l.y },
               { x: location.x + e.x, y: location.y + e.y }
@@ -32,7 +30,12 @@ export class ApplauseHelper extends MaterialRulesPart {
           })
       })
 
-    const applauseWon = fireworks.length
+    return fireworks.length
+  }
+
+  getApplauseMoves(tile: Material): MaterialMove[] {
+
+    const applauseWon = this.getExtinguishesCount(tile.getItem()!)
     if (applauseWon) {
       return [
         this.material(MaterialType.ApplauseToken).createItem({

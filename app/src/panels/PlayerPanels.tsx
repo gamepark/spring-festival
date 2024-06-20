@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialContext, StyledPlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
+import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
+import ApplauseToken from '../images/token/applause.jpg'
 import { Locators } from '../locators/Locators'
 import { Material } from '../material/Material'
 import { getComputedIndex } from '../utils/PlayerPosition'
@@ -22,7 +24,16 @@ export const PlayerPanels: FC<any> = () => {
   return createPortal(
     <>
       {players.map((player) =>
-        <StyledPlayerPanel key={player.id} player={player} css={panelPosition(getComputedIndex(context, player.id))}/>
+        <StyledPlayerPanel
+          key={player.id}
+          player={player}
+          css={panelPosition(getComputedIndex(context, player.id))}
+          mainCounter={{
+            image: ApplauseToken,
+            value: rules.material(MaterialType.ApplauseToken).player(player.id).getItem()?.quantity ?? 0,
+            imageCss: imageCss
+          }}
+        />
       )}
     </>,
     root
@@ -71,3 +82,7 @@ export const playerColorCode: Record<PlayerSymbol, string> = {
   [PlayerSymbol.Three]: 'Three',
   [PlayerSymbol.Four]: 'Four'
 }
+
+const imageCss = css`
+  border-radius: 5em;
+`
