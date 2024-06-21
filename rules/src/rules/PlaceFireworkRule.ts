@@ -79,19 +79,27 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
             player: player
           })
       )
-    }
-
-    const compositionMoves = new CompositionHelper(this.game, player)
-      .compositionMoves
-      .filter((c) => c.data.comp !== move.data.comp)
-    if (!compositionMoves.length) {
-      moves.push(this.rules().endPlayerTurn(player))
+    } else {
+      const compositionMoves = new CompositionHelper(this.game, player!)
+        .compositionMoves
+        .filter((c) => c.data.comp !== move.data.comp)
+      if (!compositionMoves.length) {
+        moves.push(this.rules().endPlayerTurn(player))
+      }
     }
 
     return moves
   }
 
   afterItemMove(move: ItemMove) {
+    if (isMoveItemType(MaterialType.Composition)(move) && move.location.type === LocationType.PlayerComposition) {
+      const player = move.location.player!
+      const compositionMoves = new CompositionHelper(this.game, player).compositionMoves
+      if (!compositionMoves.length) {
+        return [this.rules().endPlayerTurn(player)]
+      }
+
+    }
     if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return []
 
     const player = move.location.player!

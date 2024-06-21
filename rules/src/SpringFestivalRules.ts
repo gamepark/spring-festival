@@ -2,6 +2,7 @@ import { FillGapStrategy, hideFront, MaterialGame, MaterialMove, PositiveSequenc
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { PlayerSymbol } from './PlayerSymbol'
+import { GrandeFinaleRule } from './rules/GrandeFinaleRule'
 import { PlaceBaseFireworkRule } from './rules/PlaceBaseFireworkRule'
 import { PlaceFireworkRule } from './rules/PlaceFireworkRule'
 import { RotateStoreRule } from './rules/RotateStoreRule'
@@ -17,7 +18,8 @@ export class SpringFestivalRules extends SecretMaterialRules<PlayerSymbol, Mater
   rules = {
     [RuleId.RotateStore]: RotateStoreRule,
     [RuleId.PlaceFirework]: PlaceFireworkRule,
-    [RuleId.PlaceBaseFirework]: PlaceBaseFireworkRule
+    [RuleId.PlaceBaseFirework]: PlaceBaseFireworkRule,
+    [RuleId.GrandeFinale]: GrandeFinaleRule
   }
 
   locationsStrategies = {

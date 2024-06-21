@@ -29,7 +29,7 @@ export const PlaceFireworkHeader = () => {
       if (selection.length === 1) {
         return (
           <Trans defaults="header.composition.validate">
-            <PlayMoveButton move={selection}/>
+            <PlayMoveButton move={selection[0]}/>
           </Trans>
         )
       } else if (selection.length > 1) {
