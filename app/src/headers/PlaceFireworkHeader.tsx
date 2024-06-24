@@ -12,7 +12,7 @@ export const PlaceFireworkHeader = () => {
   const player = usePlayerId()
   const rules = useRules<SpringFestivalRules>()!
   const itsMyTurn = player && rules.isTurnToPlay(player)
-  const moves = useLegalMoves((move) => isCustomMoveType(CustomMoveType.ColorComposition)(move))
+  const moves = useLegalMoves((move) => isCustomMoveType(CustomMoveType.Composition)(move))
   const pass = useLegalMove((move) => isEndPlayerTurn(move))
   const players = rules.game.rule?.players ?? []
   const name = usePlayerName(players[0])
@@ -43,7 +43,7 @@ export const PlaceFireworkHeader = () => {
           </Trans>
         )
       } else if (selection.length > 1) {
-        return <>"Noooooon, j'ai le chois entre 2 tuiles mais Romain n'a pas fait le HEADER"</>
+        return <>"Noooooon, j'ai le choix entre 2 tuiles mais Romain n'a pas fait le HEADER"</>
       } else {
         return (
           <Trans defaults="header.composition">

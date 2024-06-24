@@ -54,7 +54,7 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   }
 
   onCustomMove(move: CustomMove) {
-    if (!isCustomMoveType(CustomMoveType.ColorComposition)(move)) return []
+    if (!isCustomMoveType(CustomMoveType.Composition)(move)) return []
     this.material(MaterialType.Firework).indexes(move.data.indexes).selected().getItems().forEach((item) => delete item.selected)
     const composition = this.material(MaterialType.Composition).index(move.data.comp)
     const player = composition.getItem()!.location.player!

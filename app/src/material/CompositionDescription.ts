@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { MaterialItem } from '@gamepark/rules-api'
 import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
-import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
 import equal from 'fast-deep-equal'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
@@ -82,6 +81,7 @@ import PatternComposition7 from '../images/composition/pattern/PatternCompositio
 import PatternComposition8 from '../images/composition/pattern/PatternComposition8.jpg'
 import PatternComposition9 from '../images/composition/pattern/PatternComposition9.jpg'
 import PatternCompositionBack from '../images/composition/pattern/PatternCompositionBack.jpg'
+import { CompositionDescriptionHelp } from './help/CompositionDescriptionHelp'
 
 export class CompositionDescription extends CardDescription {
   height = 5
@@ -184,15 +184,21 @@ export class CompositionDescription extends CardDescription {
         height: 100%;
         position: absolute;
         border: 0.2em solid ${valid? 'green': 'red'};
-        border-radius: 0.4em
+        border-radius: 0.4em;
       }
     `
   }
 
-  canShortClick(move: MaterialMove, context: ItemContext): boolean {
+  highlight(item: MaterialItem, context: ItemContext) {
+    if (item.location.type !== LocationType.PlayerComposition) return false
+    if (!context.player || context.player !== item.location.player) return false
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
-    return isCustomMoveType(CustomMoveType.ColorComposition)(move) && equal(selectedIndexes, move.data.indexes) && context.index === move.data.comp
+    if (!selectedIndexes.length) return false
+    const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
+    return moves.some((move) => equal(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
   }
+
+  help = CompositionDescriptionHelp
 }
 
 export const compositionDescription = new CompositionDescription()

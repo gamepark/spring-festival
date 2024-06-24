@@ -28,7 +28,7 @@ export class CompositionHelper extends MaterialRulesPart {
           const item = compositions.getItem(compositionIndex)!
           const combinations = this.getValidCombinations(item, compositionIndex, panorama, x, y)
           moves.push(
-            ...combinations.map((c) => this.rules().customMove(CustomMoveType.ColorComposition, c))
+            ...combinations.map((c) => this.rules().customMove(CustomMoveType.Composition, c))
           )
         }
       }
