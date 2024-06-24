@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
 import equal from 'fast-deep-equal'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
@@ -188,6 +189,10 @@ export class CompositionDescription extends CardDescription {
     `
   }
 
+  canShortClick(move: MaterialMove, context: ItemContext): boolean {
+    const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
+    return isCustomMoveType(CustomMoveType.ColorComposition)(move) && equal(selectedIndexes, move.data.indexes) && context.index === move.data.comp
+  }
 }
 
 export const compositionDescription = new CompositionDescription()

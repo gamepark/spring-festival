@@ -14,19 +14,17 @@ import { RuleId } from './RuleId'
 
 export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialType, LocationType> {
   getActivePlayerLegalMoves(playerId: PlayerSymbol): MaterialMove[] {
-
+    const moves: MaterialMove[] = []
     if (!this.hasPlacedFirework(playerId)) {
       const helper = new AvailableSpaceHelper(this.game, playerId)
       const tile = this.getTile(playerId)
-      return helper.availableSpaces.map((location) => tile.moveItem(location))
+      moves.push(...helper.availableSpaces.map((location) => tile.moveItem(location)))
     } else {
-      const moves = new CompositionHelper(this.game, playerId).compositionMoves
-      if (!moves.length) {
-        return [this.rules().endPlayerTurn(playerId)]
-      }
-
-      return moves
+      moves.push(...new CompositionHelper(this.game, playerId).compositionMoves)
     }
+
+      moves.push(this.rules().endPlayerTurn(playerId))
+      return moves
   }
 
   hasPlacedFirework(playerId: PlayerSymbol): boolean {
@@ -79,13 +77,6 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
             player: player
           })
       )
-    } else {
-      const compositionMoves = new CompositionHelper(this.game, player!)
-        .compositionMoves
-        .filter((c) => c.data.comp !== move.data.comp)
-      if (!compositionMoves.length) {
-        moves.push(this.rules().endPlayerTurn(player))
-      }
     }
 
     return moves
@@ -118,10 +109,6 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
       this.memorize(Memory.RemainingExplosion, (r: number) => r-1, player)
       if (!this.remind(Memory.RemainingExplosion, player)) {
         this.forget(Memory.RemainingExplosion, player)
-        const compositionMoves = new CompositionHelper(this.game, player).compositionMoves
-        if (!compositionMoves.length) {
-          return [this.rules().endPlayerTurn(player)]
-        }
       }
     }
 
@@ -164,7 +151,6 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   }
 
   onRuleEnd() {
-    // TODO: prevent player to
     this.material(MaterialType.Firework).selected().getItems().forEach((item) => delete item.selected)
     return []
   }

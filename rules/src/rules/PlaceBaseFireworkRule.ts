@@ -1,4 +1,4 @@
-import { isMoveItemType, ItemMove, MaterialMove, SimultaneousRule } from '@gamepark/rules-api'
+import { MaterialMove, SimultaneousRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { PlayerSymbol } from '../PlayerSymbol'
@@ -9,18 +9,11 @@ export class PlaceBaseFireworkRule extends SimultaneousRule<PlayerSymbol, Materi
   getActivePlayerLegalMoves(playerId: PlayerSymbol): MaterialMove[] {
     const helper = new AvailableSpaceHelper(this.game, playerId)
     const hand = this.getHand(playerId)
-    return helper.availableSpaces.flatMap((location) => hand.moveItems(location))
-  }
-
-  afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return []
-    const player = move.location.player!
-    const moves = []
-    if (!this.getHand(player).length) {
-      moves.push(this.rules().endPlayerTurn(player))
+    const spaces = helper.availableSpaces.flatMap((location) => hand.moveItems(location))
+    if (!spaces.length) {
+      return [this.rules().endPlayerTurn(playerId)]
     }
-
-    return moves
+    return spaces
   }
 
   getHand(playerId: PlayerSymbol) {

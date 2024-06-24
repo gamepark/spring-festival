@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
@@ -291,7 +292,7 @@ class FireworkDescription extends CardDescription {
     const valid = moves.some((move) => equal(selectedIndexes,move.data.indexes))
     return css`
       &:after {
-        content: '';
+        content: '${item.location.id}';
         height: 100%;
         width: 100%;
         position: absolute;
@@ -301,18 +302,23 @@ class FireworkDescription extends CardDescription {
     `
   }
 
+  canShortClick(move: MaterialMove, context: ItemContext) {
+    return isCustomMoveType(CustomMoveType.GrandeFinale)(move) && move.data === context.index
+  }
+
   getShortClickLocalMove(context: ItemContext) {
     if (!context.player) return
     if (context.rules.game.rule?.id !== RuleId.PlaceFirework) return
     const tile = context.rules.material(MaterialType.Firework).index(context.index)
     const item = tile.getItem()!
+    if (!item.location.rotation) return
     if (context.player !== item.location.player) return
     if (!context.rules.remind(Memory.Placed, context.player)) return
     if (!context.rules.isTurnToPlay(context.player)) return
+    const compositions = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
+    if (!compositions.length) return
 
-    if (item.selected) {
-      return tile.unselectItem()
-    }
+    if (item.selected) return tile.unselectItem()
 
     return tile.selectItem()
   }

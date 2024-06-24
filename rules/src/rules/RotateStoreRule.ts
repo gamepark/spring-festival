@@ -17,41 +17,40 @@ export class RotateStoreRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const moves: MaterialMove[] = []
-    if (this.starting !== this.player) {
-      const pile = new SearchPileHelper(this.game, this.player).pile
-      const newPile = (((pile - 1) + 4 - 1) % 4) + 1
-      if (this.store.location.rotation === newPile) {
-        moves.push(this.rules().customMove(CustomMoveType.RotateStore))
-      }
-        moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
-        moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
-
-    } else {
-
-      moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
-      moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
-    }
-
+    moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
+    moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
     moves.push(this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players))
     return moves
   }
 
   onCustomMove(move: CustomMove) {
-    if (!isCustomMoveType(CustomMoveType.RotateStore)(move)) return []
-    if (!move.data) {
-      this.memorize(Memory.HasRotated, true)
-      this.memorize(Memory.StartPlayer, this.player)
-    } else {
+    if (!isCustomMoveType(CustomMoveType.RotateStore)(move) || !move.data) return []
+    const pile = new SearchPileHelper(this.game, this.player).pile
+    let clockwise = this.getClockwise(pile)
+    let counterClockwise = this.getCounterClockwise(pile)
+    if (move.data > 0) {
+      if (this.store.location.rotation === clockwise) {
+        clockwise = this.getClockwise(clockwise)
+      }
+      return [this.material(MaterialType.FireworksStore).rotateItem(clockwise)]
+    }
 
-      const pile = new SearchPileHelper(this.game, this.player).pile
-      const newPile = (((pile - 1) + 4 - 1) % 4) + 1
-      const previousPile = (this.store.location.rotation + 1 % 4)
-
-      if (move.data > 0) return [this.material(MaterialType.FireworksStore).rotateItem(newPile)]
-      if (move.data < 0) return [this.material(MaterialType.FireworksStore).rotateItem(previousPile)]
+    if (move.data < 0) {
+      if (this.store.location.rotation === counterClockwise) {
+        counterClockwise = this.getCounterClockwise(counterClockwise)
+      }
+      return [this.material(MaterialType.FireworksStore).rotateItem(counterClockwise)]
     }
 
     return []
+  }
+
+  getClockwise(pile: number) {
+    return (((pile - 1) + 4 - 1) % 4) + 1
+  }
+
+  getCounterClockwise(pile: number) {
+    return (pile + 1 % 4)
   }
 
   get starting() {

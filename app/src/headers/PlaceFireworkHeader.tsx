@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { PlayMoveButton, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { isCustomMoveType } from '@gamepark/rules-api'
+import { PlayMoveButton, useLegalMove, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { isCustomMoveType, isEndPlayerTurn } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
@@ -13,6 +13,7 @@ export const PlaceFireworkHeader = () => {
   const rules = useRules<SpringFestivalRules>()!
   const itsMyTurn = player && rules.isTurnToPlay(player)
   const moves = useLegalMoves((move) => isCustomMoveType(CustomMoveType.ColorComposition)(move))
+  const pass = useLegalMove((move) => isEndPlayerTurn(move))
   const players = rules.game.rule?.players ?? []
   const name = usePlayerName(players[0])
 
@@ -25,6 +26,15 @@ export const PlaceFireworkHeader = () => {
     } else {
       const selectedIndexes = [...rules.material(MaterialType.Firework).selected().getIndexes()].sort()
       const selection = moves.filter((move) => equal(move.data.indexes, selectedIndexes))
+      const hasComposibleComposition = moves.length > 0
+
+      if (!hasComposibleComposition) {
+        return (
+          <Trans defaults="header.validate.placement">
+            <PlayMoveButton move={pass}/>
+          </Trans>
+        )
+      }
 
       if (selection.length === 1) {
         return (
@@ -36,7 +46,9 @@ export const PlaceFireworkHeader = () => {
         return <>"Noooooon, j'ai le chois entre 2 tuiles mais Romain n'a pas fait le HEADER"</>
       } else {
         return (
-          <Trans defaults="header.composition" />
+          <Trans defaults="header.composition">
+            <PlayMoveButton move={pass} />
+          </Trans>
         )
       }
     }

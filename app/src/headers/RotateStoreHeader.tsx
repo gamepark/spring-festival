@@ -8,8 +8,8 @@ import { Trans } from 'react-i18next'
 
 export const RotateStoreHeader = () => {
   const pass = useLegalMove((move) => isStartSimultaneousRule(move) && move.id === RuleId.PlaceFirework)
-  const previous = useLegalMove((move) => isCustomMoveType(CustomMoveType.RotateStore)(move) && move.data < 0)
-  const next = useLegalMove((move) => isCustomMoveType(CustomMoveType.RotateStore)(move) && move.data > 0)
+  const clockwise = useLegalMove((move) => isCustomMoveType(CustomMoveType.RotateStore)(move) && move.data > 0)
+  const counterClockwise = useLegalMove((move) => isCustomMoveType(CustomMoveType.RotateStore)(move) && move.data < 0)
   const rules = useRules<SpringFestivalRules>()!
   const player = usePlayerId()
   const itsMe = player && rules.isTurnToPlay(player)
@@ -18,8 +18,8 @@ export const RotateStoreHeader = () => {
     return (
       <Trans
         defaults="header.rotate">
-        <PlayMoveButton move={next}/>
-        <PlayMoveButton move={previous}/>
+        <PlayMoveButton move={clockwise}/>
+        <PlayMoveButton move={counterClockwise}/>
         <PlayMoveButton move={pass}/>
       </Trans>
     )
