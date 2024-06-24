@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { PlayMoveButton, useLegalMove, usePlayerId, useRules } from '@gamepark/react-game'
+import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { isCustomMoveType, isStartSimultaneousRule } from '@gamepark/rules-api'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
@@ -13,6 +13,7 @@ export const RotateStoreHeader = () => {
   const rules = useRules<SpringFestivalRules>()!
   const player = usePlayerId()
   const itsMe = player && rules.isTurnToPlay(player)
+  const name = usePlayerName(rules.getActivePlayer())
 
   if (itsMe) {
     return (
@@ -26,6 +27,6 @@ export const RotateStoreHeader = () => {
   }
 
   return (
-    <Trans defaults="header.rotate.player" />
+    <Trans defaults="header.rotate.player" values={{ player: name}} />
   )
 }

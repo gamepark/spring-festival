@@ -43,7 +43,9 @@ export const PlaceFireworkHeader = () => {
           </Trans>
         )
       } else if (selection.length > 1) {
-        return <>"Noooooon, j'ai le choix entre 2 tuiles mais Romain n'a pas fait le HEADER"</>
+        return (
+          <Trans defaults="header.compositions.validate" />
+        )
       } else {
         return (
           <Trans defaults="header.composition">
