@@ -7,7 +7,7 @@ import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import FirstPlayerToken from '../images/first-player.png'
 import { applauseStockLocation } from '../locators/description/ApplauseStockDescription'
-import { ApplauseTokenHelp } from './help/ApplauseTokenHelp'
+import { FirstPlayerTokenHelp } from './help/FirstPlayerTokenHelp'
 
 class FirstPlayerTokenDescription extends TokenDescription {
   height = 4.09
@@ -33,7 +33,7 @@ class FirstPlayerTokenDescription extends TokenDescription {
 
   staticItem = { quantity: 10, location: applauseStockLocation }
   stockLocation = applauseStockLocation
-  help = ApplauseTokenHelp
+  help = FirstPlayerTokenHelp
 }
 
 export const firstPlayerTokenDescription = new FirstPlayerTokenDescription()
