@@ -17,8 +17,20 @@ export class RotateStoreRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const moves: MaterialMove[] = []
+    // Clockwise
     moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
+
+    // Counterclockwise
     moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
+
+    const helper = new SearchPileHelper(this.game, this.player).pile
+
+    // Specific location
+    moves.push(
+      ...[1, 2, 3, 4].filter((id) => helper !== id).map((id) => this.store.rotateItem(id))
+    )
+
+    // No changes
     moves.push(this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players))
     return moves
   }
@@ -29,14 +41,14 @@ export class RotateStoreRule extends PlayerTurnRule {
     let clockwise = this.getClockwise(pile)
     let counterClockwise = this.getCounterClockwise(pile)
     if (move.data > 0) {
-      if (this.store.location.rotation === clockwise) {
+      if (this.storeItem.location.rotation === clockwise) {
         clockwise = this.getClockwise(clockwise)
       }
       return [this.material(MaterialType.FireworksStore).rotateItem(clockwise)]
     }
 
     if (move.data < 0) {
-      if (this.store.location.rotation === counterClockwise) {
+      if (this.storeItem.location.rotation === counterClockwise) {
         counterClockwise = this.getCounterClockwise(counterClockwise)
       }
       return [this.material(MaterialType.FireworksStore).rotateItem(counterClockwise)]
@@ -64,8 +76,12 @@ export class RotateStoreRule extends PlayerTurnRule {
     return []
   }
 
+  get storeItem() {
+    return this.store.getItem()!
+  }
+
   get store() {
-    return this.material(MaterialType.FireworksStore).getItem()!
+    return this.material(MaterialType.FireworksStore)
   }
 
   get piles() {
@@ -78,7 +94,7 @@ export class RotateStoreRule extends PlayerTurnRule {
     if (isEndGame(move)) return []
     if (!this.remind(Memory.HasRotated)) {
       const newRotation = new SearchPileHelper(this.game, this.player).pile
-      if (this.store.location.rotation === newRotation) return []
+      if (this.storeItem.location.rotation === newRotation) return []
       this.memorize(Memory.StartPlayer, this.player)
       return [
         this.material(MaterialType.FireworksStore).rotateItem(newRotation)
