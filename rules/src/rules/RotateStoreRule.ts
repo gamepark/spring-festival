@@ -17,17 +17,10 @@ export class RotateStoreRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const moves: MaterialMove[] = []
-    // Clockwise
-    moves.push(this.rules().customMove(CustomMoveType.RotateStore, 1))
-
-    // Counterclockwise
-    moves.push(this.rules().customMove(CustomMoveType.RotateStore, -1))
-
-    const helper = new SearchPileHelper(this.game, this.player).pile
-
-    // Specific location
+    const rotation = this.storeItem.location.rotation
+    const store = this.store
     moves.push(
-      ...[1, 2, 3, 4].filter((id) => helper !== id).map((id) => this.store.rotateItem(id))
+      ...[1, 2, 3, 4].filter((id) => rotation !== id).map((id) => store.rotateItem(id))
     )
 
     // No changes

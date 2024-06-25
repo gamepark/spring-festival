@@ -1,16 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { isCustomMoveType, isStartSimultaneousRule } from '@gamepark/rules-api'
-import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
+import { isMoveItemType, isStartSimultaneousRule } from '@gamepark/rules-api'
+import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import { Trans } from 'react-i18next'
 
 export const RotateStoreHeader = () => {
   const pass = useLegalMove((move) => isStartSimultaneousRule(move) && move.id === RuleId.PlaceFirework)
-  const clockwise = useLegalMove((move) => isCustomMoveType(CustomMoveType.RotateStore)(move) && move.data > 0)
-  const counterClockwise = useLegalMove((move) => isCustomMoveType(CustomMoveType.RotateStore)(move) && move.data < 0)
   const rules = useRules<SpringFestivalRules>()!
+  const storeRotation = rules.material(MaterialType.FireworksStore).getItem()!.location.rotation
+  const clockwise = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === getClockwise(storeRotation))
+  const counterClockwise = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === getCounterClockwise(storeRotation))
   const player = usePlayerId()
   const itsMe = player && rules.isTurnToPlay(player)
   const name = usePlayerName(rules.getActivePlayer())
@@ -29,4 +30,13 @@ export const RotateStoreHeader = () => {
   return (
     <Trans defaults="header.rotate.player" values={{ player: name}} />
   )
+}
+
+
+const getClockwise = (pile: number) => {
+  return (((pile - 1) + 4 - 1) % 4) + 1
+}
+
+const getCounterClockwise = (pile: number) => {
+  return ((pile) % 4) + 1
 }

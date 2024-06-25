@@ -284,7 +284,15 @@ class FireworkDescription extends CardDescription {
   }
 
   getItemExtraCss(item: MaterialItem, context: ItemContext) {
-    if (item.location.type !== LocationType.Panorama) return
+    if (item.location.type !== LocationType.Panorama) return css`
+      &:after {
+        content: '${item.location.id}';
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        border-radius: 0.4em;
+      }
+    `
     if (!context.player || context.player !== item.location.player) return
     const isSelect = !!item.selected
     if (!isSelect) return
@@ -293,7 +301,6 @@ class FireworkDescription extends CardDescription {
     const valid = moves.some((move) => isEqual(selectedIndexes,move.data.indexes))
     return css`
       &:after {
-        content: '${item.location.id}';
         height: 100%;
         width: 100%;
         position: absolute;
