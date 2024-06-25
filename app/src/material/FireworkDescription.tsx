@@ -9,7 +9,7 @@ import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
-import equal from 'fast-deep-equal'
+import isEqual from 'lodash/isEqual'
 import BaseFirework1_1Back from '../images/firework/explosion/BaseFirework1_1.jpg'
 import BaseFirework1_2Back from '../images/firework/explosion/BaseFirework1_2.jpg'
 import BaseFirework1_3Back from '../images/firework/explosion/BaseFirework1_3.jpg'
@@ -290,7 +290,7 @@ class FireworkDescription extends CardDescription {
     if (!isSelect) return
     const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
-    const valid = moves.some((move) => equal(selectedIndexes,move.data.indexes))
+    const valid = moves.some((move) => isEqual(selectedIndexes,move.data.indexes))
     return css`
       &:after {
         content: '${item.location.id}';

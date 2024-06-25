@@ -6,7 +6,7 @@ import { Composition, CompositionType } from '@gamepark/spring-festival/material
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
-import equal from 'fast-deep-equal'
+import isEqual from 'lodash/isEqual'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
 import ColorComposition10 from '../images/composition/color/ColorComposition10.jpg'
 import ColorComposition11 from '../images/composition/color/ColorComposition11.jpg'
@@ -176,7 +176,7 @@ export class CompositionDescription extends CardDescription {
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     if (!selectedIndexes.length) return
     const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
-    const valid = moves.some((move) => equal(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
+    const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
     return css`
       &:after {
         content: '';
@@ -195,7 +195,7 @@ export class CompositionDescription extends CardDescription {
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     if (!selectedIndexes.length) return false
     const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
-    return moves.some((move) => equal(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
+    return moves.some((move) => isEqual(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
   }
 
 

@@ -9,7 +9,7 @@ import { AvailableSpaceHelper } from '@gamepark/spring-festival/rules/helper/Ava
 import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
-import equal from 'fast-deep-equal'
+import isEqual from 'lodash/isEqual'
 import { fireworkDescription } from '../../material/FireworkDescription'
 import {
   getComputedIndex,
@@ -215,6 +215,6 @@ export class PanoramaDescription extends LocationDescription {
   canShortClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
     if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return false
     if (context.rules.material(MaterialType.Firework).getItem(move.itemIndex)?.location.type === LocationType.PlayerHand) return false
-    return equal(move.location, location)
+    return isEqual(move.location, location)
   }
 }

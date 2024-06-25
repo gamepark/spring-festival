@@ -1,5 +1,5 @@
 import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import equal from 'fast-deep-equal'
+import isEqual from 'lodash/isEqual'
 import { fireworkDescriptions } from '../../material/FireworkDescription'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -25,10 +25,10 @@ export class ApplauseHelper extends MaterialRulesPart {
     for (const firework of fireworks) {
       const l = firework.location
       const applause = fireworkDescriptions[tile.id.front].extinguishes.some(
-          (e: XYCoordinates) => equal({ x: l.x, y: l.y }, { x: location.x + e.x, y: location.y + e.y })
+          (e: XYCoordinates) => isEqual({ x: l.x, y: l.y }, { x: location.x + e.x, y: location.y + e.y })
         )
         && fireworkDescriptions[firework.id.front].extinguishes.some(
-          (e: XYCoordinates) => equal({ x: l.x! + e.x, y: l.y! + e.y }, { x: location.x, y: location.y })
+          (e: XYCoordinates) => isEqual({ x: l.x! + e.x, y: l.y! + e.y }, { x: location.x, y: location.y })
         )
 
       if (applause) {

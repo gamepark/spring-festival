@@ -58,8 +58,8 @@ const getExtraSpace = (context: MaterialContext) => {
         if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max((boundaries.deltaX - gridWidth), additionalMaxXSpaces)
         break
       case 3:
-        if (boundaries.deltaY >= (height - 1)) additionalMaxYSpaces = Math.max( (boundaries.deltaY - height), additionalMaxYSpaces)
-        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max( (boundaries.deltaX - gridWidth), additionalMaxXSpaces)
+        if (boundaries.deltaY >= (height - 1)) additionalMaxYSpaces = Math.max((boundaries.deltaY - height), additionalMaxYSpaces)
+        if (boundaries.deltaX >= (gridWidth - 1)) additionalMaxXSpaces = Math.max((boundaries.deltaX - gridWidth), additionalMaxXSpaces)
         break
 
     }
@@ -75,6 +75,10 @@ const getExtraSpace = (context: MaterialContext) => {
 
 
 const navigationCss = css`
-  left: 50%;
+  position: absolute;
+  top: 5em;
+  right: 1em;
+  display: flex;
+  flex-direction: column;
   transform: translateX(-50%);
 `

@@ -1,5 +1,5 @@
 import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import equal from 'fast-deep-equal'
+import isEqual from 'lodash/isEqual'
 import { fireworkDescriptions } from '../../material/FireworkDescription'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -35,7 +35,7 @@ export class FireworkHelper extends MaterialRulesPart {
         return l.rotation !== true
           && (l.x !== originalCoordinates.x || l.y !== originalCoordinates.y)
           && fireworkDescriptions[item.id.front].explosions.some((e: XYCoordinates) => {
-            return equal(
+            return isEqual(
               { x: l.x, y: l.y },
               { x: location.x + e.x, y: location.y + e.y }
             )

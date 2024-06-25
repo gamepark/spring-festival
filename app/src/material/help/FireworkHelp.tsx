@@ -22,7 +22,6 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
   const grandeFinale = useLegalMove((move) => isCustomMoveType(CustomMoveType.GrandeFinale)(move) && move.data === itemIndex)
   const validateRotation = useLegalMove((move) => isStartSimultaneousRule(move) && !rotateToHere)
   const pileCount = locationType === LocationType.FireworksStorePile && item.location?.id !== undefined ? rules.material(MaterialType.Firework).location(LocationType.FireworksStorePile).locationId(item.location.id).length: undefined
-  console.log(rotateToHere)
   return (
     <>
       {<h2><Trans defaults="help.firework"/></h2>}
@@ -86,11 +85,9 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
           <Trans defaults="help.firework.pile.count" values={{ number: pileCount }}/>
         </p>
       )}
-      {
-        <div css={css`margin-bottom: 0.1em`}>
-          <MaterialComponent type={MaterialType.Firework} itemId={item.id} css={!item.location?.rotation && css`transform: rotateY(180deg)`} />
-        </div>
-      }
+      <div css={css`margin-bottom: 0.1em`}>
+        <MaterialComponent type={MaterialType.Firework} itemId={item.id} css={!item.location?.rotation && css`transform: rotateY(180deg)`}/>
+      </div>
     </>
   )
 

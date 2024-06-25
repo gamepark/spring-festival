@@ -5,7 +5,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
-import equal from 'fast-deep-equal'
+import isEqual from 'lodash/isEqual'
 import { Trans } from 'react-i18next'
 
 export const PlaceFireworkHeader = () => {
@@ -25,7 +25,7 @@ export const PlaceFireworkHeader = () => {
       )
     } else {
       const selectedIndexes = [...rules.material(MaterialType.Firework).selected().getIndexes()].sort()
-      const selection = moves.filter((move) => equal(move.data.indexes, selectedIndexes))
+      const selection = moves.filter((move) => isEqual(move.data.indexes, selectedIndexes))
       const hasComposibleComposition = moves.length > 0
 
       if (!hasComposibleComposition) {

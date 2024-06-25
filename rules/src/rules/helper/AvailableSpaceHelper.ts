@@ -1,5 +1,5 @@
 import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import equal from 'fast-deep-equal'
+import isEqual from 'lodash/isEqual'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PlayerSymbol } from '../../PlayerSymbol'
@@ -44,9 +44,9 @@ export class AvailableSpaceHelper extends MaterialRulesPart {
   canPlaceItemInLocation(location: Location, allowedLocations: Location[]): boolean {
     return !this.panorama.getItems().some((item) => {
         const { location: { rotation, ...l } } = item
-        return equal(l, location)
+        return isEqual(l, location)
       })
-      && !allowedLocations.some((l) => equal(l, location))
+      && !allowedLocations.some((l) => isEqual(l, location))
   }
 
   get panorama() {
