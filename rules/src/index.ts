@@ -1,3 +1,3 @@
 export { SpringFestivalRules } from './SpringFestivalRules'
-export { SpringFestivalOptions } from './SpringFestivalOptions'
+export { SpringFestivalOptionsSpec } from './SpringFestivalOptions'
 export { SpringFestivalSetup } from './SpringFestivalSetup'
