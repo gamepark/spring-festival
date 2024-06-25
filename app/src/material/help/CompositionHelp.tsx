@@ -9,7 +9,7 @@ import equal from 'fast-deep-equal'
 import { FC, useMemo } from 'react'
 import { Trans } from 'react-i18next'
 
-export const CompositionDescriptionHelp: FC<MaterialHelpProps> = (props) => {
+export const CompositionHelp: FC<MaterialHelpProps> = (props) => {
   const { item, itemIndex, closeDialog } = props
   const rules = useRules<SpringFestivalRules>()!
   const legalMoves = useLegalMoves()
@@ -25,7 +25,11 @@ export const CompositionDescriptionHelp: FC<MaterialHelpProps> = (props) => {
   return (
     <>
       {<h2><Trans defaults={isPatternComposition ? "help.composition.pattern" : "help.composition.color"}/></h2>}
-      {validateComposition && <PlayMoveButton move={validateComposition} onPlay={closeDialog}>Validate this composition</PlayMoveButton>}
+      {validateComposition && (
+        <Trans defaults="header.composition.validate">
+          <PlayMoveButton move={validateComposition} onPlay={closeDialog} />
+        </Trans>
+      )}
       {/*TODO: Add point into description */}
       <p>
         <Trans defaults="help.composition.text" values={{ number: 10 }}/>

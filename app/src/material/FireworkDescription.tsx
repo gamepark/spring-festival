@@ -138,6 +138,7 @@ import Firework6Front from '../images/firework/rocket/Firework6.jpg'
 import Firework7Front from '../images/firework/rocket/Firework7.jpg'
 import Firework8Front from '../images/firework/rocket/Firework8.jpg'
 import Firework9Front from '../images/firework/rocket/Firework9.jpg'
+import { FireworkHelp } from './help/FireworkHelp'
 
 
 class FireworkDescription extends CardDescription {
@@ -323,6 +324,7 @@ class FireworkDescription extends CardDescription {
     return tile.selectItem()
   }
 
+  help = FireworkHelp
 }
 
 export const fireworkDescription = new FireworkDescription()

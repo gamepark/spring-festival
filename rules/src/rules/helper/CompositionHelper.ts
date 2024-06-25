@@ -89,7 +89,7 @@ export class CompositionHelper extends MaterialRulesPart {
       .location((l) => l.x === (x + deltaY) && l.y === (y + deltaX) && l.rotation === true)
     if (firework.length) {
       const item = firework.getItem()!
-      const explosionCount = fireworkDescriptions[item.id.front].explosionCount
+      const explosionCount = fireworkDescriptions[item.id.front].explosions.length
       if (requiredExplosionCount === -1 || explosionCount === requiredExplosionCount) {
         return firework.getIndex()
       }

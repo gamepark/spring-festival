@@ -81,7 +81,7 @@ import PatternComposition7 from '../images/composition/pattern/PatternCompositio
 import PatternComposition8 from '../images/composition/pattern/PatternComposition8.jpg'
 import PatternComposition9 from '../images/composition/pattern/PatternComposition9.jpg'
 import PatternCompositionBack from '../images/composition/pattern/PatternCompositionBack.jpg'
-import { CompositionDescriptionHelp } from './help/CompositionDescriptionHelp'
+import { CompositionHelp } from './help/CompositionHelp'
 
 export class CompositionDescription extends CardDescription {
   height = 5
@@ -198,7 +198,8 @@ export class CompositionDescription extends CardDescription {
     return moves.some((move) => equal(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
   }
 
-  help = CompositionDescriptionHelp
+
+  help = CompositionHelp
 }
 
 export const compositionDescription = new CompositionDescription()
