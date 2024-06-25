@@ -3,6 +3,7 @@ import { Composition } from './Composition'
 type PatternCompositionDefinition = (number | undefined)[][]
 
 export type PatternCompositionDescription = {
+  points: number
   composition: PatternCompositionDefinition[]
 }
 
@@ -10,6 +11,7 @@ const _ = undefined
 const A = -1
 
 const PatternComposition1: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [1, A, 1]
@@ -17,12 +19,13 @@ const PatternComposition1: PatternCompositionDescription = {
     [
       [1],
       [A],
-      [1],
+      [1]
     ]
   ]
 }
 
 const PatternComposition2: PatternCompositionDescription = {
+  points: 4,
   composition: [
     [
       [2, A, 2]
@@ -30,13 +33,14 @@ const PatternComposition2: PatternCompositionDescription = {
     [
       [2],
       [A],
-      [2],
+      [2]
     ]
   ]
 
 }
 
 const PatternComposition3: PatternCompositionDescription = {
+  points: 4,
   composition: [
     [
       [A, 4, 4]
@@ -44,7 +48,7 @@ const PatternComposition3: PatternCompositionDescription = {
     [
       [A],
       [4],
-      [4],
+      [4]
     ],
     [
       [4, 4, A]
@@ -52,12 +56,13 @@ const PatternComposition3: PatternCompositionDescription = {
     [
       [4],
       [4],
-      [A],
-    ],
+      [A]
+    ]
   ]
 }
 
 const PatternComposition4: PatternCompositionDescription = {
+  points: 4,
   composition: [
     [
       [3, 3, A]
@@ -65,7 +70,7 @@ const PatternComposition4: PatternCompositionDescription = {
     [
       [3],
       [3],
-      [A],
+      [A]
     ],
     [
       [A, 3, 3]
@@ -73,12 +78,13 @@ const PatternComposition4: PatternCompositionDescription = {
     [
       [A],
       [3],
-      [3],
-    ],
+      [3]
+    ]
   ]
 }
 
 const PatternComposition5: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [A, _],
@@ -95,11 +101,12 @@ const PatternComposition5: PatternCompositionDescription = {
     [
       [_, 1],
       [A, 1]
-    ],
+    ]
   ]
 }
 
 const PatternComposition6: PatternCompositionDescription = {
+  points: 4,
   composition: [
     [
       [2, _],
@@ -116,11 +123,12 @@ const PatternComposition6: PatternCompositionDescription = {
     [
       [_, A],
       [2, 2]
-    ],
+    ]
   ]
 }
 
 const PatternComposition7: PatternCompositionDescription = {
+  points: 4,
   composition: [
     [
       [4, _],
@@ -137,11 +145,12 @@ const PatternComposition7: PatternCompositionDescription = {
     [
       [_, 4],
       [4, A]
-    ],
+    ]
   ]
 }
 
 const PatternComposition8: PatternCompositionDescription = {
+  points: 4,
   composition: [
     [
       [3, _],
@@ -158,11 +167,12 @@ const PatternComposition8: PatternCompositionDescription = {
     [
       [_, 3],
       [3, A]
-    ],
+    ]
   ]
 }
 
 const PatternComposition9: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [1, A],
@@ -171,11 +181,12 @@ const PatternComposition9: PatternCompositionDescription = {
     [
       [A, 1],
       [1, A]
-    ],
+    ]
   ]
 }
 
 const PatternComposition10: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [2, A],
@@ -192,11 +203,12 @@ const PatternComposition10: PatternCompositionDescription = {
     [
       [A, A],
       [2, 2]
-    ],
+    ]
   ]
 }
 
 const PatternComposition11: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [A, A],
@@ -213,11 +225,12 @@ const PatternComposition11: PatternCompositionDescription = {
     [
       [A, 3],
       [A, 3]
-    ],
+    ]
   ]
 }
 
 const PatternComposition12: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [A, 4],
@@ -226,11 +239,12 @@ const PatternComposition12: PatternCompositionDescription = {
     [
       [4, A],
       [A, 4]
-    ],
+    ]
   ]
 }
 
 const PatternComposition13: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [1, 1, A],
@@ -249,11 +263,12 @@ const PatternComposition13: PatternCompositionDescription = {
       [A, _],
       [1, A],
       [1, _]
-    ],
+    ]
   ]
 }
 
 const PatternComposition14: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [A, 2, 2],
@@ -272,11 +287,12 @@ const PatternComposition14: PatternCompositionDescription = {
       [2, _],
       [2, A],
       [A, _]
-    ],
+    ]
   ]
 }
 
 const PatternComposition15: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [3, A, 3],
@@ -295,11 +311,12 @@ const PatternComposition15: PatternCompositionDescription = {
       [3, _],
       [A, A],
       [3, _]
-    ],
+    ]
   ]
 }
 
 const PatternComposition16: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [A, 4, A],
@@ -318,11 +335,12 @@ const PatternComposition16: PatternCompositionDescription = {
       [A, _],
       [4, 4],
       [A, _]
-    ],
+    ]
   ]
 }
 
 const PatternComposition17: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [1, _],
@@ -340,12 +358,13 @@ const PatternComposition17: PatternCompositionDescription = {
     ],
     [
       [_, _, A],
-      [1, 1, A],
-    ],
+      [1, 1, A]
+    ]
   ]
 }
 
 const PatternComposition18: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [2, _],
@@ -363,12 +382,13 @@ const PatternComposition18: PatternCompositionDescription = {
     ],
     [
       [_, _, 2],
-      [2, A, A],
-    ],
+      [2, A, A]
+    ]
   ]
 }
 
 const PatternComposition19: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [A, _],
@@ -386,12 +406,13 @@ const PatternComposition19: PatternCompositionDescription = {
     ],
     [
       [_, _, 3],
-      [A, A, 3],
-    ],
+      [A, A, 3]
+    ]
   ]
 }
 
 const PatternComposition20: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [A, _],
@@ -409,12 +430,13 @@ const PatternComposition20: PatternCompositionDescription = {
     ],
     [
       [_, _, A],
-      [A, 4, 4],
-    ],
+      [A, 4, 4]
+    ]
   ]
 }
 
 const PatternComposition21: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [_, A],
@@ -432,12 +454,13 @@ const PatternComposition21: PatternCompositionDescription = {
     ],
     [
       [A, A, 1],
-      [_, _, 1],
-    ],
+      [_, _, 1]
+    ]
   ]
 }
 
 const PatternComposition22: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [_, A],
@@ -455,12 +478,13 @@ const PatternComposition22: PatternCompositionDescription = {
     ],
     [
       [A, 2, 2],
-      [_, _, A],
-    ],
+      [_, _, A]
+    ]
   ]
 }
 
 const PatternComposition23: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [_, 3],
@@ -478,12 +502,13 @@ const PatternComposition23: PatternCompositionDescription = {
     ],
     [
       [3, 3, A],
-      [_, _, A],
-    ],
+      [_, _, A]
+    ]
   ]
 }
 
 const PatternComposition24: PatternCompositionDescription = {
+  points: 5,
   composition: [
     [
       [_, 4],
@@ -501,16 +526,17 @@ const PatternComposition24: PatternCompositionDescription = {
     ],
     [
       [4, A, A],
-      [_, _, 4],
-    ],
+      [_, _, 4]
+    ]
   ]
 }
 
 const PatternComposition25: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [1, A],
-      [A, 2],
+      [A, 2]
     ],
     [
       [A, 1],
@@ -522,16 +548,17 @@ const PatternComposition25: PatternCompositionDescription = {
     ],
     [
       [A, 2],
-      [1, A],
-    ],
+      [1, A]
+    ]
   ]
 }
 
 const PatternComposition26: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [A, A],
-      [2, 3],
+      [2, 3]
     ],
     [
       [2, A],
@@ -543,16 +570,17 @@ const PatternComposition26: PatternCompositionDescription = {
     ],
     [
       [A, 3],
-      [A, 2],
-    ],
+      [A, 2]
+    ]
   ]
 }
 
 const PatternComposition27: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [A, 4],
-      [3, A],
+      [3, A]
     ],
     [
       [3, A],
@@ -564,16 +592,17 @@ const PatternComposition27: PatternCompositionDescription = {
     ],
     [
       [4, A],
-      [A, 3],
-    ],
+      [A, 3]
+    ]
   ]
 }
 
 const PatternComposition28: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [A, A],
-      [4, 1],
+      [4, 1]
     ],
     [
       [4, A],
@@ -585,21 +614,22 @@ const PatternComposition28: PatternCompositionDescription = {
     ],
     [
       [A, 1],
-      [A, 4],
-    ],
+      [A, 4]
+    ]
   ]
 }
 
 const PatternComposition29: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [A, 3, A],
-      [_, 1, _],
+      [_, 1, _]
     ],
     [
       [_, A],
       [1, 3],
-      [_, A],
+      [_, A]
     ],
     [
       [_, 1, _],
@@ -608,21 +638,22 @@ const PatternComposition29: PatternCompositionDescription = {
     [
       [A, _],
       [3, 1],
-      [A, _],
-    ],
+      [A, _]
+    ]
   ]
 }
 
 const PatternComposition30: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [2, A, 4],
-      [_, A, _],
+      [_, A, _]
     ],
     [
       [_, 2],
       [A, A],
-      [_, 4],
+      [_, 4]
     ],
     [
       [_, A, _],
@@ -631,21 +662,22 @@ const PatternComposition30: PatternCompositionDescription = {
     [
       [4, _],
       [A, A],
-      [2, _],
-    ],
+      [2, _]
+    ]
   ]
 }
 
 const PatternComposition31: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [1, A, 3],
-      [_, A, _],
+      [_, A, _]
     ],
     [
       [_, 1],
       [A, A],
-      [_, 3],
+      [_, 3]
     ],
     [
       [_, A, _],
@@ -654,21 +686,22 @@ const PatternComposition31: PatternCompositionDescription = {
     [
       [3, _],
       [A, A],
-      [1, _],
-    ],
+      [1, _]
+    ]
   ]
 }
 
 const PatternComposition32: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [A, 4, A],
-      [_, 2, _],
+      [_, 2, _]
     ],
     [
       [_, A],
       [2, 4],
-      [_, A],
+      [_, A]
     ],
     [
       [_, 2, _],
@@ -677,12 +710,13 @@ const PatternComposition32: PatternCompositionDescription = {
     [
       [A, _],
       [4, 2],
-      [A, _],
-    ],
+      [A, _]
+    ]
   ]
 }
 
 const PatternComposition33: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [1, _],
@@ -691,7 +725,7 @@ const PatternComposition33: PatternCompositionDescription = {
     ],
     [
       [A, A, 1],
-      [4, _, _],
+      [4, _, _]
     ],
     [
       [4, A],
@@ -700,12 +734,13 @@ const PatternComposition33: PatternCompositionDescription = {
     ],
     [
       [_, _, 4],
-      [1, A, A],
-    ],
+      [1, A, A]
+    ]
   ]
 }
 
 const PatternComposition34: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [_, A],
@@ -714,7 +749,7 @@ const PatternComposition34: PatternCompositionDescription = {
     ],
     [
       [2, _, _],
-      [1, A, A],
+      [1, A, A]
     ],
     [
       [1, 2],
@@ -723,12 +758,13 @@ const PatternComposition34: PatternCompositionDescription = {
     ],
     [
       [A, A, 1],
-      [_, _, 2],
-    ],
+      [_, _, 2]
+    ]
   ]
 }
 
 const PatternComposition35: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [A, _],
@@ -737,7 +773,7 @@ const PatternComposition35: PatternCompositionDescription = {
     ],
     [
       [_, _, A],
-      [A, 3, 2],
+      [A, 3, 2]
     ],
     [
       [A, _],
@@ -746,12 +782,13 @@ const PatternComposition35: PatternCompositionDescription = {
     ],
     [
       [2, 3, A],
-      [A, _, _],
-    ],
+      [A, _, _]
+    ]
   ]
 }
 
 const PatternComposition36: PatternCompositionDescription = {
+  points: 6,
   composition: [
     [
       [_, 4],
@@ -760,7 +797,7 @@ const PatternComposition36: PatternCompositionDescription = {
     ],
     [
       [A, _, _],
-      [A, 1, 4],
+      [A, 1, 4]
     ],
     [
       [A, A],
@@ -769,11 +806,10 @@ const PatternComposition36: PatternCompositionDescription = {
     ],
     [
       [4, 1, A],
-      [_, _, A],
-    ],
+      [_, _, A]
+    ]
   ]
 }
-
 
 
 export const patternCompositionDescriptions: Partial<Record<Composition, PatternCompositionDescription>> = {
@@ -812,7 +848,7 @@ export const patternCompositionDescriptions: Partial<Record<Composition, Pattern
   [Composition.PatternComposition33]: PatternComposition33,
   [Composition.PatternComposition34]: PatternComposition34,
   [Composition.PatternComposition35]: PatternComposition35,
-  [Composition.PatternComposition36]: PatternComposition36,
+  [Composition.PatternComposition36]: PatternComposition36
 }
 
 

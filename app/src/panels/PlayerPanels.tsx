@@ -2,10 +2,17 @@
 import { css } from '@emotion/react'
 import { MaterialContext, StyledPlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
+import { ScoringHelper } from '@gamepark/spring-festival/rules/helper/ScoringHelper'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
+import PlayerOneBackground from '../images/player/player-1-background.jpg'
+import PlayerTwoBackground from '../images/player/player-2-background.jpg'
+import PlayerThreeBackground from '../images/player/player-3-background.jpg'
+import PlayerFourBackground from '../images/player/player-4-background.jpg'
 import ApplauseToken from '../images/token/applause.jpg'
+import TotalIcon from '../images/total.jpg'
 import { Locators } from '../locators/Locators'
 import { Material } from '../material/Material'
 import { getComputedIndex } from '../utils/PlayerPosition'
@@ -16,6 +23,7 @@ export const PlayerPanels: FC<any> = () => {
   const rules = useRules<SpringFestivalRules>()!
   const player = usePlayerId()
   const context: MaterialContext = { locators: Locators, material: Material, rules, player }
+  const isEnded = !rules.game.rule?.id
   if (!root) return null
 
   return createPortal(
@@ -25,7 +33,12 @@ export const PlayerPanels: FC<any> = () => {
           key={player.id}
           player={player}
           css={panelPosition(getComputedIndex(context, player.id))}
-          mainCounter={{
+          backgroundImage={playerBackground[player.id]}
+          mainCounter={isEnded ? {
+            image: TotalIcon,
+            value: new ScoringHelper(rules.game, player.id).score,
+            imageCss: imageCss
+          } : {
             image: ApplauseToken,
             value: rules.material(MaterialType.ApplauseToken).player(player.id).getItem()?.quantity ?? 0,
             imageCss: imageCss
@@ -71,6 +84,13 @@ const getPosition = (index: number): { top?: number, right?: number, bottom?: nu
         right: 1
       }
   }
+}
+
+const playerBackground: Record<PlayerSymbol, string> = {
+  [PlayerSymbol.One]: PlayerOneBackground,
+  [PlayerSymbol.Two]: PlayerTwoBackground,
+  [PlayerSymbol.Three]: PlayerThreeBackground,
+  [PlayerSymbol.Four]: PlayerFourBackground
 }
 
 const imageCss = css`

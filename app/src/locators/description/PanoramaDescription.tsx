@@ -28,7 +28,6 @@ export class PanoramaDescription extends LocationDescription {
   borderRadius = fireworkDescription.borderRadius
 
   isAlwaysVisible(_location: Location, context: MaterialContext): boolean {
-    return true
     if (!context.player) return false
     return context.rules.game.rule?.id === RuleId.PlaceFirework && !context.rules.remind(Memory.Placed, context.player)
   }
@@ -39,8 +38,8 @@ export class PanoramaDescription extends LocationDescription {
     }
     // TODO: Move it to specific location ?
     return css`
-      background-color: rgba(0, 128, 0, 0.5);
-      border: 0.1em solid green;
+      //background-color: rgba(0, 128, 0, 0.5);
+      //border: 0.1em solid green;
       pointer-events: none;
     `
 

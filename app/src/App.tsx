@@ -15,10 +15,11 @@ export default function App() {
   const loading = !game || isJustDisplayed || isImagesLoading
   return (
     <>
-      { !!game && <GameDisplay players={game.players.length} /> }
-      <LoadingScreen display={loading} author="Someone" artist="Somebody" publisher="Nobody" developer="You"/>
+      {!!game && <GameDisplay players={game.players.length}/>}
+      <LoadingScreen display={loading} author={['Alexandre Aguilar', 'Romaric Galonnier']} artist="Apolline Etienne" publisher="Two Manta"
+                     developer="Game Park"/>
       <MaterialHeader rulesStepsHeaders={Headers} loading={loading}/>
-      <MaterialImageLoader onImagesLoad={() => setImagesLoading(false)} />
+      <MaterialImageLoader onImagesLoad={() => setImagesLoading(false)}/>
       <Menu/>
       <FailuresDialog/>
       <FullscreenDialog/>
