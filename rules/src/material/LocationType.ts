@@ -8,5 +8,6 @@ export enum LocationType {
   PlayerComposition,
   PlayerDoneComposition,
   ApplauseStock,
-  PlayerApplause
+  PlayerApplause,
+  FirstPlayerToken
 }

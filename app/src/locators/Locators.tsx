@@ -1,11 +1,12 @@
+import { ItemLocator } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
-import { ItemLocator } from '@gamepark/react-game'
 import { applausePileLocator } from './ApplausePileLocator'
 import { colorCompositionLocator } from './ColorCompositionLocator'
 import { fireworkStoreLocator } from './FireworkStoreLocator'
 import { fireworkStorePileLocator } from './FireworkStorePileLocator'
+import { firstPlayerTokenLocator } from './FirstPlayerTokenLocator'
 import { panoramaLocator } from './PanoramaLocator'
 import { patternCompositionLocator } from './PatternCompositionLocator'
 import { playerApplauseTokenLocator } from './PlayerApplauseTokenLocator'
@@ -23,5 +24,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, Ma
   [LocationType.PlayerComposition]: playerCompositionLocator,
   [LocationType.PlayerDoneComposition]: playerDoneCompositionLocator,
   [LocationType.ApplauseStock]: applausePileLocator,
-  [LocationType.PlayerApplause]: playerApplauseTokenLocator
+  [LocationType.PlayerApplause]: playerApplauseTokenLocator,
+  [LocationType.FirstPlayerToken]: firstPlayerTokenLocator
 }
