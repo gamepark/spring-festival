@@ -28,7 +28,7 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
       margin={{ top: 7.5, left: 0, right: 0, bottom: 0 }}
       //css={css`background-color: rgba(255, 255, 255, 0.5)`}
     >
-      <GameTableNavigation css={navigationCss}/>
+      <GameTableNavigation css={navigationCss} scaleStep={0.2}/>
       <PlayerPanels/>
     </GameTable>
   </>
@@ -76,8 +76,9 @@ const getExtraSpace = (context: MaterialContext) => {
 
 const navigationCss = css`
   position: absolute;
-  top: 5em;
+  top: 20em;
   right: 1em;
+  left: unset;
   display: flex;
   flex-direction: column;
   transform: translateX(-50%);

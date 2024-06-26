@@ -24,7 +24,7 @@ export class FirstPlayerTokenLocator extends ItemLocator {
       coordinates.x += 1
     }
 
-    coordinates.z = 1
+    coordinates.z = 5
 
     return coordinates
   }
