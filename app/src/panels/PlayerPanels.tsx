@@ -12,7 +12,7 @@ export const PlayerPanels: FC<any> = () => {
 
   return createPortal(
     <>
-      {players.map((player) => <SpringFestivalPlayerPanel player={player} /> )}
+      {players.map((player) => <SpringFestivalPlayerPanel key={player.id} player={player} /> )}
     </>,
     root
   )

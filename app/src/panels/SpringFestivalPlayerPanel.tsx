@@ -39,7 +39,7 @@ export const SpringFestivalPlayerPanel: FC<SpringFestivalPlayerPanelProps> = (pr
       staticItems: [],
       locations: [],
       margin: {
-        top: itsMe ? fireworkDescription.height : 0.5,
+        top: itsMe && rules.players.length === 2 ? fireworkDescription.height : 0.5,
         left: itsMe ? fireworkDescription.height : 0.5,
         right: 0.5,
         bottom: 0.5

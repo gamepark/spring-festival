@@ -1,4 +1,6 @@
 import { CustomMove, Material, MaterialGame, MaterialItem, MaterialRulesPart } from '@gamepark/rules-api'
+import isEqual from 'lodash/isEqual'
+import uniqWith from 'lodash/uniqWith'
 import { Color } from '../../material/Color'
 import { colorCompositionDescriptions } from '../../material/ColorCompositionDescription'
 import { CompositionType } from '../../material/Composition'
@@ -27,14 +29,22 @@ export class CompositionHelper extends MaterialRulesPart {
         for (const compositionIndex of compositions.getIndexes()) {
           const item = compositions.getItem(compositionIndex)!
           const combinations = this.getValidCombinations(item, compositionIndex, panorama, x, y)
-          moves.push(
-            ...combinations.map((c) => this.rules().customMove(CustomMoveType.Composition, c))
-          )
+
+          if (combinations.length) {
+            moves.push(
+              ...this.deduplicateCombinations(combinations).map((c) => this.rules().customMove(CustomMoveType.Composition, c))
+            )
+          }
+
         }
       }
     }
 
     return moves
+  }
+  
+  deduplicateCombinations(combinations: {comp: number, indexes: number[] }[]) {
+    return uniqWith(combinations, isEqual)
   }
 
   getValidCombinations(composition: MaterialItem, compositionIndex: number, panorama: Material, x: number, y: number) {
