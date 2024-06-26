@@ -7,6 +7,7 @@ import { fireworkDescriptions } from '@gamepark/spring-festival/material/Firewor
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
+import { SearchPileHelper } from '@gamepark/spring-festival/rules/helper/SearchPileHelper'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import isEqual from 'lodash/isEqual'
@@ -22,10 +23,12 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
   const playerId = usePlayerId()
   const itsMe = playerId && playerId === item.location?.player
   const name = usePlayerName(item.location?.player)
-  const isRotateRule = rules.game.rule?.id === RuleId.RotateStore
-  const rotateToHere = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === item.location?.id)
   const storeLocation = rules.material(MaterialType.FireworksStore).getItem()!.location
-  const validation = (isRotateRule && isEqual(storeLocation.rotation, item.location?.id))? rules.material(MaterialType.FireworksStore).moveItem(storeLocation): undefined
+  const distanceFromZero = new SearchPileHelper(rules.game, playerId).distanceFromPositionZero
+  const myPile = new SearchPileHelper(rules.game, playerId).pile
+  const isRotateRule = rules.game.rule?.id === RuleId.RotateStore
+  const rotateToHere = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && (((move.location.rotation - 1 + 4 + distanceFromZero) % 4) + 1) === item.location?.id)
+  const validation = (isRotateRule && isEqual(myPile, item.location?.id))? rules.material(MaterialType.FireworksStore).moveItem(storeLocation): undefined
   const grandeFinale = useLegalMove((move) => isCustomMoveType(CustomMoveType.GrandeFinale)(move) && move.data === itemIndex)
   const pileCount = locationType === LocationType.FireworksStorePile && item.location?.id !== undefined ? rules.material(MaterialType.Firework).location(LocationType.FireworksStorePile).locationId(item.location.id).length: undefined
   return (
@@ -35,7 +38,7 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
         <Trans defaults="help.firework.text"
                values={{ number: fireworkDescriptions[item.id.front].explosions.length, color: fireworkDescriptions[item.id.front].color }}/>
       </p>
-      {locationType === LocationType.FireworksStorePile && (
+      {locationType === LocationType.FireworksStoreP@ile && (
         <p>
           <Trans defaults="help.firework.store"/>
         </p>
