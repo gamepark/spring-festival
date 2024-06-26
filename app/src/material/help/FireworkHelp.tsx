@@ -38,7 +38,7 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
         <Trans defaults="help.firework.text"
                values={{ number: fireworkDescriptions[item.id.front].explosions.length, color: fireworkDescriptions[item.id.front].color }}/>
       </p>
-      {locationType === LocationType.FireworksStoreP@ile && (
+      {locationType === LocationType.FireworksStorePile && (
         <p>
           <Trans defaults="help.firework.store"/>
         </p>
