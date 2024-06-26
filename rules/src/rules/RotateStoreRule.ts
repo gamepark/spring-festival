@@ -7,10 +7,10 @@ import { RuleId } from './RuleId'
 
 export class RotateStoreRule extends PlayerTurnRule {
   onRuleStart() {
-    // TODO : return [this.rules().startSimultaneousRules(RuleId.GrandFinale, this.game.players)]
     this.game.players.forEach((p) => this.forget(Memory.Placed, p))
     if (!this.piles.length) return [this.rules().startSimultaneousRule(RuleId.GrandeFinale, this.game.players)]
     this.forget(Memory.HasRotated)
+    this.memorize(Memory.StartPlayer, this.player)
     return []
   }
 
@@ -31,7 +31,6 @@ export class RotateStoreRule extends PlayerTurnRule {
     } else {
       this.forget(Memory.RotationPreview)
       this.memorize(Memory.HasRotated, true)
-      this.memorize(Memory.StartPlayer, this.player)
       // No changes
       return [this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players)]
     }
@@ -57,7 +56,6 @@ export class RotateStoreRule extends PlayerTurnRule {
     if (!this.remind(Memory.HasRotated)) {
       const newRotation = new SearchPileHelper(this.game, this.player).pile
       if (this.storeItem.location.rotation === newRotation) return []
-      this.memorize(Memory.StartPlayer, this.player)
       return [
         this.material(MaterialType.FireworksStore).rotateItem(newRotation)
       ]
