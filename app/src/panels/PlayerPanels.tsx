@@ -25,12 +25,14 @@ export const PlayerPanels: FC<any> = () => {
   const context: MaterialContext = { locators: Locators, material: Material, rules, player }
   const isEnded = !rules.game.rule?.id
   if (!root) return null
+  
 
   return createPortal(
     <>
       {players.map((player) =>
         <StyledPlayerPanel
           key={player.id}
+          activeRing
           player={player}
           css={panelPosition(getComputedIndex(context, player.id))}
           backgroundImage={playerBackground[player.id]}

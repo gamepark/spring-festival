@@ -1,7 +1,6 @@
-import { CustomMove, isCustomMoveType, isEndGame, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
+import { isEndGame, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext, RuleMove } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
-import { CustomMoveType } from './CustomMoveType'
 import { SearchPileHelper } from './helper/SearchPileHelper'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
@@ -17,55 +16,25 @@ export class RotateStoreRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const moves: MaterialMove[] = []
-    const rotation = this.storeItem.location.rotation
     const store = this.store
     moves.push(
-      ...[1, 2, 3, 4].filter((id) => rotation !== id).map((id) => store.rotateItem(id))
+      ...[1, 2, 3, 4].map((id) => store.rotateItem(id))
     )
 
-    // No changes
-    moves.push(this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players))
     return moves
   }
 
-  onCustomMove(move: CustomMove) {
-    if (!isCustomMoveType(CustomMoveType.RotateStore)(move) || !move.data) return []
-    const pile = new SearchPileHelper(this.game, this.player).pile
-    let clockwise = this.getClockwise(pile)
-    let counterClockwise = this.getCounterClockwise(pile)
-    if (move.data > 0) {
-      if (this.storeItem.location.rotation === clockwise) {
-        clockwise = this.getClockwise(clockwise)
-      }
-      return [this.material(MaterialType.FireworksStore).rotateItem(clockwise)]
-    }
-
-    if (move.data < 0) {
-      if (this.storeItem.location.rotation === counterClockwise) {
-        counterClockwise = this.getCounterClockwise(counterClockwise)
-      }
-      return [this.material(MaterialType.FireworksStore).rotateItem(counterClockwise)]
-    }
-
-    return []
-  }
-
-  getClockwise(pile: number) {
-    return (((pile - 1) + 4 - 1) % 4) + 1
-  }
-
-  getCounterClockwise(pile: number) {
-    return (pile + 1 % 4)
-  }
-
-  get starting() {
-    return this.remind(Memory.StartPlayer)
-  }
-
-  afterItemMove(move: ItemMove) {
+  afterItemMove(move: ItemMove, context: PlayMoveContext) {
     if (!isMoveItemType(MaterialType.FireworksStore)(move) || move.location.rotation === undefined) return []
-    this.memorize(Memory.HasRotated, true)
-    this.memorize(Memory.StartPlayer, this.player)
+    if (context?.local) {
+      this.memorize(Memory.RotationPreview, true)
+    } else {
+      this.forget(Memory.RotationPreview)
+      this.memorize(Memory.HasRotated, true)
+      this.memorize(Memory.StartPlayer, this.player)
+      // No changes
+      return [this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players)]
+    }
     return []
   }
 

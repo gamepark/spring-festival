@@ -8,10 +8,10 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { springFestivalAnimations } from './animations/SpringFestivalAnimations'
 import App from './App'
+import BackgroundCover from './images/background.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
-import BackgroundCover from './images/background.jpg'
 
 setupTranslation(translations, { debug: false })
 
@@ -30,7 +30,15 @@ ReactDOM.render(
       GameSetup={SpringFestivalSetup}
       material={Material}
       locators={Locators}
-      animations={springFestivalAnimations}>
+      animations={springFestivalAnimations}
+      theme={{
+        root: {
+          background: {
+            overlay: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }}
+    >
       <App/>
       <Global styles={playMatCss}/>
     </GameProvider>

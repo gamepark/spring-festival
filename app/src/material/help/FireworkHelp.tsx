@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialComponent, MaterialHelpProps, PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { isCustomMoveType, isMoveItemType, isStartSimultaneousRule } from '@gamepark/rules-api'
+import { isCustomMoveType, isMoveItemType } from '@gamepark/rules-api'
 import { isBaseFirework } from '@gamepark/spring-festival/material/Firework'
 import { fireworkDescriptions } from '@gamepark/spring-festival/material/FireworkDescription'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
+import isEqual from 'lodash/isEqual'
 import { FC } from 'react'
 import { Trans } from 'react-i18next'
 
@@ -19,8 +20,9 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
   const itsMe = playerId && playerId === item.location?.player
   const name = usePlayerName(item.location?.player)
   const rotateToHere = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === item.location?.id)
+  const storeLocation = rules.material(MaterialType.FireworksStore).getItem()!.location
+  const validation = isEqual(storeLocation.rotation, item.location?.id)? rules.material(MaterialType.FireworksStore).moveItem(storeLocation): undefined
   const grandeFinale = useLegalMove((move) => isCustomMoveType(CustomMoveType.GrandeFinale)(move) && move.data === itemIndex)
-  const validateRotation = useLegalMove((move) => isStartSimultaneousRule(move) && !rotateToHere)
   const pileCount = locationType === LocationType.FireworksStorePile && item.location?.id !== undefined ? rules.material(MaterialType.Firework).location(LocationType.FireworksStorePile).locationId(item.location.id).length: undefined
   return (
     <>
@@ -66,10 +68,10 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
           </Trans>
         </div>
       )}
-      { validateRotation && (
+      { validation && (
         <div>
           <Trans defaults="help.store.rotation.validate">
-            <PlayMoveButton move={validateRotation} onPlay={closeDialog} />
+            <PlayMoveButton move={validation} onPlay={closeDialog} />
           </Trans>
         </div>
       )}

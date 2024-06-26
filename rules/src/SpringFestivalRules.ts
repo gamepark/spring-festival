@@ -2,17 +2,22 @@ import {
   CompetitiveScore,
   FillGapStrategy,
   hideFront,
+  isMoveItemType,
+  LocalMovePreview,
   MaterialGame,
   MaterialMove,
   PositiveSequenceStrategy,
   SecretMaterialRules,
   TimeLimit
 } from '@gamepark/rules-api'
+import isEqual from 'lodash/isEqual'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { PlayerId } from './PlayerId'
 import { PlayerSymbol } from './PlayerSymbol'
 import { GrandeFinaleRule } from './rules/GrandeFinaleRule'
 import { ScoringHelper } from './rules/helper/ScoringHelper'
+import { Memory } from './rules/Memory'
 import { PlaceBaseFireworkRule } from './rules/PlaceBaseFireworkRule'
 import { PlaceFireworkRule } from './rules/PlaceFireworkRule'
 import { RotateStoreRule } from './rules/RotateStoreRule'
@@ -25,7 +30,8 @@ import { RuleId } from './rules/RuleId'
  */
 export class SpringFestivalRules extends SecretMaterialRules<PlayerSymbol, MaterialType, LocationType>
   implements CompetitiveScore<MaterialGame<PlayerSymbol, MaterialType, LocationType>, MaterialMove<PlayerSymbol, MaterialType, LocationType>, PlayerSymbol>,
-    TimeLimit<MaterialGame<PlayerSymbol, MaterialType, LocationType>, MaterialMove<PlayerSymbol, MaterialType, LocationType>, PlayerSymbol> {
+    TimeLimit<MaterialGame<PlayerSymbol, MaterialType, LocationType>, MaterialMove<PlayerSymbol, MaterialType, LocationType>, PlayerSymbol>,
+    LocalMovePreview<MaterialMove<PlayerId, MaterialType, LocationType>>{
   rules = {
     [RuleId.RotateStore]: RotateStoreRule,
     [RuleId.PlaceFirework]: PlaceFireworkRule,
@@ -51,6 +57,14 @@ export class SpringFestivalRules extends SecretMaterialRules<PlayerSymbol, Mater
       [LocationType.ColorComposition]: hideFront,
       [LocationType.PatternComposition]: hideFront
     }
+  }
+
+  previewMove(move: MaterialMove) {
+    if (isMoveItemType(MaterialType.FireworksStore)(move)) {
+      return this.remind(Memory.RotationPreview) && !isEqual(this.material(MaterialType.FireworksStore).getItem(move.itemIndex)?.location, move.location)
+    }
+
+    return false
   }
 
   giveTime(): number {

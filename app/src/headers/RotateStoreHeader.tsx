@@ -1,17 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { isMoveItemType, isStartSimultaneousRule } from '@gamepark/rules-api'
+import { isMoveItemType } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
-import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import { Trans } from 'react-i18next'
 
 export const RotateStoreHeader = () => {
-  const pass = useLegalMove((move) => isStartSimultaneousRule(move) && move.id === RuleId.PlaceFirework)
   const rules = useRules<SpringFestivalRules>()!
-  const storeRotation = rules.material(MaterialType.FireworksStore).getItem()!.location.rotation
-  const clockwise = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === getClockwise(storeRotation))
-  const counterClockwise = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === getCounterClockwise(storeRotation))
+  const storeLocation = rules.material(MaterialType.FireworksStore).getItem()!.location
+  const clockwise = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === getClockwise(storeLocation.rotation))
+  const counterClockwise = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === getCounterClockwise(storeLocation.rotation))
+  const validation = rules.material(MaterialType.FireworksStore).moveItem(storeLocation)
   const player = usePlayerId()
   const itsMe = player && rules.isTurnToPlay(player)
   const name = usePlayerName(rules.getActivePlayer())
@@ -20,9 +19,9 @@ export const RotateStoreHeader = () => {
     return (
       <Trans
         defaults="header.rotate">
-        <PlayMoveButton move={clockwise}/>
-        <PlayMoveButton move={counterClockwise}/>
-        <PlayMoveButton move={pass}/>
+        <PlayMoveButton move={clockwise} local/>
+        <PlayMoveButton move={counterClockwise} local/>
+        <PlayMoveButton move={validation}/>
       </Trans>
     )
   }

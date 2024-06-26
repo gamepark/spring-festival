@@ -24,8 +24,6 @@ export const CompositionHelp: FC<MaterialHelpProps> = (props) => {
   }, [rules])
   const isPatternComposition = isPattern(item.id.front)
 
-  console.log(item)
-
   return (
     <>
       {<h2><Trans defaults={isPatternComposition ? 'help.composition.pattern' : 'help.composition.color'}/></h2>}
