@@ -26,15 +26,6 @@ export const PlaceFireworkHeader = () => {
     } else {
       const selectedIndexes = [...rules.material(MaterialType.Firework).selected().getIndexes()].sort()
       const selection = moves.filter((move) => isEqual(move.data.indexes, selectedIndexes))
-      const hasComposibleComposition = moves.length > 0
-
-      if (!hasComposibleComposition) {
-        return (
-          <Trans defaults="header.validate.placement">
-            <PlayMoveButton move={pass}/>
-          </Trans>
-        )
-      }
 
       if (selection.length === 1) {
         return (
