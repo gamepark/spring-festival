@@ -21,9 +21,9 @@ export class PlayerApplauseTokenLocator extends LineLocator {
     const player = item.location.player!
     const index = getComputedIndex(context, player)
     if (index === 0 || index === 3) {
-      return { y: -10 }
+      return { y: -4.3 }
     } else {
-      return { y: 10 }
+      return { y: 4.3 }
     }
   }
 
