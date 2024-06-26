@@ -35,7 +35,6 @@ export class CompositionHelper extends MaterialRulesPart {
               ...this.deduplicateCombinations(combinations).map((c) => this.rules().customMove(CustomMoveType.Composition, c))
             )
           }
-
         }
       }
     }

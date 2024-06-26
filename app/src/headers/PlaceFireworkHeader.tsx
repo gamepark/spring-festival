@@ -56,20 +56,19 @@ export const PlaceFireworkHeader = () => {
     }
 
   }
-
   const playerThatMustPlace = players.filter((p) => !rules.remind(Memory.Placed, p))
   if (!playerThatMustPlace.length) {
     const playerThatMustCombine = players.filter((p) => rules.remind(Memory.Placed, p))
     if (playerThatMustCombine.length === 1) {
-      return <Trans defaults="header.place.player" values={{ player: name }}/>
-    } else {
-      return <Trans defaults="header.place.players"/>
-    }
-  } else {
-    if (playerThatMustPlace.length === 1) {
       return <Trans defaults="header.composition.player" values={{ player: name }}/>
     } else {
       return <Trans defaults="header.composition.players"/>
+    }
+  } else {
+    if (playerThatMustPlace.length === 1) {
+      return <Trans defaults="header.place.player" values={{ player: name }}/>
+    } else {
+      return <Trans defaults="header.place.players"/>
     }
   }
 }
