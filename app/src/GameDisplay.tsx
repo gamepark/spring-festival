@@ -77,7 +77,7 @@ const getExtraSpace = (context: MaterialContext) => {
 const navigationCss = css`
   position: absolute;
   top: 20em;
-  right: 1em;
+  right: 0;
   left: unset;
   display: flex;
   flex-direction: column;

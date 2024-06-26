@@ -7,7 +7,7 @@ export const springFestivalAnimations = new MaterialGameAnimations()
 springFestivalAnimations
   .when()
   .move((move) => isMoveItemType(MaterialType.FireworksStore)(move))
-  .duration(0.2)
+  .duration(0.8)
 
 springFestivalAnimations
   .when()

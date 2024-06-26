@@ -138,6 +138,8 @@ import Firework6Front from '../images/firework/rocket/Firework6.jpg'
 import Firework7Front from '../images/firework/rocket/Firework7.jpg'
 import Firework8Front from '../images/firework/rocket/Firework8.jpg'
 import Firework9Front from '../images/firework/rocket/Firework9.jpg'
+import ArrowIcons from '../images/icons/arrow.jpg'
+import ExtinguishIcons from '../images/icons/extinguish.jpg'
 import { FireworkHelp } from './help/FireworkHelp'
 
 
@@ -284,7 +286,15 @@ class FireworkDescription extends CardDescription {
   }
 
   getItemExtraCss(item: MaterialItem, context: ItemContext) {
-    if (item.location.type !== LocationType.Panorama) return
+    if (item.location.type !== LocationType.Panorama) return css`
+      &:after {
+        content: '${item.location.id}';
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        border-radius: 0.4em;
+      }
+      `
     if (!context.player || context.player !== item.location.player) return
     const isSelect = !!item.selected
     if (!isSelect) return
@@ -301,6 +311,13 @@ class FireworkDescription extends CardDescription {
         border-radius: 0.4em;
       }
     `
+  }
+
+  getImages(): string[] {
+    const images = super.getImages()
+    images.push(ArrowIcons)
+    images.push(ExtinguishIcons)
+    return images
   }
 
   canShortClick(move: MaterialMove, context: ItemContext) {
