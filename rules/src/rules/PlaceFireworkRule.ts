@@ -83,16 +83,7 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   }
 
   afterItemMove(move: ItemMove) {
-    if (isMoveItemType(MaterialType.Composition)(move) && move.location.type === LocationType.PlayerComposition) {
-      const player = move.location.player!
-      const compositionMoves = new CompositionHelper(this.game, player).compositionMoves
-      if (!compositionMoves.length) {
-        return [this.rules().endPlayerTurn(player)]
-      }
-
-    }
     if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return []
-
     const player = move.location.player!
     if (move.location.rotation === undefined) {
       const explosionMoves = new FireworkHelper(this.game, player).afterItemMove(move)

@@ -325,6 +325,9 @@ class FireworkDescription extends CardDescription {
     if (context.player !== item.location.player) return
     if (!context.rules.remind(Memory.Placed, context.player)) return
     if (!context.rules.isTurnToPlay(context.player)) return
+    const compositions = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
+    if (!compositions.length) return
+
     if (item.selected) return tile.unselectItem()
 
     return tile.selectItem()
