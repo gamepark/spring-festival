@@ -9,8 +9,8 @@ export class FireworkStoreLocator extends ItemLocator {
   }
 
   getRotateZ(item: MaterialItem, context: ItemContext): number {
-    const myPile = new SearchPileHelper(context.rules.game, context.player ?? context.rules.players[0]).pile
-    return ((item.location.rotation - 1)  * -90) + ((myPile - item.location.rotation) * -90) + (context.rules.players.length === 2? 45: 0)
+    const distanceFromZero = new SearchPileHelper(context.rules.game, context.player ?? context.rules.players[0]).distanceFromPositionZero
+    return ((item.location.rotation - 1)  * -90) + (distanceFromZero * -90) + (context.rules.players.length === 2? 45: 0)
   }
 }
 

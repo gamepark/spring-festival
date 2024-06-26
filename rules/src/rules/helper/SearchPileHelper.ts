@@ -8,10 +8,14 @@ export class SearchPileHelper extends MaterialRulesPart {
   }
 
   get pile() {
-    const distance = this.game.players.findIndex(p => this.player === p)
     const startingPile = this.storeRotation
-    const step = this.getStepForPosition(distance)
+    const step = this.distanceFromPositionZero
     return (((startingPile - 1 + step)% 4) + 1)
+  }
+
+  get distanceFromPositionZero() {
+    const distance = this.game.players.findIndex(p => this.player === p)
+    return this.getStepForPosition(distance)
   }
 
   get storeRotation() {
