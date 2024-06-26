@@ -2,9 +2,11 @@
 import { css } from '@emotion/react'
 import { MaterialComponent, MaterialHelpProps, PlayMoveButton, useLegalMoves, usePlayerId, useRules } from '@gamepark/react-game'
 import { isCustomMoveType } from '@gamepark/rules-api'
+import { colorCompositionDescriptions } from '@gamepark/spring-festival/material/ColorCompositionDescription'
 import { isPattern } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { patternCompositionDescriptions } from '@gamepark/spring-festival/material/PatternCompositionDescription'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import isEqual from 'lodash/isEqual'
@@ -34,10 +36,11 @@ export const CompositionHelp: FC<MaterialHelpProps> = (props) => {
           </Trans>
         </p>
       )}
-      {/*TODO: Add point into description */}
-      <p>
-        <Trans defaults="help.composition.text" values={{ number: 10 }}/>
-      </p>
+      { item.id.front !== undefined && (
+        <p>
+          <Trans defaults="help.composition.text" values={{ number: (isPatternComposition? patternCompositionDescriptions: colorCompositionDescriptions)[item.id.front].points }}/>
+        </p>
+      )}
       <p>
         <Trans defaults={isPatternComposition ? 'help.composition.pattern.text' : 'help.composition.color.text'}>
           <strong/>
