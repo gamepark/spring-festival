@@ -14,7 +14,6 @@ import PlayerThreeBackground from '../images/player/player-3-background.jpg'
 import PlayerFourBackground from '../images/player/player-4-background.jpg'
 import ApplauseToken from '../images/token/applause.jpg'
 import TotalIcon from '../images/total.jpg'
-import { fireworkDescription } from '../material/FireworkDescription'
 import { getComputedIndex } from '../utils/PlayerPosition'
 
 type SpringFestivalPlayerPanelProps = {
@@ -33,16 +32,13 @@ export const SpringFestivalPlayerPanel: FC<SpringFestivalPlayerPanelProps> = (pr
     setFocus({
       materials: [
         rules.material(MaterialType.Firework).location(LocationType.Panorama).player(player.id),
+        rules.material(MaterialType.Firework).location(LocationType.PlayerHand).player(player.id),
         rules.material(MaterialType.Composition).player(player.id),
         ...(itsMe ? [rules.material(MaterialType.FireworksStore)] : [])
       ],
       staticItems: [],
       locations: [],
       margin: {
-        top: itsMe && rules.players.length === 2 ? fireworkDescription.height : 0.5,
-        left: itsMe ? fireworkDescription.height : 0.5,
-        right: 0.5,
-        bottom: 0.5
       },
       animationTime: 500
     })

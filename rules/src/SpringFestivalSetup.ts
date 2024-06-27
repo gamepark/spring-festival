@@ -1,10 +1,12 @@
 import { MaterialGameSetup } from '@gamepark/rules-api'
 import chunk from 'lodash/chunk'
+import sample from 'lodash/sample'
 import shuffle from 'lodash/shuffle'
 import { colorCompositions, CompositionType, patternCompositions } from './material/Composition'
 import { getBaseFirework, storeFireworks } from './material/Firework'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { signs } from './material/Sign'
 import { PlayerId } from './PlayerId'
 import { Memory } from './rules/Memory'
 import { RuleId } from './rules/RuleId'
@@ -21,6 +23,7 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
     this.setupStore()
     this.setupComposition()
     this.setupPlayers()
+    this.setupSign()
   }
 
   setupComposition() {
@@ -101,6 +104,17 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
           }
         }) ))
     }
+  }
+
+  setupSign() {
+    const sign = sample(signs)
+    this.material(MaterialType.Sign)
+      .createItem({
+        id: sign,
+        location: {
+          type: LocationType.Sign
+        }
+      })
   }
 
   start() {

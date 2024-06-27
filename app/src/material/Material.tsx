@@ -5,12 +5,14 @@ import { compositionDescription } from './CompositionDescription'
 import { fireworkDescription } from './FireworkDescription'
 import { fireworkStoreDescription } from './FireworkStoreDescription'
 import { firstPlayerTokenDescription } from './FirstPlayerTokenDescription'
+import { signDescription } from './SignDescription'
 
 export const Material: Partial<Record<MaterialType, MaterialDescription>> = {
   [MaterialType.FireworksStore]: fireworkStoreDescription,
   [MaterialType.ApplauseToken]: applauseTokenDescription,
   [MaterialType.Firework]: fireworkDescription,
   [MaterialType.Composition]: compositionDescription,
-  [MaterialType.FirstPlayerToken]: firstPlayerTokenDescription
+  [MaterialType.FirstPlayerToken]: firstPlayerTokenDescription,
+  [MaterialType.Sign]: signDescription
 }
   
