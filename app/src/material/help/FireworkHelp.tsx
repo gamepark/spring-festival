@@ -83,7 +83,7 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
           </Trans>
         </div>
       )}
-      { grandeFinale && (
+      { itsMyTurn && grandeFinale && (
         <div>
           <Trans defaults="help.firework.grande-finale">
             <PlayMoveButton move={grandeFinale} onPlay={closeDialog} />
