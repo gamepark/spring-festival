@@ -9,6 +9,7 @@ import { fireworkStoreDescription } from '../../material/FireworkStoreDescriptio
 export class FireworkStoreDescription extends LocationDescription {
   height = fireworkStoreDescription.height
   width = fireworkStoreDescription.width
+  borderRadius = 10
   location = {
     type: LocationType.FireworksStore
   }

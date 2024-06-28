@@ -8,7 +8,7 @@ import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { fireworkDescription } from '../../material/FireworkDescription'
 import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates, gridMinX } from '../../utils/PlayerPosition'
 
-export class PlayerDoneDescription extends LocationDescription {
+export class PlayerDoneCompositionDescription extends LocationDescription {
   height = fireworkDescription.height
   width = fireworkDescription.width
 
@@ -62,6 +62,7 @@ export class PlayerDoneDescription extends LocationDescription {
     return css`
       &:after {
         content: '${count}';
+        pointer-events: none;
         position: absolute;
         height: 100%;
         width: 100%;
