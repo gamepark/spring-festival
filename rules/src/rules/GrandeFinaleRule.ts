@@ -21,8 +21,9 @@ export class GrandeFinaleRule extends SimultaneousRule {
     return moves
   }
 
-  getActivePlayerLegalMoves(_playerId: number) {
-    const panorama = this.getPanorama(_playerId)
+  getActivePlayerLegalMoves(playerId: number) {
+    const panorama = this.getPanorama(playerId)
+    if (panorama.rotation(true).length) return [this.rules().endPlayerTurn(playerId)]
     return panorama.getIndexes().map((i) => this.rules().customMove(CustomMoveType.GrandeFinale, i))
   }
   afterItemMove(_move: ItemMove<number, number, number>): MaterialMove<number, number, number>[] {
@@ -34,10 +35,7 @@ export class GrandeFinaleRule extends SimultaneousRule {
     const tile = this.material(MaterialType.Firework).index(move.data)!
     const item = tile.getItem()!
     const player = item.location.player!
-    return [
-      ...new FireworkHelper(this.game, player).getExplosionMoves(tile),
-      this.rules().endPlayerTurn(player)
-    ]
+    return new FireworkHelper(this.game, player).getExplosionMoves(tile)
   }
 
   getMovesAfterPlayersDone() {
