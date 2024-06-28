@@ -14,6 +14,7 @@ import PlayerThreeBackground from '../images/player/player-3-background.jpg'
 import PlayerFourBackground from '../images/player/player-4-background.jpg'
 import ApplauseToken from '../images/token/applause.jpg'
 import TotalIcon from '../images/total.jpg'
+import { fireworkDescription } from '../material/FireworkDescription'
 import { getComputedIndex } from '../utils/PlayerPosition'
 
 type SpringFestivalPlayerPanelProps = {
@@ -39,6 +40,10 @@ export const SpringFestivalPlayerPanel: FC<SpringFestivalPlayerPanelProps> = (pr
       staticItems: [],
       locations: [],
       margin: {
+        top: itsMe ? fireworkDescription.height : 0.5,
+        left: itsMe ? fireworkDescription.height : 0.5,
+        right: 0.5,
+        bottom: 0.5
       },
       animationTime: 500
     })
