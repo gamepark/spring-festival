@@ -71,7 +71,7 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
       { !validation && rotateToHere && (
         <div>
           <Trans defaults="help.store.rotation.here">
-            <PlayMoveButton move={rotateToHere} onPlay={closeDialog} />
+            <PlayMoveButton move={rotateToHere} onPlay={closeDialog} local />
           </Trans>
         </div>
       )}

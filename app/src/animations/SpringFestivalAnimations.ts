@@ -6,8 +6,13 @@ export const springFestivalAnimations = new MaterialGameAnimations()
 
 springFestivalAnimations
   .when()
-  .move((move) => isMoveItemType(MaterialType.FireworksStore)(move))
+  .move((move, context) => isMoveItemType(MaterialType.FireworksStore)(move) && !context.action.local)
   .duration(0.8)
+
+springFestivalAnimations
+  .when()
+  .move((move, context) => isMoveItemType(MaterialType.FireworksStore)(move) && !!context.action.local)
+  .duration(0.5)
 
 springFestivalAnimations
   .when()
