@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { css, Global } from '@emotion/react'
 import { GameProvider, setupTranslation } from '@gamepark/react-game'
 import { SpringFestivalOptionsSpec } from '@gamepark/spring-festival/SpringFestivalOptions'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
@@ -8,18 +7,12 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import { springFestivalAnimations } from './animations/SpringFestivalAnimations'
 import App from './App'
-import BackgroundCover from './images/background.jpg'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import translations from './translations.json'
 
 setupTranslation(translations, { debug: false })
 
-const playMatCss = css`
-  #root {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${BackgroundCover}) center/cover
-  }
-`
 
 ReactDOM.render(
   <StrictMode>
@@ -34,13 +27,12 @@ ReactDOM.render(
       theme={{
         root: {
           background: {
-            overlay: 'rgba(0, 0, 0, 0.5)'
+            overlay: 'rgba(255, 255, 255, 0.2)'
           }
         }
       }}
     >
       <App/>
-      <Global styles={playMatCss}/>
     </GameProvider>
   </StrictMode>,
   document.getElementById('root')
