@@ -166,6 +166,7 @@
       "help.applause.count.player": "{player} a {number, plural, one{# jeton} other{# jetons}} Applaudissement.",
       "help.chinese-sign": "Carte Signe Chinois",
       "help.chinese-sign.vp": "Cette carte donne des points de victoires supplémentaires en fin de partie selon la réalisation de chaque joueur.",
+      "help.chinese-sign.score": "Vous avez gagné {score, plural, one {# point} other{# points}} grâce a cette carte",
       "help.chinese-sign.1": "Chèvre : 3 points pour chaque colonne avec un seul feu 1 explosion. Si une colonne dispose de plus d’un feu 1 explosion ou d’aucun, elle ne rapporte aucun point.",
       "help.chinese-sign.2": "Coq : 3 points pour chaque feu 3 explosion avec une étincelle <0>complète</0>.",
       "help.chinese-sign.3": "Serpent : 5 points pour chaque feu rouge <0>encadré des 4 côtés</0>.",

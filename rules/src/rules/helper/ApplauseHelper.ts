@@ -17,10 +17,10 @@ export class ApplauseHelper extends MaterialRulesPart {
     return this.getApplauseMoves(tile)
   }
 
-  getExtinguishesCount(tile: MaterialItem) {
+  getExtinguishesCount(tile: MaterialItem, alreadyCountedTiles: number[] = []) {
     const panorama = this.panorama
     const location = { x: tile.location.x!, y: tile.location.y! }
-    const fireworks = panorama.getItems()
+    const fireworks = !alreadyCountedTiles.length? panorama.getItems(): panorama.index((i) => !alreadyCountedTiles.includes(i)).getItems()
     let applauseCount = 0
     for (const firework of fireworks) {
       const l = firework.location
