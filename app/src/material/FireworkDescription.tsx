@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { displayMaterialHelp, isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
@@ -331,6 +331,16 @@ class FireworkDescription extends CardDescription {
   }
 
   help = FireworkHelp
+
+
+  displayHelp(item: MaterialItem, context: ItemContext) {
+    const { type, index, displayIndex, rules } = context
+    if (item.location.type !== LocationType.FireworksStorePile) return super.displayHelp(item, context)
+    const tile = rules.material(MaterialType.Firework).location(LocationType.FireworksStorePile).locationId(item.location?.id).maxBy((item) => item.location.x!)
+    if (!tile.length) return displayMaterialHelp(type, item, index, displayIndex)
+    if (tile.getIndex() === index) return displayMaterialHelp(type, item, index, displayIndex)
+    return displayMaterialHelp(type, tile.getItem())
+  }
 }
 
 export const fireworkDescription = new FireworkDescription()

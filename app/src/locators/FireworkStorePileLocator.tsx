@@ -43,6 +43,8 @@ export class FireworkStorePileLocator extends DeckLocator {
     return -fireworkStoreLocator.getRotateZ(parentRotation, context)
   }
 
+  navigationSorts = []
+
 }
 
 export const fireworkStorePileLocator = new FireworkStorePileLocator()

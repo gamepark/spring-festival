@@ -25,9 +25,11 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
   const itsMyTurn = playerId && rules.isTurnToPlay(playerId)
   const name = usePlayerName(item.location?.player)
   const storeLocation = rules.material(MaterialType.FireworksStore).getItem()!.location
+  const maxItemX = rules.material(MaterialType.Firework).location(LocationType.FireworksStorePile).locationId(item.location?.id).maxBy((item) => item.location.x!)?.getItem()?.location.x!
   const distanceFromZero = new SearchPileHelper(rules.game, playerId).distanceFromPositionZero
   const myPile = new SearchPileHelper(rules.game, playerId).pile
   const isRotateRule = rules.game.rule?.id === RuleId.RotateStore
+  const canRotateStore = itsMyTurn && isRotateRule && maxItemX === item.location?.x
   const rotateToHere = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && (((move.location.rotation - 1 + 4 + distanceFromZero) % 4) + 1) === item.location?.id)
   const validation = (isRotateRule && isEqual(myPile, item.location?.id))? rules.material(MaterialType.FireworksStore).moveItem(storeLocation): undefined
   const grandeFinale = useLegalMove((move) => isCustomMoveType(CustomMoveType.GrandeFinale)(move) && move.data === itemIndex)
@@ -69,14 +71,14 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
           <Trans defaults="help.firework.starting" values={{ number: item.location?.player}} />
         </p>
       )}
-      { itsMyTurn && !validation && rotateToHere && (
+      { canRotateStore && !validation && rotateToHere && (
         <div>
           <Trans defaults="help.store.rotation.here">
             <PlayMoveButton move={rotateToHere} onPlay={closeDialog} local />
           </Trans>
         </div>
       )}
-      { itsMyTurn && validation && (
+      { canRotateStore && validation && (
         <div>
           <Trans defaults="help.store.rotation.validate">
             <PlayMoveButton move={validation} onPlay={closeDialog} />
