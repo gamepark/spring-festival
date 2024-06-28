@@ -23,7 +23,7 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
     this.setupStore()
     this.setupComposition()
     this.setupPlayers()
-    this.setupSign()
+    //this.setupSign()
   }
 
   setupComposition() {
