@@ -22,6 +22,7 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
   const locationType = item.location?.type
   const playerId = usePlayerId()
   const itsMe = playerId && playerId === item.location?.player
+  const itsMyTurn = playerId && rules.isTurnToPlay(playerId)
   const name = usePlayerName(item.location?.player)
   const storeLocation = rules.material(MaterialType.FireworksStore).getItem()!.location
   const distanceFromZero = new SearchPileHelper(rules.game, playerId).distanceFromPositionZero
@@ -68,14 +69,14 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
           <Trans defaults="help.firework.starting" values={{ number: item.location?.player}} />
         </p>
       )}
-      { !validation && rotateToHere && (
+      { itsMyTurn && !validation && rotateToHere && (
         <div>
           <Trans defaults="help.store.rotation.here">
             <PlayMoveButton move={rotateToHere} onPlay={closeDialog} local />
           </Trans>
         </div>
       )}
-      { validation && (
+      { itsMyTurn && validation && (
         <div>
           <Trans defaults="help.store.rotation.validate">
             <PlayMoveButton move={validation} onPlay={closeDialog} />
