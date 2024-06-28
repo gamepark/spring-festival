@@ -776,9 +776,9 @@ const PatternComposition35: PatternCompositionDescription = {
       [A, 3, 2]
     ],
     [
-      [A, _],
-      [3, _],
-      [2, A]
+      [A, 2],
+      [_, 3],
+      [_, A]
     ],
     [
       [2, 3, A],
