@@ -40,8 +40,22 @@ export class GrandeFinaleRule extends SimultaneousRule {
     ]
   }
 
-  getMovesAfterPlayersDone(): MaterialMove<number, number, number>[] {
-    return [this.rules().endGame()]
+  getMovesAfterPlayersDone() {
+    const moves: MaterialMove[] = []
+    for (const player of this.game.players) {
+      const isPerfect = this.isPerfectGrandeFinale(player)
+      if (isPerfect) {
+        moves.push(this.material(MaterialType.ApplauseToken).createItem({ location: { type: LocationType.PlayerApplause, player }, quantity: 3 }))
+      }
+    }
+
+    moves.push(this.rules().endGame())
+    return moves
+  }
+
+  isPerfectGrandeFinale(player: PlayerSymbol) {
+    const isPerfect = this.getPanorama(player).rotation((r) => r !== true).length === 0
+    return isPerfect ? 3: 0
   }
 
   getPanorama(playerId: PlayerSymbol) {
