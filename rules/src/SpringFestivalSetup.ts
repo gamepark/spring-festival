@@ -19,11 +19,13 @@ import { SpringFestivalRules } from './SpringFestivalRules'
 export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialType, LocationType, SpringFestivalOptions> {
   Rules = SpringFestivalRules
 
-  setupMaterial(_options: SpringFestivalOptions) {
+  setupMaterial(options: SpringFestivalOptions) {
     this.setupStore()
     this.setupComposition()
     this.setupPlayers()
-    this.setupSign()
+    if (options.chineseSign) {
+      this.setupSign()
+    }
   }
 
   setupComposition() {
