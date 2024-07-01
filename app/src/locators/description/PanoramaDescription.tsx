@@ -27,8 +27,8 @@ export class PanoramaDescription extends LocationDescription {
   width = fireworkDescription.width
   borderRadius = fireworkDescription.borderRadius
 
-  isAlwaysVisible(_location: Location, context: MaterialContext): boolean {
-    if (!context.player) return false
+  isAlwaysVisible(location: Location, context: MaterialContext): boolean {
+    if (!context.player || location.x === undefined) return false
     return context.rules.game.rule?.id === RuleId.PlaceFirework && !context.rules.remind(Memory.Placed, context.player)
   }
 

@@ -16,6 +16,11 @@ export class PlaceBaseFireworkRule extends SimultaneousRule<PlayerSymbol, Materi
     return spaces
   }
 
+  isTurnToPlay(player: PlayerSymbol): boolean {
+    console.trace(player,super.isTurnToPlay(player), this.game.rule?.players?.includes(player) )
+    return super.isTurnToPlay(player)
+  }
+
   getHand(playerId: PlayerSymbol) {
     return this.material(MaterialType.Firework)
       .location(LocationType.PlayerHand)

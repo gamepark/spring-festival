@@ -20,13 +20,17 @@ export class RabbitScoring extends SignScoring {
   countCardsWithSameExplosionsForCoordinates(explosionsCount: number, coordinates: XYCoordinates[]) {
     const panorama = this.panorama
     const itemIndexes: number[][] = []
+    const treatedIndexes: number[] = []
     const explodedFireworks = this.explodedFireworks.filter((item) => fireworkDescriptions[item.id.front].explosions.length === explosionsCount)
     const indexes = explodedFireworks.getIndexes()
     for (const index of indexes) {
       const item = panorama.getItem(index)!
       if (!item.location.rotation) continue
       for (const coordinate of coordinates) {
-        const fireworks = explodedFireworks.filter((i) => i.location.x === (item.location.x! + coordinate.x) && i.location.y === (item.location.y! + coordinate.y))
+        const fireworks = explodedFireworks
+          .index((i) => !treatedIndexes.includes(i))
+          .filter((i) => i.location.x === (item.location.x! + coordinate.x) && i.location.y === (item.location.y! + coordinate.y))
+        treatedIndexes.push(index)
         if (!fireworks.length) continue
         for (const firework of fireworks.getIndexes()) {
           itemIndexes.push(

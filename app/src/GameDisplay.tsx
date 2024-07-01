@@ -1,11 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { GameTable, GameTableNavigation, MaterialContext, usePlayerId, useRules } from '@gamepark/react-game'
+import { GameTable, GameTableNavigation, MaterialContext, useMaterialContext } from '@gamepark/react-game'
 import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
-import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import { FC, useMemo } from 'react'
-import { Locators } from './locators/Locators'
-import { Material } from './material/Material'
 import { PlayerPanels } from './panels/PlayerPanels'
 import { getComputedIndex, gridHeight, gridWidth } from './utils/PlayerPosition'
 
@@ -14,9 +11,7 @@ type GameDisplayProps = {
 }
 
 export const GameDisplay: FC<GameDisplayProps> = () => {
-  const player = usePlayerId()
-  const rules = useRules<SpringFestivalRules>()!
-  const context: MaterialContext = { locators: Locators, material: Material, rules, player }
+  const context: MaterialContext = useMaterialContext()
   const extraSpace = useMemo(() => getExtraSpace(context), [context])
   return <>
     <GameTable

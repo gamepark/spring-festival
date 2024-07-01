@@ -23,7 +23,7 @@ export const CompositionHelp: FC<MaterialHelpProps> = (props) => {
     if (itemIndex === undefined) return false
     const indexes = [...rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     return legalMoves.find((move) => isCustomMoveType(CustomMoveType.Composition)(move) && isEqual(indexes, move.data.indexes) && itemIndex === move.data.comp)
-  }, [rules])
+  }, [rules, item, itemIndex, legalMoves, playerId])
   const isPatternComposition = isPattern(item.id.front)
 
   return (

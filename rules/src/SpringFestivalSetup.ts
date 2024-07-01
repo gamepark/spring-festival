@@ -48,9 +48,17 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
     this.material(MaterialType.Composition).createItems(patterns)
   }
 
+  get colorCompositions() {
+    return this.material(MaterialType.Composition).location(LocationType.ColorComposition).deck()
+  }
+
+  get patternComposition() {
+    return this.material(MaterialType.Composition).location(LocationType.PatternComposition).deck()
+  }
+
   setupPlayers() {
-    const colorCompositions = this.material(MaterialType.Composition).location(LocationType.ColorComposition).deck()
-    const patternCompositions = this.material(MaterialType.Composition).location(LocationType.PatternComposition).deck()
+    const colorCompositions = this.colorCompositions
+    const patternCompositions = this.patternComposition
     for (const player of this.players) {
       const base = getBaseFirework(player)
       this.material(MaterialType.Firework)

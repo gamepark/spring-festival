@@ -47,7 +47,7 @@ export const SpringFestivalPlayerPanel: FC<SpringFestivalPlayerPanelProps> = (pr
       },
       animationTime: 500
     })
-  }, [rules, player])
+  }, [rules, player, itsMe, setFocus])
 
   return (
     <StyledPlayerPanel
