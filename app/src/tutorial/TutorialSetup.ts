@@ -8,30 +8,36 @@ export class TutorialSetup extends SpringFestivalSetup {
 
   setupStore() {
     super.setupStore()
-    const tileOnPile3 = this
+
+    this.moveTileTo(Firework.Firework14, 3, 11)
+    this.moveTileTo(Firework.Firework25, 3, 10)
+  }
+
+  moveTileTo(firework: Firework, locationId: number, x: number) {
+
+    const tileOnTarget = this
       .material(MaterialType.Firework)
-      .location(LocationType.FireworksStorePile)
-      .locationId(3)
-      .maxBy((item) => item.location.x!)
+      .location((l) => l.type === LocationType.FireworksStorePile && l.id === locationId && l.x === x)
 
-    const tileOnPile3Item = tileOnPile3.getItem()!
-    if (tileOnPile3Item.id.front === Firework.Firework14) return
-    const firework14 = this
+    const tileOnTargetItem = tileOnTarget.getItem()!
+
+    if (tileOnTargetItem.id.front === firework) return
+    const fireworkToMove = this
       .material(MaterialType.Firework)
-      .id(({ front }: any) => front === Firework.Firework14)
+      .id(({ front }: any) => front === firework)
 
-    const firework14Item = firework14.getItem()!
-    const oldLocation = firework14Item.location
+    const fireworkToMoveItem = fireworkToMove.getItem()!
+    const oldLocation = fireworkToMoveItem.location
 
-    tileOnPile3.moveItem(oldLocation)
+    tileOnTarget.moveItem(oldLocation)
 
-    this
-      .material(MaterialType.Firework)
-      .id(({ front }: any) => front === Firework.Firework14)
+
+    fireworkToMove
       .moveItem({
         type: LocationType.FireworksStorePile,
-        id: 3,
-        parent: 0
+        id: locationId,
+        parent: 0,
+        x: x
       })
   }
 

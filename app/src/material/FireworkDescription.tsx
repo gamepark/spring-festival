@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { displayMaterialHelp, isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { CustomMove, displayMaterialHelp, isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
-import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import isEqual from 'lodash/isEqual'
@@ -286,13 +285,22 @@ class FireworkDescription extends CardDescription {
   }
 
   getItemExtraCss(item: MaterialItem, context: ItemContext) {
-    if (item.location.type !== LocationType.Panorama) return
+    if (item.location.type !== LocationType.Panorama) return css`
+      &:after {
+        content: '${item.location.id}';
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        border-radius: 0.4em;
+      }
+    `
     if (!context.player || context.player !== item.location.player) return
     const isSelect = !!item.selected
     if (!isSelect) return
-    const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
-    const valid = moves.some((move) => isEqual(selectedIndexes,move.data.indexes))
+    const legalMoves = context.rules.getLegalMoves(context.player)
+    const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
+    const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes))
     return css`
       &:after {
         content: '';
@@ -325,9 +333,9 @@ class FireworkDescription extends CardDescription {
     if (context.player !== item.location.player) return
     if (!context.rules.remind(Memory.Placed, context.player)) return
     if (!context.rules.isTurnToPlay(context.player)) return
-    if (item.selected) return tile.unselectItem()
-
-    return tile.selectItem()
+    if (context.rules.game.tutorialInterrupt === undefined)
+    if (!item.selected) return tile.selectItem()
+    return
   }
 
   help = FireworkHelp

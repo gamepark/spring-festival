@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, MaterialItem } from '@gamepark/rules-api'
 import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
-import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
+import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import isEqual from 'lodash/isEqual'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
 import ColorComposition10 from '../images/composition/color/ColorComposition10.jpg'
@@ -175,7 +175,8 @@ export class CompositionDescription extends CardDescription {
     if (!context.player || context.player !== item.location.player) return
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     if (!selectedIndexes.length) return
-    const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
+    const legalMoves = context.rules.getLegalMoves(context.player)
+    const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
     const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
     return css`
       &:after {
@@ -194,7 +195,8 @@ export class CompositionDescription extends CardDescription {
     if (!context.player || context.player !== item.location.player) return false
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     if (!selectedIndexes.length) return false
-    const moves = new CompositionHelper(context.rules.game, item.location.player!).compositionMoves
+    const legalMoves = context.rules.getLegalMoves(context.player)
+    const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
     return moves.some((move) => isEqual(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
   }
 

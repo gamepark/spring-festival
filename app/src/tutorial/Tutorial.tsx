@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { MaterialTutorial, TutorialStep } from '@gamepark/react-game'
-import { isCustomMoveType, isMoveItemType } from '@gamepark/rules-api'
+import { isCustomMoveType, isEndPlayerTurn, isMoveItemType } from '@gamepark/rules-api'
 import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
 import { fireworkDescriptions } from '@gamepark/spring-festival/material/FireworkDescription'
@@ -175,6 +175,31 @@ export class Tutorial extends MaterialTutorial {
       move: {}
     },
     {
+      move: {
+        player: opponent
+      }
+    },
+    {
+      move: {
+        player: opponent
+      }
+    },
+    {
+      move: {
+        player: opponent
+      }
+    },
+    {
+      move: {
+        player: opponent
+      }
+    },
+    {
+      move: {
+        player: opponent
+      }
+    },
+    {
       popup: {
         text: () => <Trans defaults="tuto.start"><strong/><em/></Trans>,
         position: { x: 0, y: 0 }
@@ -217,31 +242,6 @@ export class Tutorial extends MaterialTutorial {
       })
     },
     {
-      move: {
-        player: opponent
-      }
-    },
-    {
-      move: {
-        player: opponent
-      }
-    },
-    {
-      move: {
-        player: opponent
-      }
-    },
-    {
-      move: {
-        player: opponent
-      }
-    },
-    {
-      move: {
-        player: opponent
-      }
-    },
-    {
       popup: {
         text: () => <Trans defaults="tuto.rotate"><strong/><em/></Trans>,
         position: { x: -35, y: 3 }
@@ -258,31 +258,10 @@ export class Tutorial extends MaterialTutorial {
         }
       }),
       move: {
-        filter: (move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === 3
-      }
-    },
-    {
-      popup: {
-        text: () => <Trans defaults="tuto.choose"><strong/><em/></Trans>,
-        position: { x: -35, y: 3 }
-      },
-      focus: (game) => ({
-        materials: [
-          this.material(game, MaterialType.FireworksStore),
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework14)
-        ],
-        margin: {
-          left: 27,
-          top: 1,
-          bottom: 1
+        filter: (move) => {
+          return isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === 3
         }
-      })
-      /**
-       * FIXME: fix it when tutorial ignore local ?
-       * move: {
-       *         filter: (move) => isMoveItemType(MaterialType.FireworksStore)(move) && move.location.rotation === 3
-       *       }
-       */
+      }
     },
     {
       popup: {
@@ -306,7 +285,7 @@ export class Tutorial extends MaterialTutorial {
           && move.location.type === LocationType.Panorama
           && move.location.player === me
           && move.location.x === 2 && move.location.y === -1,
-        interrupt: (move) => isMoveItemType(MaterialType.Firework)(move) && move.location.rotation
+        interrupt: (move) => isMoveItemType(MaterialType.Firework)(move) && move.location.rotation && (move.location.x !== 2 || move.location.y !== -1)
       }
     },
     {
@@ -409,23 +388,71 @@ export class Tutorial extends MaterialTutorial {
         }
       }),
       move: {
-        filter: (move) => isCustomMoveType(CustomMoveType.Composition)(move) && isEqual(move.data, [48, 49, 50, 51])
+        filter: (move) => isCustomMoveType(CustomMoveType.Composition)(move) && isEqual(move.data.indexes, [48, 49, 50, 51])
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.explain"><strong/><em/></Trans>
-      }
+        text: () => <Trans defaults="tuto.compo.explain"><strong/><em/></Trans>,
+        position: { y: 30}
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.Firework).location(LocationType.Panorama).player(me)
+        ],
+        margin: {
+          bottom: 10
+        }
+      })
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.new"><strong/><em/></Trans>
+      },
+      focus: (game) => ({
+        materials: [
+          this.material(game, MaterialType.Composition).location(LocationType.PlayerDoneComposition).player(me),
+          this.material(game, MaterialType.Composition).location((l) => l.type === LocationType.PlayerComposition && l.id === CompositionType.Pattern && l.x === 1).player(me),
+        ]
+      })
+    },
+    {
+      popup: {
+        text: () => <Trans defaults="tuto.compo.validate"><strong/><em/></Trans>
+      },
+      move: {
+        filter: (move) => isEndPlayerTurn(move)
+      }
+    },
+    {
+      move: {
+        player: opponent,
+      }
+    },
+    {
+      move: {
+        player: opponent,
+        filter: (move) => isEndPlayerTurn(move)
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.newround"><strong/><em/></Trans>
-      }
+        text: () => <Trans defaults="tuto.newround"><strong/><em/></Trans>,
+        position: { y: 25 }
+      },
+      focus: () => ({
+        staticItems: [
+          {
+            type: MaterialType.FirstPlayerToken,
+            item: {
+              location: { type: LocationType.FirstPlayerToken, player: opponent }
+            }
+          }
+        ],
+        margin: {
+          bottom: 7
+        }
+      })
     },
     {
       popup: {

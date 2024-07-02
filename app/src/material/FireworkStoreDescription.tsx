@@ -10,6 +10,14 @@ class FireworkStoreDescription extends BoardDescription {
 
   image = RocketStore
   help = FireworkStoreHelp
+
+  canShortClick() {
+    return false
+  }
+
+  canLongClick() {
+    return false
+  }
 }
 
 export const fireworkStoreDescription = new FireworkStoreDescription()
