@@ -17,6 +17,7 @@ export class FireworkStoreDescription extends LocationDescription {
 
   getExtraCss(_location: Location, context: LocationContext) {
     return css`
+      pointer-events: none;
       &:after {
         content: '${this.remainingRound(context)}';
         pointer-events: none;

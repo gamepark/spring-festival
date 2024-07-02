@@ -335,7 +335,7 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.phase"><strong/><em/></Trans>,
-        position: { x: -20, y: 15 }
+        position: { x: -30, y: 15 }
       },
       focus: (game) => ({
         materials: [
@@ -352,7 +352,7 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.validate"><strong/><em/></Trans>,
-        position: { x: -20, y: 15 }
+        position: { x: -30, y: 15 }
       },
       focus: (game) => ({
         materials: [
@@ -369,7 +369,7 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.pattern"><strong/><em/></Trans>,
-        position: { x: -20, y: 15 }
+        position: { x: -30, y: 15 }
       },
       focus: (game) => ({
         materials: [
@@ -413,7 +413,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.validate"><strong/><em/></Trans>
+        text: () => <Trans defaults="tuto.compo.pass"><strong/><em/></Trans>
       },
       move: {
         filter: (move) => isEndPlayerTurn(move)

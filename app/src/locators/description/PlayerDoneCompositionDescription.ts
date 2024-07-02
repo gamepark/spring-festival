@@ -60,6 +60,7 @@ export class PlayerDoneCompositionDescription extends LocationDescription {
     const count = this.compositionCount(location, context)
     if (!count) return
     return css`
+      pointer-events: none;
       &:after {
         content: '${count}';
         pointer-events: none;
