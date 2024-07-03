@@ -325,7 +325,7 @@ class FireworkDescription extends CardDescription {
     if (context.player !== item.location.player) return
     if (!context.rules.remind(Memory.Placed, context.player)) return
     if (!context.rules.isTurnToPlay(context.player)) return
-    if (context.rules.game.tutorialInterrupt === undefined)
+    if (context.rules.game.tutorialStep === 25 && context.index === 12) return
     if (!item.selected) return tile.selectItem()
     return
   }

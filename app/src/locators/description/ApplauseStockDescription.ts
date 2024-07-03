@@ -1,4 +1,4 @@
-
+/** @jsxImportSource @emotion/react */
 import { LocationDescription } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'

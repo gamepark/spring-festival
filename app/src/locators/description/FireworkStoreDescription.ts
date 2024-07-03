@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LocationContext, LocationDescription } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'

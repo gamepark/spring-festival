@@ -335,11 +335,11 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.phase"><strong/><em/></Trans>,
-        position: { x: -30, y: 15 }
+        position: { x: -45, y: 15 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).player(me),
+          this.material(game, MaterialType.Firework).player(me).location((l) => l.x !== 2),
           this.material(game, MaterialType.Composition).player(me)
         ],
         margin: {
@@ -352,11 +352,11 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.validate"><strong/><em/></Trans>,
-        position: { x: -30, y: 15 }
+        position: { x: -45, y: 15 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).player(me),
+          this.material(game, MaterialType.Firework).player(me).location((l) => l.x !== 2),
           this.material(game, MaterialType.Composition).locationId(CompositionType.Pattern).player(me)
         ],
         margin: {
@@ -369,11 +369,11 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.pattern"><strong/><em/></Trans>,
-        position: { x: -30, y: 15 }
+        position: { x: -45, y: 15 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).player(me),
+          this.material(game, MaterialType.Firework).player(me).location((l) => l.x !== 2),
           this.material(game, MaterialType.Composition).id(({front}: any) => front === Composition.PatternComposition28).player(me)
         ],
         margin: {

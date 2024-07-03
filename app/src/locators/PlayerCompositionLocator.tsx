@@ -56,6 +56,10 @@ export class PlayerCompositionLocator extends DeckLocator {
         return getFourPlayerCoordinates(index, { x: -2 })
     }
   }
+
+  getRotateZ(item: MaterialItem): number {
+    return 90 * (item.location.rotation ?? 0)
+  }
 }
 
 export const playerCompositionLocator = new PlayerCompositionLocator()
