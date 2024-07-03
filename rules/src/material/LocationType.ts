@@ -11,5 +11,6 @@ export enum LocationType {
   PlayerApplause,
   FirstPlayerToken,
   Sign,
-  FireworkExtinguish
+  FireworkExtinguish,
+  RotateButton
 }

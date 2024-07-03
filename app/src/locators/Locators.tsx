@@ -14,6 +14,7 @@ import { playerApplauseTokenLocator } from './PlayerApplauseTokenLocator'
 import { playerCompositionLocator } from './PlayerCompositionLocator'
 import { playerDoneCompositionLocator } from './PlayerDoneCompositionLocator'
 import { playerHandLocator } from './PlayerHandLocator'
+import { rotateButtonLocator } from './RotateButtonLocator'
 import { signLocator } from './SignLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, MaterialType, LocationType>>> = {
@@ -29,5 +30,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, Ma
   [LocationType.PlayerApplause]: playerApplauseTokenLocator,
   [LocationType.FirstPlayerToken]: firstPlayerTokenLocator,
   [LocationType.Sign]: signLocator,
-  [LocationType.FireworkExtinguish]: fireworkExtinguishLocator
+  [LocationType.FireworkExtinguish]: fireworkExtinguishLocator,
+  [LocationType.RotateButton]: rotateButtonLocator
 }
