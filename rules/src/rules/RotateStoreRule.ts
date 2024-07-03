@@ -10,7 +10,18 @@ export class RotateStoreRule extends PlayerTurnRule {
     this.game.players.forEach((p) => this.forget(Memory.Placed, p))
     if (!this.piles.length) return [this.rules().startSimultaneousRule(RuleId.GrandeFinale, this.game.players)]
     this.forget(Memory.HasRotated)
-    this.memorize(Memory.StartPlayer, this.player)
+    return this.moveFirstPlayer()
+  }
+
+  moveFirstPlayer() {
+    const firstPlayerToken = this.material(MaterialType.FirstPlayerToken)
+    if (firstPlayerToken.getItem()!.location.player !== this.player) {
+      return [firstPlayerToken.moveItem({
+        type: LocationType.FirstPlayerToken,
+        player: this.player
+      })]
+    }
+
     return []
   }
 

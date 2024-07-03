@@ -107,7 +107,7 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   }
 
   get nextPlayer() {
-    const starting = this.remind(Memory.StartPlayer)
+    const starting = this.firstPlayer
     return this.game.players[(this.game.players.indexOf(starting) + 1) % this.game.players.length]
   }
 
@@ -144,6 +144,10 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
   onRuleEnd() {
     this.material(MaterialType.Firework).selected().getItems().forEach((item) => delete item.selected)
     return []
+  }
+
+  get firstPlayer() {
+    return this.material(MaterialType.FirstPlayerToken).getItem()!.location.player!
   }
 
   get piles() {

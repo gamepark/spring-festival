@@ -316,7 +316,9 @@ export const fireworkDescriptions: Record<Firework, FireworkDescription> = {
       { x: -1, y: 1 },
       { x: 0, y: 1 }
     ],
-    extinguishes: []
+    extinguishes: [
+      { x: 1, y: 0 }
+    ]
   },
   [Firework.Firework15]: {
     color: Color.Green,

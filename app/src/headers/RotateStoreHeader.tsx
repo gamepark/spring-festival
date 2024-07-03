@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
+import isEqual from 'lodash/isEqual'
 import { Trans } from 'react-i18next'
 
 export const RotateStoreHeader = () => {
@@ -11,6 +12,7 @@ export const RotateStoreHeader = () => {
   const clockwise = rules.material(MaterialType.FireworksStore).moveItem({ type: LocationType.FireworksStore, rotation: getClockwise(storeLocation.rotation) })
   const counterClockwise = rules.material(MaterialType.FireworksStore).moveItem({ type: LocationType.FireworksStore, rotation: getCounterClockwise(storeLocation.rotation) })
   const validation = rules.material(MaterialType.FireworksStore).moveItem(storeLocation)
+  const validate = useLegalMove((move) => isEqual(move, validation))
 
   const player = usePlayerId()
   const itsMe = player && rules.isTurnToPlay(player)
@@ -22,7 +24,7 @@ export const RotateStoreHeader = () => {
         defaults="header.rotate">
         <PlayMoveButton move={clockwise} local/>
         <PlayMoveButton move={counterClockwise} local/>
-        <PlayMoveButton move={validation}/>
+        <PlayMoveButton move={validate}/>
       </Trans>
     )
   }

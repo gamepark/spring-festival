@@ -8,7 +8,6 @@ import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { signs } from './material/Sign'
 import { PlayerId } from './PlayerId'
-import { Memory } from './rules/Memory'
 import { RuleId } from './rules/RuleId'
 import { SpringFestivalOptions } from './SpringFestivalOptions'
 import { SpringFestivalRules } from './SpringFestivalRules'
@@ -21,11 +20,22 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
 
   setupMaterial(options: SpringFestivalOptions) {
     this.setupStore()
+    this.setupFirstPlayerToken()
     this.setupComposition()
     this.setupPlayers()
     if (options.chineseSign) {
       this.setupSign()
     }
+  }
+
+  setupFirstPlayerToken() {
+    this.material(MaterialType.FirstPlayerToken)
+      .createItem({
+        location: {
+          type: LocationType.FirstPlayerToken,
+          player: this.game.players[0]
+        }
+      })
   }
 
   setupComposition() {
@@ -128,7 +138,6 @@ export class SpringFestivalSetup extends MaterialGameSetup<PlayerId, MaterialTyp
   }
 
   start() {
-    this.memorize(Memory.StartPlayer, this.game.players[0])
     this.startSimultaneousRule(RuleId.PlaceBaseFirework, this.game.players)
   }
 }

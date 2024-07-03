@@ -32,6 +32,7 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
   const canRotateStore = itsMyTurn && isRotateRule && maxItemX === item.location?.x
   const rotateToHere = useLegalMove((move) => isMoveItemType(MaterialType.FireworksStore)(move) && (((move.location.rotation - 1 + 4 + distanceFromZero) % 4) + 1) === item.location?.id)
   const validation = (isRotateRule && isEqual(myPile, item.location?.id))? rules.material(MaterialType.FireworksStore).moveItem(storeLocation): undefined
+  const validate = useLegalMove((move) => isEqual(move, validation))
   const grandeFinale = useLegalMove((move) => isCustomMoveType(CustomMoveType.GrandeFinale)(move) && move.data === itemIndex)
   const pileCount = locationType === LocationType.FireworksStorePile && item.location?.id !== undefined ? rules.material(MaterialType.Firework).location(LocationType.FireworksStorePile).locationId(item.location.id).length: undefined
   return (
@@ -78,10 +79,10 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
           </Trans>
         </div>
       )}
-      { canRotateStore && validation && (
+      { canRotateStore && validate && (
         <div>
           <Trans defaults="help.store.rotation.validate">
-            <PlayMoveButton move={validation} onPlay={closeDialog} />
+            <PlayMoveButton move={validate} onPlay={closeDialog} />
           </Trans>
         </div>
       )}
