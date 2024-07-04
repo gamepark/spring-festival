@@ -12,5 +12,6 @@ export enum LocationType {
   FirstPlayerToken,
   Sign,
   Highlight,
-  RotateButton
+  RotateButton,
+  RotateStoreButton
 }

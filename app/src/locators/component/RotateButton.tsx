@@ -9,6 +9,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import isEqual from 'lodash/isEqual'
 import { FC } from 'react'
+import { getClockwise } from '../../utils/Clockwise'
 import { playerCompositionLocator } from '../PlayerCompositionLocator'
 
 export const RotateButton: FC<{ location: Location }> = (props) => {
@@ -19,7 +20,7 @@ export const RotateButton: FC<{ location: Location }> = (props) => {
   const coordinates = playerCompositionLocator.getPosition({ location }, context as any)
   const composition = rules.material(MaterialType.Composition).location((l) => isEqual(l, { ...location, type: LocationType.PlayerComposition }))
   const compositionItem = composition.getItem()!
-  const rotateNext = composition.rotateItem(((compositionItem.location.rotation ?? 0) + 1) % 4)
+  const rotateNext = composition.rotateItem(getClockwise((compositionItem.location.rotation ?? 0)))
   return (
     <div css={button(coordinates)} onClick={() => play(rotateNext, { local: true })}>
       <FontAwesomeIcon icon={faRotateRight} css={pointerCursorCss}/>

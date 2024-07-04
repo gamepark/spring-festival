@@ -15,6 +15,7 @@ import { playerCompositionLocator } from './PlayerCompositionLocator'
 import { playerDoneCompositionLocator } from './PlayerDoneCompositionLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { rotateButtonLocator } from './RotateButtonLocator'
+import { rotateStoreButtonLocator } from './RotateStoreButtonLocator'
 import { signLocator } from './SignLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, MaterialType, LocationType>>> = {
@@ -31,5 +32,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, Ma
   [LocationType.FirstPlayerToken]: firstPlayerTokenLocator,
   [LocationType.Sign]: signLocator,
   [LocationType.Highlight]: highlightLocator,
-  [LocationType.RotateButton]: rotateButtonLocator
+  [LocationType.RotateButton]: rotateButtonLocator,
+  [LocationType.RotateStoreButton]: rotateStoreButtonLocator
 }
