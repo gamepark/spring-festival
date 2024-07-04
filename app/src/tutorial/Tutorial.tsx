@@ -1,21 +1,25 @@
 /** @jsxImportSource @emotion/react */
-import { MaterialTutorial, TutorialStep } from '@gamepark/react-game'
-import { isCreateItemType, isCustomMoveType, isEndPlayerTurn, isMoveItemType } from '@gamepark/rules-api'
-import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
+import { css } from '@emotion/react'
+import { MaterialComponent, MaterialTutorial, TutorialStep } from '@gamepark/react-game'
+import { isCreateItemType, isCustomMoveType, isEndPlayerTurn, isMoveItemType, MaterialGame } from '@gamepark/rules-api'
+import { CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
 import { fireworkDescriptions } from '@gamepark/spring-festival/material/FireworkDescription'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
+import { patternCompositionDescriptions } from '@gamepark/spring-festival/material/PatternCompositionDescription'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
-import isEqual from 'lodash/isEqual'
+import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
+import { TFunction } from 'i18next'
 import { Trans } from 'react-i18next'
+import { HighlightType } from '../locators/HighlightLocator'
 import { TutorialSetup } from './TutorialSetup'
 
 const me = 1
 const opponent = 2
 
 export class Tutorial extends MaterialTutorial {
-  version = 1
+  version = 2
   options = { players: 2 }
   setup = new TutorialSetup()
 
@@ -373,8 +377,14 @@ export class Tutorial extends MaterialTutorial {
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).player(me).location((l) => l.x !== 2),
-          this.material(game, MaterialType.Composition).id(({front}: any) => front === Composition.PatternComposition28).player(me)
+          this.material(game, MaterialType.Firework).player(me),
+          this.material(game, MaterialType.Composition).locationId(CompositionType.Pattern).player(me)
+        ],
+        locations: [
+          this
+            .location(LocationType.Highlight)
+            .id(HighlightType.Compositions)
+            .location
         ],
         margin: {
           top: 1,
@@ -383,13 +393,13 @@ export class Tutorial extends MaterialTutorial {
         }
       }),
       move: {
-        filter: (move) => isCustomMoveType(CustomMoveType.Composition)(move) && isEqual(move.data.indexes, [48, 49, 50, 51])
+        filter: (move) => isCustomMoveType(CustomMoveType.Composition)(move)
       }
     },
     {
       popup: {
         text: () => <Trans defaults="tuto.compo.explain"><strong/><em/></Trans>,
-        position: { y: 30}
+        position: { y: 30 }
       },
       focus: (game) => ({
         materials: [
@@ -402,12 +412,34 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.new"><strong/><em/></Trans>
+        text: (_: TFunction, game: MaterialGame) => {
+          const rules = new SpringFestivalRules(game)
+          const doneCompositionItem = rules.material(MaterialType.Composition).player(me).location(LocationType.PlayerDoneComposition).getItem()!
+          return (
+            <span css={css`display: flex;
+              flex-direction: row;
+              position: relative`}>
+              <MaterialComponent
+                type={MaterialType.Composition}
+                itemId={doneCompositionItem.id}
+                css={bigMaterialCss}
+              />
+              <div css={highlightCss}/>
+              <span css={css`margin-left: 8.5em`}>
+                <Trans defaults="tuto.compo.new" values={{ points: patternCompositionDescriptions[doneCompositionItem.id.front].points }}>
+                  <strong/><em/>
+                </Trans>
+              </span>
+            </span>
+          )
+        },
+        position: { y: -5 },
+        size: { width: 95 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.Composition).location(LocationType.PlayerDoneComposition).player(me),
-          this.material(game, MaterialType.Composition).location((l) => l.type === LocationType.PlayerComposition && l.id === CompositionType.Pattern && l.x === 1).player(me),
+          this.material(game, MaterialType.Composition).location((l) => l.type === LocationType.PlayerComposition && l.id === CompositionType.Pattern && l.x === 1).player(me)
         ]
       })
     },
@@ -421,7 +453,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       move: {
-        player: opponent,
+        player: opponent
       }
     },
     {
@@ -452,7 +484,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       move: {
-        player: opponent,
+        player: opponent
       }
     },
     {
@@ -462,7 +494,7 @@ export class Tutorial extends MaterialTutorial {
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).id(({front}: any) => front === Firework.Firework25),
+          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework25)
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(3).y(-1).location
@@ -483,16 +515,17 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.extinguish"><strong/><em/></Trans>,
-        position: { y : 15 }
+        position: { y: 15 }
       },
       focus: (game) => {
         return ({
           materials: [
-            this.material(game, MaterialType.Firework).id(({front}: any) => front === Firework.Firework25 || front === Firework.Firework14),
+            this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework25 || front === Firework.Firework14)
           ],
           locations: [
             this
-              .location(LocationType.FireworkExtinguish)
+              .location(LocationType.Highlight)
+              .id(HighlightType.Applause)
               .location
           ],
           margin: {
@@ -524,3 +557,17 @@ export class Tutorial extends MaterialTutorial {
     }
   ]
 }
+
+const bigMaterialCss = css`
+  font-size: 2em
+`
+
+const highlightCss = css`
+  border: 0.15em solid red;
+  position: absolute;
+  height: 2.5em;
+  width: 2.5em;
+  left: 7em;
+  top: 0.45em;
+  border-radius: 0.5em;
+`

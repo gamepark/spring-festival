@@ -35,7 +35,6 @@ export const FireworkHelp: FC<MaterialHelpProps> = (props) => {
   const validate = useLegalMove((move) => isEqual(move, validation))
   const grandeFinale = useLegalMove((move) => isCustomMoveType(CustomMoveType.GrandeFinale)(move) && move.data === itemIndex)
   const pileCount = locationType === LocationType.FireworksStorePile && item.location?.id !== undefined ? rules.material(MaterialType.Firework).location(LocationType.FireworksStorePile).locationId(item.location.id).length: undefined
-  console.log(itemIndex)
   return (
     <>
       {<h2><Trans defaults="help.firework"/></h2>}

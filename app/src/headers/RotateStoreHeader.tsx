@@ -15,7 +15,7 @@ export const RotateStoreHeader = () => {
   const validate = useLegalMove((move) => isEqual(move, validation))
 
   const player = usePlayerId()
-  const itsMe = player && rules.isTurnToPlay(player)
+  const itsMe = player && rules.game.rule?.player === player
   const name = usePlayerName(rules.getActivePlayer())
 
   if (itsMe) {

@@ -16,6 +16,11 @@ springFestivalAnimations
 
 springFestivalAnimations
   .when()
+  .move((move) => isMoveItemType(MaterialType.Composition)(move) && move.location.rotation !== undefined)
+  .duration(0.2)
+
+springFestivalAnimations
+  .when()
   .move(isDeleteItemType(MaterialType.Firework))
   .duration(0)
 

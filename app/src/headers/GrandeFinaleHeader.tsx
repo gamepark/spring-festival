@@ -6,8 +6,8 @@ import { Trans } from 'react-i18next'
 
 export const GrandeFinaleHeader: FC = () => {
   const playerId = usePlayerId()
-  const rules = useRules<SpringFestivalRules>()
-  const iMustPlay = playerId && rules?.isTurnToPlay(playerId)
+  const rules = useRules<SpringFestivalRules>()!
+  const iMustPlay = playerId && rules.game.rule?.players?.includes(playerId)
   const name = usePlayerName(rules?.game.rule?.players?.[0])
   const pass = useLegalMove((move) => isEndPlayerTurn(move))
 

@@ -21,8 +21,8 @@ export const RotateButton: FC<{ location: Location }> = (props) => {
   const compositionItem = composition.getItem()!
   const rotateNext = composition.rotateItem(((compositionItem.location.rotation ?? 0) + 1) % 4)
   return (
-    <div css={button(coordinates)}>
-      <FontAwesomeIcon icon={faRotateRight} onClick={() => play(rotateNext, { local: true })} css={pointerCursorCss}/>
+    <div css={button(coordinates)} onClick={() => play(rotateNext, { local: true })}>
+      <FontAwesomeIcon icon={faRotateRight} css={pointerCursorCss}/>
     </div>
   )
 }
@@ -31,7 +31,7 @@ const button = (coordinate: Coordinates) => css`
   position: absolute;
   height: 1.7em;
   width: 1.7em;
-  transform: translate3d(${coordinate.x + 2.8}em, ${coordinate.y - 0.35}em, ${coordinate.z + 1}em);
+  transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y - 0.35}em, ${coordinate.z + 1}em);
   //border: 0.1em solid white;
   &:active {
     filter: unset;

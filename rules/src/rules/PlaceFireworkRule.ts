@@ -21,9 +21,8 @@ export class PlaceFireworkRule extends SimultaneousRule<PlayerSymbol, MaterialTy
       moves.push(...helper.availableSpaces.map((location) => tile.moveItem(location)))
     } else {
       moves.push(...new CompositionHelper(this.game, playerId).compositionMoves)
-    }
-
       moves.push(this.rules().endPlayerTurn(playerId))
+    }
       return moves
   }
 

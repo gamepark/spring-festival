@@ -9,7 +9,6 @@ export const PlaceBaseFireworkHeader = () => {
   const rules = useRules<SpringFestivalRules>()!
   const pass = useLegalMove((move) => isEndPlayerTurn(move))
   const players = rules.game.rule?.players ?? []
-  // FIXME: don't know why, but isTurnToPlay returns true
   const itsMyTurn = playerId && players.includes(playerId)
   const name = usePlayerName(players[0])
 

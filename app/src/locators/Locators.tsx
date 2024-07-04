@@ -4,10 +4,10 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { applausePileLocator } from './ApplausePileLocator'
 import { colorCompositionLocator } from './ColorCompositionLocator'
-import { fireworkExtinguishLocator } from './FireworkExtinguishLocator'
 import { fireworkStoreLocator } from './FireworkStoreLocator'
 import { fireworkStorePileLocator } from './FireworkStorePileLocator'
 import { firstPlayerTokenLocator } from './FirstPlayerTokenLocator'
+import { highlightLocator } from './HighlightLocator'
 import { panoramaLocator } from './PanoramaLocator'
 import { patternCompositionLocator } from './PatternCompositionLocator'
 import { playerApplauseTokenLocator } from './PlayerApplauseTokenLocator'
@@ -30,6 +30,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, Ma
   [LocationType.PlayerApplause]: playerApplauseTokenLocator,
   [LocationType.FirstPlayerToken]: firstPlayerTokenLocator,
   [LocationType.Sign]: signLocator,
-  [LocationType.FireworkExtinguish]: fireworkExtinguishLocator,
+  [LocationType.Highlight]: highlightLocator,
   [LocationType.RotateButton]: rotateButtonLocator
 }
