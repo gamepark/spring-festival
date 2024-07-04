@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/spring-festival-app",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "private": true,
   "description": "The user interface of Game Template adaptation for Game Park",
   "author": "Romain Fromi <romain@game-park.com> (https://game-park.com/)",
