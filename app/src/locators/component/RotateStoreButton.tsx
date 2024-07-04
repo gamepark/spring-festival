@@ -16,25 +16,27 @@ import { getClockwise, getCounterClockwise } from '../../utils/Clockwise'
 export const RotateStoreButton: FC<{ location: Location }> = () => {
   const rules = useRules<SpringFestivalRules>()!
   const storeLocation = rules.material(MaterialType.FireworksStore).getItem()!.location
-  const clockwise = rules.material(MaterialType.FireworksStore).moveItem({ type: LocationType.FireworksStore, rotation: getCounterClockwise(storeLocation.rotation) })
-  const counterClockwise = rules.material(MaterialType.FireworksStore).moveItem({ type: LocationType.FireworksStore, rotation: getClockwise(storeLocation.rotation) })
+  const clockwise = rules.material(MaterialType.FireworksStore).moveItem({
+    type: LocationType.FireworksStore,
+    rotation: getCounterClockwise(storeLocation.rotation)
+  })
+  const counterClockwise = rules.material(MaterialType.FireworksStore).moveItem({
+    type: LocationType.FireworksStore,
+    rotation: getClockwise(storeLocation.rotation)
+  })
   const validation = rules.material(MaterialType.FireworksStore).moveItem(storeLocation)
   const validate = useLegalMove((move) => isEqual(move, validation))
   const play = usePlay()
   return (
     <>
 
-      <div css={[button, left, validate && upRotate]} onClick={() => play(clockwise, { local: true })}>
+      <div css={[button, left, upRotate]} onClick={() => play(clockwise, { local: true })}>
         <FontAwesomeIcon icon={faRotateRight} css={[pointerCursorCss, bigIconCss]}/>
       </div>
 
-      {
-        validate && (
-          <div css={[button, validateCss]} onClick={() => play(validate)}>
-            <FontAwesomeIcon icon={faCheck} css={[pointerCursorCss, bigIconCss]}/>
-          </div>
-        )
-      }
+      <div css={[button, validateCss, !validate && disabledCss]} onClick={() => validate ? play(validate) : undefined}>
+        <FontAwesomeIcon icon={faCheck} css={[pointerCursorCss, bigIconCss]}/>
+      </div>
 
       <div css={[button, right]} onClick={() => play(counterClockwise, { local: true })}>
         <FontAwesomeIcon icon={faRotateLeft} css={[pointerCursorCss, bigIconCss]}/>
@@ -65,9 +67,11 @@ const button = css`
   height: 2em;
   width: 2em;
   //border: 0.1em solid white;
+
   &:active {
     filter: unset;
   }
+
   cursor: pointer;
   background-color: white;
   display: flex;
@@ -80,4 +84,16 @@ const button = css`
 
 const bigIconCss = css`
   font-size: 1.3em;
+`
+
+const disabledCss = css`
+  &:active {
+    filter: drop-shadow(0.05em 0.05em 0.05em black);
+  }
+
+  opacity: 0.5;
+  cursor: not-allowed;
+  > * {
+    cursor: not-allowed;
+  }
 `

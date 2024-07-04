@@ -62,11 +62,13 @@ export class ScoringHelper extends MaterialRulesPart {
   }
 
   getApplauseCount(player: PlayerSymbol): number {
-    return this
+    const applause = this
       .material(MaterialType.ApplauseToken)
       .location(LocationType.PlayerApplause)
       .player(player)
-      .getItem()?.quantity ?? 1
+
+    if (!applause.length) return 0
+    return applause.getItem()!.quantity ?? 1
   }
 
   get panorama() {

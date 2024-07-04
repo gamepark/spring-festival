@@ -2,9 +2,9 @@
 import { LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
-import { RotateButton } from '../component/RotateButton'
+import { CompositionButton } from '../component/CompositionButton'
 
-export class RotateButtonDescription extends LocationDescription {
+export class CompositionButtonDescription extends LocationDescription {
   height = 1
   width = 1
   borderRadius = 1
@@ -17,9 +17,9 @@ export class RotateButtonDescription extends LocationDescription {
     return compositions.getItems()
       .map((item) => ({
         ...item.location,
-        type: LocationType.RotateButton,
+        type: LocationType.CompositionButton,
       }))
   }
 
-  content = RotateButton
+  content = CompositionButton
 }

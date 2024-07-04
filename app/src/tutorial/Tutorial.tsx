@@ -243,7 +243,7 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.rotate"><strong/><em/></Trans>,
-        position: { x: -35, y: 3 }
+        position: { x: -37, y: 3 }
       },
       focus: (game) => ({
         materials: [
@@ -251,7 +251,7 @@ export class Tutorial extends MaterialTutorial {
           this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework14)
         ],
         margin: {
-          left: 27,
+          left: 28,
           top: 1,
           bottom: 1
         }

@@ -74,4 +74,14 @@ export class SpringFestivalRules extends SecretMaterialRules<PlayerSymbol, Mater
   getScore(playerId: PlayerSymbol): number {
     return new ScoringHelper(this.game, playerId).score
   }
+
+  getTieBreaker(tieBreaker: number, playerId: PlayerSymbol): number | undefined {
+    if (tieBreaker === 1) {
+      const applause = this.material(MaterialType.ApplauseToken).player(playerId)
+      if (!applause.length) return 0
+      return applause.getItem()!.quantity ?? 1
+    }
+
+    return
+  }
 }

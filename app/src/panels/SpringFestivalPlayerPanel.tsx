@@ -49,6 +49,7 @@ export const SpringFestivalPlayerPanel: FC<SpringFestivalPlayerPanelProps> = (pr
     })
   }, [rules, player, itsMe, setFocus])
 
+  const applause = rules.material(MaterialType.ApplauseToken).player(player.id)
   return (
     <StyledPlayerPanel
       key={player.id}
@@ -63,7 +64,7 @@ export const SpringFestivalPlayerPanel: FC<SpringFestivalPlayerPanelProps> = (pr
         imageCss: imageCss
       } : {
         image: ApplauseToken,
-        value: rules.material(MaterialType.ApplauseToken).player(player.id).getItem()?.quantity ?? 0,
+        value: !applause.length? 0: applause.getItem()?.quantity ?? 1 ,
         imageCss: imageCss
       }}
     />

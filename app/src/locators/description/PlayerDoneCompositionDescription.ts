@@ -59,12 +59,12 @@ export class PlayerDoneCompositionDescription extends LocationDescription {
 
   getExtraCss(location: Location, context: LocationContext) {
     const count = this.compositionCount(location, context)
-    if (!count) return
+    if (!count) return noPointerCss
     return css`
-      pointer-events: none;
+      ${noPointerCss};
       &:after {
+        ${noPointerCss};
         content: '${count}';
-        pointer-events: none;
         position: absolute;
         height: 100%;
         width: 100%;
@@ -97,3 +97,7 @@ export class PlayerDoneCompositionDescription extends LocationDescription {
     }
   }
 }
+
+const noPointerCss = css`
+  pointer-events: none;
+`

@@ -4,6 +4,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { applausePileLocator } from './ApplausePileLocator'
 import { colorCompositionLocator } from './ColorCompositionLocator'
+import { compositionButtonLocator } from './CompositionButtonLocator'
 import { fireworkStoreLocator } from './FireworkStoreLocator'
 import { fireworkStorePileLocator } from './FireworkStorePileLocator'
 import { firstPlayerTokenLocator } from './FirstPlayerTokenLocator'
@@ -14,7 +15,6 @@ import { playerApplauseTokenLocator } from './PlayerApplauseTokenLocator'
 import { playerCompositionLocator } from './PlayerCompositionLocator'
 import { playerDoneCompositionLocator } from './PlayerDoneCompositionLocator'
 import { playerHandLocator } from './PlayerHandLocator'
-import { rotateButtonLocator } from './RotateButtonLocator'
 import { rotateStoreButtonLocator } from './RotateStoreButtonLocator'
 import { signLocator } from './SignLocator'
 
@@ -32,6 +32,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, Ma
   [LocationType.FirstPlayerToken]: firstPlayerTokenLocator,
   [LocationType.Sign]: signLocator,
   [LocationType.Highlight]: highlightLocator,
-  [LocationType.RotateButton]: rotateButtonLocator,
+  [LocationType.CompositionButton]: compositionButtonLocator,
   [LocationType.RotateStoreButton]: rotateStoreButtonLocator
 }
