@@ -11,7 +11,7 @@ import { Trans } from 'react-i18next'
 export const PlaceFireworkHeader = () => {
   const player = usePlayerId()
   const rules = useRules<SpringFestivalRules>()!
-  const itsMyTurn = player && rules.isTurnToPlay(player)
+  const itsMyTurn = player && rules.game.rule?.players?.includes(player)
   const moves = useLegalMoves((move) => isCustomMoveType(CustomMoveType.Composition)(move))
   const pass = useLegalMove((move) => isEndPlayerTurn(move))
   const players = rules.game.rule?.players ?? []
