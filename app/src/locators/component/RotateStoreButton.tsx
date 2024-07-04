@@ -27,18 +27,22 @@ export const RotateStoreButton: FC<{ location: Location }> = () => {
   const validation = rules.material(MaterialType.FireworksStore).moveItem(storeLocation)
   const validate = useLegalMove((move) => isEqual(move, validation))
   const play = usePlay()
+  const preventAction = (action: () => void) => (event: any) => {
+    event.stopPropagation()
+    action()
+  }
+
   return (
     <>
-
-      <div css={[button, left, upRotate]} onClick={() => play(clockwise, { local: true })}>
+      <div css={[button, left, upRotate]} onClick={preventAction(() => play(clockwise, { local: true }))}>
         <FontAwesomeIcon icon={faRotateRight} css={[pointerCursorCss, bigIconCss]}/>
       </div>
 
-      <div css={[button, validateCss, !validate && disabledCss]} onClick={() => validate ? play(validate) : undefined}>
+      <div css={[button, validateCss, !validate && disabledCss]} onClick={preventAction(() => validate? play(validate) : undefined)}>
         <FontAwesomeIcon icon={faCheck} css={[pointerCursorCss, bigIconCss]}/>
       </div>
 
-      <div css={[button, right]} onClick={() => play(counterClockwise, { local: true })}>
+      <div css={[button, right]} onClick={preventAction(() => play(counterClockwise, { local: true }))}>
         <FontAwesomeIcon icon={faRotateLeft} css={[pointerCursorCss, bigIconCss]}/>
       </div>
     </>
@@ -47,19 +51,19 @@ export const RotateStoreButton: FC<{ location: Location }> = () => {
 
 const left = css`
   transition: transform 0.2s;
-  transform: translate3d(-11.5em, -0.5em, 1em);
+  transform: translate3d(-11.5em, -0.5em, 11em);
 `
 
 const upRotate = css`
-  transform: translate3d(-11.5em, -2em, 1em);
+  transform: translate3d(-11.5em, -2em, 11em);
 `
 
 const validateCss = css`
-  transform: translate3d(-11.5em, 0.5em, 1em);
+  transform: translate3d(-11.5em, 0.5em, 11em);
 `
 
 const right = css`
-  transform: translate3d(10.5em, -0.5em, 1em);
+  transform: translate3d(10.5em, -0.5em, 11em);
 `
 
 const button = css`

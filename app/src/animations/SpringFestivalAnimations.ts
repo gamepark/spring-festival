@@ -12,7 +12,7 @@ springFestivalAnimations
 springFestivalAnimations
   .when()
   .move((move, context) => isMoveItemType(MaterialType.FireworksStore)(move) && !!context.action.local)
-  .duration(0.5)
+  .duration(0.4)
 
 springFestivalAnimations
   .when()

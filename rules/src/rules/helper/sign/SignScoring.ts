@@ -52,7 +52,6 @@ export abstract class SignScoring extends MaterialRulesPart {
       .panorama
       .filter((item, index) =>
         !ignoredTiles.includes(index)
-        && getDistanceBetweenSquares({ x: tile.location.x!, y: tile.location.y! }, { x: item.location.x!, y: item.location.y! }) === 1
         && fireworkDescriptions[tile.id.front].explosions.some((e: any) => isEqual(
         { x: item.location.x, y: item.location.y },
         { x: tile.location.x + e.x, y: tile.location.y + e.y }

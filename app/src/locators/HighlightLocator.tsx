@@ -10,7 +10,10 @@ export enum HighlightType {
 
 class HighlightDescription extends LocationDescription {
   borderRadius = 1
-  extraCss = css`border: 0.15em solid red`
+  extraCss = css`
+    border: 0.15em solid red;
+    pointer-events: none;
+  `
   alwaysVisible = false
 
   getSize(location: Location) {
