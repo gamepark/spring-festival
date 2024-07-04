@@ -10,7 +10,7 @@ export class GoatScoring extends SignScoring {
   get columnsWitOneFireOne() {
     const boundaries = this.boundaries
     let count = 0
-    const fireworks = this.explodedFireworks
+    const fireworks = this.panorama
     for (let x = boundaries.minX; x <= boundaries.maxX; x++) {
       const oneFireItems = fireworks
         .location((l) => l.x === x)

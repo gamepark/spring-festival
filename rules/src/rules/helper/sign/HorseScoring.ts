@@ -10,10 +10,10 @@ export class HorseScoring extends SignScoring {
 
   get countColumnWithDifferentColors() {
     let lineCount = 0
-    const exploded = this.explodedFireworks
+    const fireworks = this.panorama
     const boundaries = this.boundaries
     for (let i = boundaries.minY; i <= boundaries.maxY; i++) {
-      const column = exploded.location((l) => l.x === i)
+      const column = fireworks.location((l) => l.x === i)
       if (column.length < 4) continue
       const uniqColors = uniqBy(column.getItems(), (item) => fireworkDescriptions[item.id.front].color)
       if (uniqColors.length >= 4) lineCount++

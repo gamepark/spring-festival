@@ -10,9 +10,9 @@ export class DragonScoring extends SignScoring {
   get extinguishCount() {
     let extinguished = 0
     const treatedIndexes: number[] = []
-    const exploded = this.panorama
-    for (const index of exploded.getIndexes()) {
-      const item = exploded.getItem(index)!
+    const fireworks = this.panorama
+    for (const index of fireworks.getIndexes()) {
+      const item = fireworks.getItem(index)!
       const applauseCount = new ApplauseHelper(this.game, this.player).getExtinguishesCount(item, treatedIndexes)
       treatedIndexes.push(index)
       extinguished += applauseCount

@@ -21,10 +21,6 @@ export abstract class SignScoring extends MaterialRulesPart {
       .player(this.player)
   }
 
-  get explodedFireworks() {
-    return this.panorama.filter((item) => item.location.rotation)
-  }
-
   countCardsWithSameColorForCoordinates(color: Color, coordinates: XYCoordinates[]) {
     const panorama = this.panorama
     const itemIndexes: number[][] = []

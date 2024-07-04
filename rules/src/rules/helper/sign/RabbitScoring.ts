@@ -21,13 +21,13 @@ export class RabbitScoring extends SignScoring {
     const panorama = this.panorama
     const itemIndexes: number[][] = []
     const treatedIndexes: number[] = []
-    const explodedFireworks = this.explodedFireworks.filter((item) => fireworkDescriptions[item.id.front].explosions.length === explosionsCount)
-    const indexes = explodedFireworks.getIndexes()
+    const allFireworks = this.panorama.filter((item) => fireworkDescriptions[item.id.front].explosions.length === explosionsCount)
+    const indexes = allFireworks.getIndexes()
     for (const index of indexes) {
       const item = panorama.getItem(index)!
       if (!item.location.rotation) continue
       for (const coordinate of coordinates) {
-        const fireworks = explodedFireworks
+        const fireworks = allFireworks
           .index((i) => !treatedIndexes.includes(i))
           .filter((i) => i.location.x === (item.location.x! + coordinate.x) && i.location.y === (item.location.y! + coordinate.y))
         treatedIndexes.push(index)

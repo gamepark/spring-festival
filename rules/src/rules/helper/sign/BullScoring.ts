@@ -10,10 +10,10 @@ export class BullScoring extends SignScoring {
 
   get countColumnWithFourDifferentExplosions() {
     let columnsCount = 0
-    const exploded = this.explodedFireworks
+    const fireworks = this.panorama
     const boundaries = this.boundaries
     for (let i = boundaries.minX; i <= boundaries.maxX; i++) {
-      const column = exploded.location((l) => l.x === i)
+      const column = fireworks.location((l) => l.x === i)
       if (column.length < 4) continue
       const uniqExplosions = uniqBy(column.getItems(), (item) => fireworkDescriptions[item.id.front].explosions.length)
       if (uniqExplosions.length >= 4) columnsCount++
