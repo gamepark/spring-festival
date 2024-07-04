@@ -167,7 +167,7 @@ export class CompositionDescription extends CardDescription {
   }
 
   isFlipped(item: Partial<MaterialItem>, context: ItemContext) {
-    return super.isFlipped(item, context) || item.location?.type === LocationType.PlayerDoneComposition
+    return super.isFlipped(item, context)
   }
 
   getItemExtraCss(item: MaterialItem, context: ItemContext) {

@@ -10,6 +10,10 @@ export class PlayerDoneCompositionLocator extends DeckLocator {
   getCoordinates(item: MaterialItem, context: LocationContext) {
     return this.locationDescription.getCoordinates(item.location, context)
   }
+
+  getRotations(): string[] {
+    return ['rotateY(180deg)']
+  }
 }
 
 export const playerDoneCompositionLocator = new PlayerDoneCompositionLocator()

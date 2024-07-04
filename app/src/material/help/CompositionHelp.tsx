@@ -58,19 +58,19 @@ export const CompositionHelp: FC<MaterialHelpProps> = (props) => {
             <MaterialComponent
               type={MaterialType.Composition}
               itemId={item.id}
-              css={item.location?.type !== LocationType.PlayerDoneComposition && css`transform: rotateZ(90deg)`}/>
+              css={css`transform: rotateZ(90deg)`}/>
             <MaterialComponent
               type={MaterialType.Composition}
               itemId={item.id}
-              css={item.location?.type !== LocationType.PlayerDoneComposition && css`transform: rotateZ(180deg)`}/>
+              css={css`transform: rotateZ(180deg)`}/>
             <MaterialComponent
               type={MaterialType.Composition}
               itemId={item.id}
-              css={item.location?.type !== LocationType.PlayerDoneComposition && css`transform: rotateZ(270deg)`}/>
+              css={css`transform: rotateZ(270deg)`}/>
             <MaterialComponent
               type={MaterialType.Composition}
               itemId={item.id}
-              css={item.location?.type !== LocationType.PlayerDoneComposition && css`transform: rotateX(-180deg)`}/>
+              css={css`transform: rotateX(-180deg)`}/>
           </div>
         </>
       )}
