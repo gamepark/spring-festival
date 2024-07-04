@@ -13,5 +13,6 @@ export enum LocationType {
   Sign,
   Highlight,
   CompositionButton,
-  RotateStoreButton
+  RotateStoreButton,
+  PanoramaButton
 }

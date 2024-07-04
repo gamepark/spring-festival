@@ -5,8 +5,8 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CompositionButton } from '../component/CompositionButton'
 
 export class CompositionButtonDescription extends LocationDescription {
-  height = 1
-  width = 1
+  height = 1.7
+  width = 1.7
   borderRadius = 1
   alwaysVisible = true 
 

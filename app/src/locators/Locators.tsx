@@ -9,6 +9,7 @@ import { fireworkStoreLocator } from './FireworkStoreLocator'
 import { fireworkStorePileLocator } from './FireworkStorePileLocator'
 import { firstPlayerTokenLocator } from './FirstPlayerTokenLocator'
 import { highlightLocator } from './HighlightLocator'
+import { panoramaButtonLocator } from './PanoramaButtonLocator'
 import { panoramaLocator } from './PanoramaLocator'
 import { patternCompositionLocator } from './PatternCompositionLocator'
 import { playerApplauseTokenLocator } from './PlayerApplauseTokenLocator'
@@ -33,5 +34,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, Ma
   [LocationType.Sign]: signLocator,
   [LocationType.Highlight]: highlightLocator,
   [LocationType.CompositionButton]: compositionButtonLocator,
-  [LocationType.RotateStoreButton]: rotateStoreButtonLocator
+  [LocationType.RotateStoreButton]: rotateStoreButtonLocator,
+  [LocationType.PanoramaButton]:  panoramaButtonLocator
 }

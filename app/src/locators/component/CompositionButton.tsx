@@ -52,7 +52,7 @@ const button = (coordinate: Coordinates) => css`
   height: 1.7em;
   width: 1.7em;
   transition: transform 0.2s;
-  transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y - 0.35}em, ${coordinate.z + 1}em);
+  transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y}em, ${coordinate.z + 1}em);
   //border: 0.1em solid white;
   &:active {
     filter: unset;
@@ -68,10 +68,10 @@ const button = (coordinate: Coordinates) => css`
 `
 
 const upButton = (coordinate: Coordinates) => css`
-  transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y - 1.35}em, ${coordinate.z + 1}em);
+  transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y - 1}em, ${coordinate.z + 1}em);
 `
 
 const validateButtonCss = (coordinate: Coordinates) => css`
   ${button(coordinate)}
-  transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y + 0.8}em, ${coordinate.z + 1}em);
+  transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y + 1}em, ${coordinate.z + 1}em);
 `

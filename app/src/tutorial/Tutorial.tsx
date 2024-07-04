@@ -174,8 +174,14 @@ export class Tutorial extends MaterialTutorial {
     {
       popup: {
         text: () => <Trans defaults="tuto.validate"><strong/><em/></Trans>,
-        position: { x: 0, y: -20 }
+        position: { x: 0, y: -23 }
       },
+      focus: () => ({
+        locations: [
+          this.location(LocationType.PanoramaButton)
+            .player(me).location
+        ]
+      }),
       move: {}
     },
     {
@@ -343,7 +349,7 @@ export class Tutorial extends MaterialTutorial {
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).player(me).location((l) => l.x !== 2),
+          this.material(game, MaterialType.Firework).player(me),
           this.material(game, MaterialType.Composition).player(me)
         ],
         margin: {
@@ -360,7 +366,7 @@ export class Tutorial extends MaterialTutorial {
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).player(me).location((l) => l.x !== 2),
+          this.material(game, MaterialType.Firework).player(me),
           this.material(game, MaterialType.Composition).locationId(CompositionType.Pattern).player(me)
         ],
         margin: {
