@@ -23,7 +23,7 @@ export abstract class SignScoring extends MaterialRulesPart {
 
   countCardsWithSameColorForCoordinates(color: Color, coordinates: XYCoordinates[]) {
     const panorama = this.panorama
-    const itemIndexes: number[][] = []
+    const itemIndexes: number[] = []
     const explodedFireworks = this.panorama.filter((item) => fireworkDescriptions[item.id.front].color === color)
     const indexes = explodedFireworks.getIndexes()
     for (const index of indexes) {
@@ -32,11 +32,7 @@ export abstract class SignScoring extends MaterialRulesPart {
       for (const coordinate of coordinates) {
         const fireworks = explodedFireworks.filter((i) => i.location.x === (item.location.x! + coordinate.x) && i.location.y === (item.location.y! + coordinate.y))
         if (!fireworks.length) continue
-        for (const firework of fireworks.getIndexes()) {
-          itemIndexes.push(
-            [index, firework].sort()
-          )
-        }
+        itemIndexes.push(index)
       }
     }
 
