@@ -25,7 +25,6 @@ export class RabbitScoring extends SignScoring {
     const indexes = allFireworks.getIndexes()
     for (const index of indexes) {
       const item = panorama.getItem(index)!
-      if (!item.location.rotation) continue
       for (const coordinate of coordinates) {
         const fireworks = allFireworks
           .index((i) => !treatedIndexes.includes(i))

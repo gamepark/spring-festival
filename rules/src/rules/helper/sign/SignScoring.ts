@@ -28,7 +28,6 @@ export abstract class SignScoring extends MaterialRulesPart {
     const indexes = explodedFireworks.getIndexes()
     for (const index of indexes) {
       const item = panorama.getItem(index)!
-      if (!item.location.rotation) continue
       for (const coordinate of coordinates) {
         const fireworks = explodedFireworks.filter((i) => i.location.x === (item.location.x! + coordinate.x) && i.location.y === (item.location.y! + coordinate.y))
         if (!fireworks.length) continue
