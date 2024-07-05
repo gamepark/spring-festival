@@ -17,6 +17,7 @@ export type SpringFestivalOptions = {
 export const SpringFestivalOptionsSpec: OptionsSpec<SpringFestivalOptions> = {
   chineseSign: {
     label: (t) => t('chinese.sign'),
-    help: (t) => t('chinese.sign.help')
+    help: (t) => t('chinese.sign.help'),
+    subscriberRequired: true
   }
 }
