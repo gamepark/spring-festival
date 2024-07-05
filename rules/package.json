@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/spring-festival",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The rules of Game Template adapted for Game Park",
   "sideEffects": false,
   "main": "dist/index.js",
