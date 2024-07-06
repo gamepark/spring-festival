@@ -320,7 +320,8 @@ class FireworkDescription extends CardDescription {
 
   getShortClickLocalMove(context: ItemContext) {
     if (!context.player) return
-    if (context.rules.game.rule?.id !== RuleId.PlaceFirework) return
+    const { rules } = context
+    if (rules.game.rule?.id !== RuleId.PlaceFirework || !rules.game.rule?.players?.includes(context.player)) return
     const tile = context.rules.material(MaterialType.Firework).index(context.index)
     const item = tile.getItem()!
     if (!item.location.rotation) return
