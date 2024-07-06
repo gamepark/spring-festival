@@ -289,7 +289,9 @@ class FireworkDescription extends CardDescription {
     if (!context.player || context.player !== item.location.player) return
     const isSelect = !!item.selected
     if (!isSelect) return
-    const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
+    const { rules } = context
+    if (rules.game.rule?.id !== RuleId.PlaceFirework || !rules.game.rule?.players?.includes(context.player)) return
+    const selectedIndexes = [...rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     const legalMoves = context.rules.getLegalMoves(context.player)
     const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
     const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes))
@@ -299,7 +301,7 @@ class FireworkDescription extends CardDescription {
         height: 100%;
         width: 100%;
         position: absolute;
-        border: 0.2em solid ${valid? 'green' : 'red'};
+        border: 0.2em solid ${valid ? 'green' : 'red'};
         border-radius: 0.4em;
       }
     `
