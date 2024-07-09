@@ -67,7 +67,7 @@ export class SpringFestivalScoringDescription implements ScoringDescription<Play
       case ScoringKeys.ChineseSign:
         return helper.chineseSignScore
       case ScoringKeys.Total:
-        return helper.score
+        return <div css={bold}>{helper.score}</div>
     }
   }
 }
