@@ -9,6 +9,7 @@ import { springFestivalAnimations } from './animations/SpringFestivalAnimations'
 import App from './App'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
+import { SpringFestivalScoringDescription } from './scoring/SpringFestivalScoringDescription'
 import translations from './translations.json'
 import { Tutorial } from './tutorial/Tutorial'
 
@@ -25,6 +26,7 @@ ReactDOM.render(
       material={Material}
       locators={Locators}
       animations={springFestivalAnimations}
+      scoring={new SpringFestivalScoringDescription()}
       tutorial={new Tutorial()}
       theme={{
         root: {
