@@ -6,6 +6,7 @@ import { Composition, CompositionType } from '@gamepark/spring-festival/material
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
+import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import isEqual from 'lodash/isEqual'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
 import ColorComposition10 from '../images/composition/color/ColorComposition10.jpg'
@@ -173,6 +174,8 @@ export class CompositionDescription extends CardDescription {
   getItemExtraCss(item: MaterialItem, context: ItemContext) {
     if (item.location.type !== LocationType.PlayerComposition) return
     if (!context.player || context.player !== item.location.player) return
+    const { rules } = context
+    if (rules.game.rule?.id !== RuleId.PlaceFirework || !rules.game.rule?.players?.includes(context.player)) return
     const selectedIndexes = [...context.rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     if (!selectedIndexes.length) return
     const legalMoves = context.rules.getLegalMoves(context.player)
