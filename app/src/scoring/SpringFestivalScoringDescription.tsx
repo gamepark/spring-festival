@@ -5,46 +5,70 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { ScoringHelper } from '@gamepark/spring-festival/rules/helper/ScoringHelper'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
-import { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
 
-export class SpringFestivalScoringDescription extends ScoringDescription<SpringFestivalRules, PlayerSymbol> {
-  getScoringCells(rules: SpringFestivalRules): ReactElement[] {
-    const chineseSign = rules.material(MaterialType.Sign).length > 0
-    const cells = [
-      <Trans defaults="scoring.grande-finale" />,
-      <Trans defaults="scoring.applause" />,
-      <Trans defaults="scoring.applause.majority" />,
-      <Trans defaults="scoring.compositions" />,
+enum ScoringKeys {
+  GrandeFinale = 1,
+  Applause,
+  ApplauseMajority,
+  Composition,
+  ChineseSign,
+  Total
+}
+
+
+export class SpringFestivalScoringDescription implements ScoringDescription<PlayerSymbol, SpringFestivalRules, ScoringKeys> {
+  getScoringKeys(rules: SpringFestivalRules) {
+    const keys = [
+      ScoringKeys.GrandeFinale,
+      ScoringKeys.Applause,
+      ScoringKeys.ApplauseMajority,
+      ScoringKeys.Composition,
     ]
 
+    const chineseSign = rules.material(MaterialType.Sign).length > 0
     if (chineseSign) {
-      cells.push(
-        <Trans defaults="scoring.chinese-sign" />
-      )
+      keys.push(ScoringKeys.ChineseSign)
     }
-      cells.push(<div css={bold}><Trans defaults="scoring.total" /></div>)
 
+    keys.push(ScoringKeys.Total)
 
-    return cells
+    return keys
   }
 
-  getPlayerCells(player: PlayerSymbol, rules: SpringFestivalRules): ReactElement[] {
-    const helper = new ScoringHelper(rules.game, player)
-    const chineseSign = rules.material(MaterialType.Sign).length > 0
-    const cells = [
-      <>{helper.grandeFinaleScore}</>,
-      <>{helper.applauseCountScore}</>,
-      <>{helper.applauseMajorityScore}</>,
-      <>{helper.compositionScore}</>,
-    ]
-
-    if (chineseSign) {
-      cells.push(<>{helper.chineseSignScore}</>)
+  getScoringHeader(key: ScoringKeys) {
+    switch (key) {
+      case ScoringKeys.GrandeFinale:
+        return <Trans defaults="scoring.grande-finale"/>
+      case ScoringKeys.Applause:
+        return <Trans defaults="scoring.applause"/>
+      case ScoringKeys.ApplauseMajority:
+        return <Trans defaults="scoring.applause.majority"/>
+      case ScoringKeys.Composition:
+        return <Trans defaults="scoring.compositions"/>
+      case ScoringKeys.ChineseSign:
+        return <Trans defaults="scoring.chinese-sign"/>
+      case ScoringKeys.Total:
+        return <div css={bold}><Trans defaults="scoring.total"/></div>
     }
+  }
 
-    cells.push(<div css={bold}>{helper.score}</div>)
-    return cells
+  getScoringPlayerData(key: ScoringKeys, player: PlayerSymbol, rules: SpringFestivalRules) {
+    const helper = new ScoringHelper(rules.game, player)
+    switch (key) {
+      case ScoringKeys.GrandeFinale:
+        return helper.grandeFinaleScore
+      case ScoringKeys.Applause:
+        return helper.applauseCountScore
+      case ScoringKeys.ApplauseMajority:
+        return helper.applauseMajorityScore
+      case ScoringKeys.Composition:
+        return helper.compositionScore
+      case ScoringKeys.ChineseSign:
+        return helper.chineseSignScore
+      case ScoringKeys.Total:
+        return helper.score
+    }
   }
 }
 
