@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { ComponentSize, ItemContext, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { ComponentSize, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItemType, Location, MaterialMove, XYCoordinates } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
@@ -193,9 +193,9 @@ export class PanoramaDescription extends LocationDescription {
     }
   }
 
-  canDrop(move: MaterialMove, location: Location, context: ItemContext) {
+  isMoveToLocation(move: MaterialMove, location: Location, context: MaterialContext) {
     if (location.x === undefined && location.y === undefined) return false
-    return super.canDrop(move, location, context)
+    return super.isMoveToLocation(move, location, context)
   }
 
 
