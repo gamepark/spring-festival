@@ -12,7 +12,7 @@ export class CompositionButtonDescription extends LocationDescription {
 
   getLocations(context: MaterialContext) {
     const { rules, player } = context
-    if (!player) return []
+    if (!player || !rules.game.rule) return []
     const compositions = rules.material(MaterialType.Composition).location(LocationType.PlayerComposition).player(player)
     return compositions.getItems()
       .map((item) => ({
