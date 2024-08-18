@@ -26,7 +26,7 @@ export class TigerScoring extends SignScoring {
       if (!maxArea || areaLength[key] > areaLength[maxArea]) maxArea = key
     }
 
-    if (maxArea === undefined) return 0
+    if (maxArea === undefined || areaLength[maxArea] === 1) return 0
     return areaLength[maxArea] ?? 0
   }
 
@@ -45,21 +45,28 @@ export class TigerScoring extends SignScoring {
         if (!item.length) continue
 
         if (!this.areas[yIndex]) this.areas[yIndex] = []
-        const bottomArea = this.areas[yIndex - 1]?.[xIndex]
-        if (bottomArea && !this.areas[yIndex][xIndex]) this.areas[yIndex][xIndex] = bottomArea
+        const topArea = this.areas[yIndex - 1]?.[xIndex]
+        if (topArea && !this.areas[yIndex][xIndex]) this.areas[yIndex][xIndex] = topArea
 
         const leftArea = this.areas[yIndex]?.[xIndex - 1]
         if (leftArea) this.areas[yIndex][xIndex] = leftArea
 
-        if (bottomArea && leftArea) this.replaceArea(boundaries, leftArea, bottomArea)
-        if (!bottomArea && !leftArea) this.areas[yIndex][xIndex] = ++areaCount
+        if (topArea && leftArea) {
+          this.replaceArea(boundaries, leftArea, topArea)
+        }
+        if (!topArea && !leftArea) {
+          this.areas[yIndex][xIndex] = ++areaCount
+        }
+
       }
     }
   }
 
   replaceArea(boundaries: any, a: number, b: number) {
-    for (let y = boundaries.minY; y <= boundaries.maxY; y++) {
-      for (let x = boundaries.minX; x <= boundaries.maxX; x++) {
+    for (let yIndex = 0; yIndex <= boundaries.deltaY; yIndex++) {
+      for (let xIndex = 0; xIndex <= boundaries.deltaX; xIndex++) {
+        const x = boundaries.minX + xIndex
+        const y = boundaries.minY + yIndex
         if (this.areas[y]?.[x] === a) {
           this.areas[y][x] = b
         }
