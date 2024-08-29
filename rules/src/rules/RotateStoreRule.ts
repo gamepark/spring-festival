@@ -8,7 +8,7 @@ import { RuleId } from './RuleId'
 export class RotateStoreRule extends PlayerTurnRule {
   onRuleStart() {
     this.game.players.forEach((p) => this.forget(Memory.Placed, p))
-    if (!this.piles.length) return [this.rules().startSimultaneousRule(RuleId.GrandeFinale, this.game.players)]
+    if (!this.piles.length) return [this.startSimultaneousRule(RuleId.GrandeFinale, this.game.players)]
     this.forget(Memory.HasRotated)
     return this.moveFirstPlayer()
   }
@@ -43,7 +43,7 @@ export class RotateStoreRule extends PlayerTurnRule {
       this.forget(Memory.RotationPreview)
       this.memorize(Memory.HasRotated, true)
       // No changes
-      return [this.rules().startSimultaneousRule(RuleId.PlaceFirework, this.game.players)]
+      return [this.startSimultaneousRule(RuleId.PlaceFirework, this.game.players)]
     }
     return []
   }

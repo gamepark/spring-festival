@@ -11,7 +11,7 @@ export class PlaceBaseFireworkRule extends SimultaneousRule<PlayerSymbol, Materi
     const hand = this.getHand(playerId)
     const spaces = helper.availableSpaces.flatMap((location) => hand.moveItems(location))
     if (!spaces.length) {
-      return [this.rules().endPlayerTurn(playerId)]
+      return [this.endPlayerTurn(playerId)]
     }
     return spaces
   }
@@ -24,7 +24,7 @@ export class PlaceBaseFireworkRule extends SimultaneousRule<PlayerSymbol, Materi
 
   getMovesAfterPlayersDone(): MaterialMove<PlayerSymbol, MaterialType, LocationType>[] {
     return [
-      this.rules().startPlayerTurn(RuleId.RotateStore, this.game.players[0])
+      this.startPlayerTurn(RuleId.RotateStore, this.game.players[0])
     ]
   }
 }

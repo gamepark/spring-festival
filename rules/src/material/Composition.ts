@@ -1,4 +1,4 @@
-import { isEnumValue } from '@gamepark/rules-api'
+import { getEnumValues } from '@gamepark/rules-api'
 
 export enum Composition {
   ColorComposition1 = 1,
@@ -84,6 +84,6 @@ export const getColor = (c: Composition) => Math.floor(c / 100) + 1
 export const isPattern = (c: Composition) => c > Composition.ColorComposition36
 export const isColor = (c: Composition) => c < Composition.PatternComposition1
 
-export const compositions = Object.values(Composition).filter(isEnumValue)
+export const compositions = getEnumValues(Composition)
 export const patternCompositions = compositions.filter(isPattern)
 export const colorCompositions = compositions.filter(isColor)

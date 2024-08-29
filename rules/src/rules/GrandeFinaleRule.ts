@@ -23,8 +23,8 @@ export class GrandeFinaleRule extends SimultaneousRule {
 
   getActivePlayerLegalMoves(playerId: number) {
     const panorama = this.getPanorama(playerId)
-    if (panorama.rotation(true).length) return [this.rules().endPlayerTurn(playerId)]
-    return panorama.getIndexes().map((i) => this.rules().customMove(CustomMoveType.GrandeFinale, i))
+    if (panorama.rotation(true).length) return [this.endPlayerTurn(playerId)]
+    return panorama.getIndexes().map((i) => this.customMove(CustomMoveType.GrandeFinale, i))
   }
   afterItemMove(_move: ItemMove<number, number, number>): MaterialMove<number, number, number>[] {
     return super.afterItemMove(_move)
@@ -47,7 +47,7 @@ export class GrandeFinaleRule extends SimultaneousRule {
       }
     }
 
-    moves.push(this.rules().endGame())
+    moves.push(this.endGame())
     return moves
   }
 

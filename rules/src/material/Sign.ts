@@ -1,4 +1,4 @@
-import { isEnumValue } from '@gamepark/rules-api'
+import { getEnumValues } from '@gamepark/rules-api'
 
 export enum Sign {
   Goat = 1,
@@ -15,4 +15,4 @@ export enum Sign {
   Horse,
 }
 
-export const signs = Object.values(Sign).filter(isEnumValue)
+export const signs = getEnumValues(Sign)

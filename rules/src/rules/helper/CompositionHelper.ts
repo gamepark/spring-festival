@@ -32,7 +32,7 @@ export class CompositionHelper extends MaterialRulesPart {
 
           if (combinations.length) {
             moves.push(
-              ...this.deduplicateCombinations(combinations).map((c) => this.rules().customMove(CustomMoveType.Composition, c))
+              ...this.deduplicateCombinations(combinations).map((c) => this.customMove(CustomMoveType.Composition, c))
             )
           }
         }
