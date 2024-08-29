@@ -76,6 +76,7 @@ const button = css`
     filter: unset;
   }
 
+  pointer-events: auto;
   cursor: pointer;
   background-color: white;
   display: flex;

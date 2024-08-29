@@ -1,14 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { LineLocator, LocationContext } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { ListLocator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { fireworkDescription } from '../material/FireworkDescription'
 import { getComputedIndex } from '../utils/PlayerPosition'
 import { playerDoneCompositionLocator } from './PlayerDoneCompositionLocator'
 
-export class PlayerApplauseTokenLocator extends LineLocator {
+export class PlayerApplauseTokenLocator extends ListLocator {
 
-  getDelta(item: MaterialItem, context: LocationContext) {
-    const player = item.location.player!
+  getGap(location: Location, context: MaterialContext) {
+    const player = location.player!
     const index = getComputedIndex(context, player)
     if (index === 0 || index === 3) {
       return { y: -0.5 }
@@ -17,8 +17,8 @@ export class PlayerApplauseTokenLocator extends LineLocator {
     }
   }
 
-  getDeltaMax(item: MaterialItem, context: LocationContext) {
-    const player = item.location.player!
+  getMaxGap(location: Location, context: MaterialContext) {
+    const player = location.player!
     const index = getComputedIndex(context, player)
     if (index === 0 || index === 3) {
       return { y: -4.3 }
@@ -27,10 +27,10 @@ export class PlayerApplauseTokenLocator extends LineLocator {
     }
   }
 
-  getCoordinates(item: MaterialItem, context: LocationContext) {
-    const player = item.location.player!
+  getCoordinates(location: Location, context: MaterialContext) {
+    const player = location.player!
     const index = getComputedIndex(context, player)
-    const coordinates = playerDoneCompositionLocator.getCoordinates(item, context)
+    const coordinates = playerDoneCompositionLocator.getCoordinates(location, context)
     if (index === 0 || index === 3) {
       coordinates.y -= fireworkDescription.height - 1
     } else {

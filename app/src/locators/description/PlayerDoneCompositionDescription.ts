@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { LocationContext, LocationDescription } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
@@ -12,15 +12,6 @@ import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, 
 export class PlayerDoneCompositionDescription extends LocationDescription {
   height = fireworkDescription.height
   width = fireworkDescription.width
-
-  getLocations(context: MaterialContext) {
-    return context.rules.players.map((p) => ({
-      type: LocationType.PlayerDoneComposition,
-      player: p
-    }))
-  }
-
-  alwaysVisible = true
 
   getCoordinates(location: Location, context: LocationContext) {
     const player = location.player!

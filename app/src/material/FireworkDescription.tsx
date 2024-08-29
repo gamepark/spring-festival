@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { CustomMove, displayMaterialHelp, isCustomMoveType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, MaterialItem, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
 import { Firework } from '@gamepark/spring-festival/material/Firework'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
@@ -140,6 +140,7 @@ import Firework9Front from '../images/firework/rocket/Firework9.jpg'
 import ArrowIcons from '../images/icons/arrow.jpg'
 import ExtinguishIcons from '../images/icons/extinguish.jpg'
 import { FireworkHelp } from './help/FireworkHelp'
+import displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 
 class FireworkDescription extends CardDescription {
@@ -280,7 +281,7 @@ class FireworkDescription extends CardDescription {
     [Firework.Firework48]: Firework48Back
   }
 
-  isFlipped(item: Partial<MaterialItem>): boolean {
+  isFlipped(item: Partial<MaterialItem>) {
     return item.location?.rotation
   }
 
@@ -296,7 +297,7 @@ class FireworkDescription extends CardDescription {
     const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
     const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes))
     return css`
-      &:after {
+      > *:after {
         content: '';
         height: 100%;
         width: 100%;
@@ -328,7 +329,7 @@ class FireworkDescription extends CardDescription {
     if (context.player !== item.location.player) return
     if (!context.rules.remind(Memory.Placed, context.player)) return
     if (!context.rules.isTurnToPlay(context.player)) return
-    if (context.rules.game.tutorialStep === 23 || context.rules.game.tutorialStep === 24) return
+    if (context.rules.game.tutorial?.step === 23 || context.rules.game.tutorial?.step === 24) return
     if (!item.selected) return tile.selectItem()
     return
   }

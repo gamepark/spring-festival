@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { ItemLocator, LocationDescription } from '@gamepark/react-game'
+import { LocationDescription, Locator } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 
 export enum HighlightType {
@@ -14,19 +14,20 @@ class HighlightDescription extends LocationDescription {
     border: 0.15em solid red;
     pointer-events: none;
   `
-  alwaysVisible = false
 
-  getSize(location: Location) {
-    if (location.id === HighlightType.Applause) {
-      return { height: 2.8, width: 2.8 }
+  getSize(id: HighlightType) {
+    switch (id) {
+      case HighlightType.Applause:
+        return { height: 2.8, width: 2.8 }
+      case HighlightType.Compositions:
+        return { height: 12, width: 7 }
     }
-
-    if (location.id === HighlightType.Compositions) {
-      return { height: 12, width: 7 }
-    }
-
-    return { height: 0, width: 0 }
   }
+}
+
+
+export class HighlightLocator extends Locator {
+  locationDescription = new HighlightDescription()
 
   getCoordinates(location: Location) {
     if (location.id === HighlightType.Applause) {
@@ -39,11 +40,6 @@ class HighlightDescription extends LocationDescription {
 
     return { x: 0, y: 0, z: 0 }
   }
-}
-
-
-export class HighlightLocator extends ItemLocator {
-  locationDescription = new HighlightDescription()
 }
 
 export const highlightLocator = new HighlightLocator()

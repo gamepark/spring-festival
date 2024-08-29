@@ -1,4 +1,4 @@
-import { ItemLocator } from '@gamepark/react-game'
+import { Locator } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
@@ -17,9 +17,8 @@ import { playerCompositionLocator } from './PlayerCompositionLocator'
 import { playerDoneCompositionLocator } from './PlayerDoneCompositionLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { rotateStoreButtonLocator } from './RotateStoreButtonLocator'
-import { signLocator } from './SignLocator'
 
-export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, MaterialType, LocationType>>> = {
+export const Locators: Partial<Record<LocationType, Locator<PlayerSymbol, MaterialType, LocationType>>> = {
   [LocationType.FireworksStore]: fireworkStoreLocator,
   [LocationType.FireworksStorePile]: fireworkStorePileLocator,
   [LocationType.PlayerHand]: playerHandLocator,
@@ -31,7 +30,7 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerSymbol, Ma
   [LocationType.ApplauseStock]: applausePileLocator,
   [LocationType.PlayerApplause]: playerApplauseTokenLocator,
   [LocationType.FirstPlayerToken]: firstPlayerTokenLocator,
-  [LocationType.Sign]: signLocator,
+  [LocationType.Sign]: new Locator({ coordinates: { y: -16 } }),
   [LocationType.Highlight]: highlightLocator,
   [LocationType.CompositionButton]: compositionButtonLocator,
   [LocationType.RotateStoreButton]: rotateStoreButtonLocator,

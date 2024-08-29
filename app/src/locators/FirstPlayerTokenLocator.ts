@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { ItemLocator, LocationContext } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { Locator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { fireworkDescription } from '../material/FireworkDescription'
 import { getComputedIndex } from '../utils/PlayerPosition'
 import { playerCompositionLocator } from './PlayerCompositionLocator'
 
-export class FirstPlayerTokenLocator extends ItemLocator {
+export class FirstPlayerTokenLocator extends Locator {
 
 
-  getPosition(item: MaterialItem, context: LocationContext) {
-    const player = item.location.player!
+  getCoordinates(location: Location, context: MaterialContext) {
+    const player = location.player!
     const index = getComputedIndex(context, player)
-    const coordinates = playerCompositionLocator.getCoordinates(item, context)
+    const coordinates = playerCompositionLocator.getCoordinates(location, context)
     if (index === 0 || index === 3) {
       coordinates.y -= fireworkDescription.height
     } else {

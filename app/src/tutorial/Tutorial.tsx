@@ -19,7 +19,7 @@ const me = 1
 const opponent = 2
 
 export class Tutorial extends MaterialTutorial {
-  version = 3
+  version = 4
   options = { players: 2 }
   setup = new TutorialSetup()
 

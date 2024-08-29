@@ -22,9 +22,12 @@ const button = css`
   height: 2em;
   width: 2em;
   transition: transform 0.2s;
+
   &:active {
     filter: unset;
   }
+
+  pointer-events: auto;
   cursor: pointer;
   background-color: white;
   display: flex;

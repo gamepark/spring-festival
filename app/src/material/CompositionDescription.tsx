@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { CardDescription, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { CustomMove, isCustomMoveType, MaterialItem } from '@gamepark/rules-api'
 import { Composition, CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
@@ -167,8 +167,8 @@ export class CompositionDescription extends CardDescription {
     [Composition.PatternComposition36]: PatternComposition36,
   }
 
-  isFlipped(item: Partial<MaterialItem>, context: ItemContext) {
-    return super.isFlipped(item, context)
+  isFlippedOnTable(item: Partial<MaterialItem>, context: MaterialContext) {
+    return item.location?.type === LocationType.PlayerDoneComposition || super.isFlippedOnTable(item, context)
   }
 
   getItemExtraCss(item: MaterialItem, context: ItemContext) {
@@ -182,7 +182,7 @@ export class CompositionDescription extends CardDescription {
     const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
     const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
     return css`
-      &:after {
+      > *:after {
         content: '';
         width: 100%;
         height: 100%;

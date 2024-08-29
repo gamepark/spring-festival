@@ -11,23 +11,20 @@ export class FireworkStoreDescription extends LocationDescription {
   height = fireworkStoreDescription.height
   width = fireworkStoreDescription.width
   borderRadius = 10
-  location = {
-    type: LocationType.FireworksStore
-  }
-  alwaysVisible = true
 
   getExtraCss(_location: Location, context: LocationContext) {
     return css`
       pointer-events: none;
+
       &:after {
         content: '${this.remainingRound(context)}';
         pointer-events: none;
         position: absolute;
         height: 100%;
         width: 100%;
-        display: flex; 
+        display: flex;
         align-items: center;
-        justify-content: center; 
+        justify-content: center;
         transform: translateZ(0.1em);
         font-size: 4em;
         font-weight: bold;

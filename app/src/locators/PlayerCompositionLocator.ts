@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { DeckLocator, LocationContext } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { DeckLocator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { CompositionType } from '@gamepark/spring-festival/material/Composition'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { fireworkDescription } from '../material/FireworkDescription'
 import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates, gridMinX } from '../utils/PlayerPosition'
 
 export class PlayerCompositionLocator extends DeckLocator {
-  delta = { y: fireworkDescription.height + 0.2 }
+  gap = { y: fireworkDescription.height + 0.2 }
 
-  getCoordinates(item: MaterialItem, context: LocationContext) {
-    const player = item.location.player!
+  getCoordinates(location: Location, context: MaterialContext) {
+    const player = location.player!
     const index = getComputedIndex(context, player)
     const heightWithMargin = fireworkDescription.width + 0.2
     const coordinates = this.getCompositionLocation(index, context.rules.players)
@@ -37,7 +37,7 @@ export class PlayerCompositionLocator extends DeckLocator {
       coordinates.x -= margin
     }
 
-    if (item.location.id === CompositionType.Pattern) {
+    if (location.id === CompositionType.Pattern) {
       coordinates.y += (heightWithMargin) * 2
     }
 
@@ -57,9 +57,7 @@ export class PlayerCompositionLocator extends DeckLocator {
     }
   }
 
-  getRotateZ(item: MaterialItem): number {
-    return 90 * (item.location.rotation ?? 0)
-  }
+  getRotateZ = ({ rotation = 0 }: Location) => 90 * rotation
 }
 
 export const playerCompositionLocator = new PlayerCompositionLocator()

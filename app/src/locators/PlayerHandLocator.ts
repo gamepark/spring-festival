@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { HandLocator, ItemContext, LocationContext } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
+import { HandLocator, LocationContext, MaterialContext } from '@gamepark/react-game'
+import { Coordinates, Location } from '@gamepark/rules-api'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates } from '../utils/PlayerPosition'
 
@@ -12,8 +12,8 @@ export class PlayerHandLocator extends HandLocator {
     return coordinates
   }
 
-  getBaseAngle(item: MaterialItem, context: ItemContext): number {
-    const index = getComputedIndex(context, item.location.player!)
+  getBaseAngle(location: Location, context: MaterialContext): number {
+    const index = getComputedIndex(context, location.player!)
     if (index === 1 || index === 2) {
       return 180
     }

@@ -21,7 +21,7 @@ export const CompositionButton: FC<{ location: Location }> = (props) => {
   const legalMoves = useLegalMoves(isCustomMoveType(CustomMoveType.Composition))
   const rules = useRules<SpringFestivalRules>()!
   const context = useMaterialContext()
-  const coordinates = playerCompositionLocator.getPosition({ location }, context as any)
+  const { x = 0, y = 0, z = 0 } = playerCompositionLocator.getLocationCoordinates(location, context)
   const composition = rules.material(MaterialType.Composition).location((l) => isEqual(l, { ...location, type: LocationType.PlayerComposition }))
   const compositionItem = composition.getItem()!
   const rotateNext = composition.rotateItem(getClockwise((compositionItem.location.rotation ?? 0)))
@@ -33,11 +33,11 @@ export const CompositionButton: FC<{ location: Location }> = (props) => {
 
   return (
     <>
-      <div css={[button(coordinates), canValidate && upButton(coordinates)]} onClick={() => play(rotateNext, { local: true })}>
+      <div css={[button({ x, y, z }), canValidate && upButton({ x, y, z })]} onClick={() => play(rotateNext, { local: true })}>
         <FontAwesomeIcon icon={faRotateRight} css={pointerCursorCss}/>
       </div>
-      { canValidate && (
-        <div css={[validateButtonCss(coordinates)]} onClick={() => play(validateComp)}>
+      {canValidate && (
+        <div css={[validateButtonCss({ x, y, z })]} onClick={() => play(validateComp)}>
           <FontAwesomeIcon icon={faCheck} css={pointerCursorCss}/>
         </div>
       )}
@@ -54,9 +54,12 @@ const button = (coordinate: Coordinates) => css`
   transition: transform 0.2s;
   transform: translate3d(${coordinate.x + 2.6}em, ${coordinate.y}em, ${coordinate.z + 1}em);
   //border: 0.1em solid white;
+
   &:active {
     filter: unset;
   }
+
+  pointer-events: auto;
   cursor: pointer;
   background-color: white;
   display: flex;

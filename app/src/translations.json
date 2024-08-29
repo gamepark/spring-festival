@@ -281,7 +281,7 @@
       "tuto.composition": "Voici vos 4 compositions de départ. Les 2 premières imposent des <0>couleurs d'explosion</0>, les 2 autres des <0>nombres d'explosions</0>.",
       "tuto.starting.place": "Vous commencez par placer vos 4 tuiles de départ devant vous.",
       "tuto.place": "Placez votre tuile {color, select, 1{bleue} 2{verte} 3{rouge} other{jaune}} ici.",
-      "tuto.validate": "Validez le placement en cliquant sur le bouton dans l'entête ou sur le bouton de validation ci dessous.",
+      "tuto.validate": "Validez le placement en cliquant sur le bouton dans l'entête ou sur le bouton de validation ci-dessous.",
       "tuto.start": "Maintenant que chaque joueur a placé ses 4 tuiles de départ, la partie peut commencer !",
       "tuto.active": "Ce jeton identifie le joueur actif : vous en l'occurrence.",
       "tuto.store": "Voici le Magasin de Feux d'Artifice. Le joueur actif a le privilège d'orienter le magasin dans le sens de son choix, ce qui détermine la tuile que chaque joueur jouera à ce tour.",

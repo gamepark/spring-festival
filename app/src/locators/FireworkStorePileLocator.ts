@@ -1,15 +1,14 @@
 /** @jsxImportSource @emotion/react */
-import { DeckLocator, ItemContext } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialItem } from '@gamepark/rules-api'
+import { DeckLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
+import { Coordinates, Location } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { SearchPileHelper } from '@gamepark/spring-festival/rules/helper/SearchPileHelper'
 import { fireworkStoreLocator } from './FireworkStoreLocator'
 
 export class FireworkStorePileLocator extends DeckLocator {
   parentItemType = MaterialType.FireworksStore
-  delta = { y: -0.05 }
 
-  getDelta(_item: MaterialItem, context: ItemContext): Partial<Coordinates> {
+  getGap(_location: Location, context: MaterialContext): Partial<Coordinates> {
     const storeLocation = new SearchPileHelper(context.rules.game, context.player ?? context.rules.players[0]).pile
     const twoPlayer = context.rules.players.length === 2
     switch (storeLocation) {
@@ -24,23 +23,22 @@ export class FireworkStorePileLocator extends DeckLocator {
     }
   }
 
-  getPositionOnParent(location: Location, _context: ItemContext): Coordinates {
+  getPositionOnParent(location: Location, _context: ItemContext) {
     const angle = this.getAngle(location.id)
     const radius = 30.1
     const x = Math.cos(angle * Math.PI / 180) * radius + 50
     const y = -Math.sin(angle * Math.PI / 180) * radius + 50
-    const z = 0.05
-    return { x, y, z }
+    return { x, y }
   }
 
   getAngle(id: number) {
     return (-45 - id * 360 / 4)
   }
 
-  getRotateZ(item: MaterialItem, context: ItemContext): number {
+  getRotateZ(location: Location, context: MaterialContext) {
     const { rules } = context
-    const parentRotation = rules.material(this.parentItemType).getItem(item.location.parent!)!
-    return -fireworkStoreLocator.getRotateZ(parentRotation, context)
+    const parentRotation = rules.material(this.parentItemType).getItem(location.parent!)!
+    return -fireworkStoreLocator.getRotateZ(parentRotation.location, context)
   }
 
   navigationSorts = []
