@@ -5,7 +5,7 @@ import { CompositionButtonDescription } from './description/CompositionButtonDes
 
 export class CompositionButtonLocator extends Locator {
   getLocations({ rules, player }: MaterialContext) {
-    if (!player) return []
+    if (!player || !rules.game.rule) return []
     const compositions = rules.material(MaterialType.Composition).location(LocationType.PlayerComposition).player(player)
     return compositions.getItems()
       .map((item) => ({
