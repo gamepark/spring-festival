@@ -13,7 +13,7 @@ export class PigScoring extends SignScoring {
     const treatedIndexes: number[] = []
     const panorama = this.panorama
     for (const index of panorama.getIndexes()) {
-      const item = panorama.getItem(index)!
+      const item = panorama.getItem(index)
       const adjacent = this
         .getTileThatWillExplode(item, treatedIndexes)
         .filter(

@@ -27,7 +27,7 @@ export abstract class SignScoring extends MaterialRulesPart {
     const explodedFireworks = this.panorama.filter((item) => fireworkDescriptions[item.id.front].color === color)
     const indexes = explodedFireworks.getIndexes()
     for (const index of indexes) {
-      const item = panorama.getItem(index)!
+      const item = panorama.getItem(index)
       for (const coordinate of coordinates) {
         const fireworks = explodedFireworks.filter((i) => i.location.x === (item.location.x! + coordinate.x) && i.location.y === (item.location.y! + coordinate.y))
         if (!fireworks.length) continue

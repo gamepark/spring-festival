@@ -37,7 +37,7 @@ export class FireworkStorePileLocator extends DeckLocator {
 
   getRotateZ(location: Location, context: MaterialContext) {
     const { rules } = context
-    const parentRotation = rules.material(this.parentItemType).getItem(location.parent!)!
+    const parentRotation = rules.material(this.parentItemType).getItem(location.parent!)
     return -fireworkStoreLocator.getRotateZ(parentRotation.location, context)
   }
 

@@ -61,7 +61,7 @@ export class SpringFestivalRules extends SecretMaterialRules<PlayerSymbol, Mater
 
   previewMove(move: MaterialMove) {
     if (isMoveItemType(MaterialType.FireworksStore)(move)) {
-      return this.remind(Memory.RotationPreview) && !isEqual(this.material(MaterialType.FireworksStore).getItem(move.itemIndex)?.location, move.location)
+      return this.remind(Memory.RotationPreview) && !isEqual(this.material(MaterialType.FireworksStore).getItem(move.itemIndex).location, move.location)
     }
 
     return false

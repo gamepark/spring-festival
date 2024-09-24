@@ -13,7 +13,7 @@ export class RoosterScoring extends SignScoring {
     const treatedIndexes: number[] = []
     const exploded = this.panorama.filter((item) => fireworkDescriptions[item.id.front].explosions.length === 3)
     for (const index of exploded.getIndexes()) {
-      const item = exploded.getItem(index)!
+      const item = exploded.getItem(index)
       const applauseCount = new ApplauseHelper(this.game, this.player).getExtinguishesCount(item, treatedIndexes)
       treatedIndexes.push(index)
       extinguished += applauseCount

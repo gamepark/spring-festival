@@ -31,7 +31,7 @@ export class PanoramaDescription extends DropAreaDescription {
 
   canShortClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
     if (!isMoveItemType(MaterialType.Firework)(move) || move.location.type !== LocationType.Panorama) return false
-    if (context.rules.material(MaterialType.Firework).getItem(move.itemIndex)?.location.type === LocationType.PlayerHand) return false
+    if (context.rules.material(MaterialType.Firework).getItem(move.itemIndex).location.type === LocationType.PlayerHand) return false
     return isEqual(move.location, location)
   }
 }

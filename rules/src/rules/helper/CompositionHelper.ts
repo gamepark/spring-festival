@@ -27,7 +27,7 @@ export class CompositionHelper extends MaterialRulesPart {
       for (let y = boundaries.minY; y <= boundaries.maxY; y++) {
 
         for (const compositionIndex of compositions.getIndexes()) {
-          const item = compositions.getItem(compositionIndex)!
+          const item = compositions.getItem(compositionIndex)
           const combinations = this.getValidCombinations(item, compositionIndex, panorama, x, y)
 
           if (combinations.length) {

@@ -12,7 +12,7 @@ export class DragonScoring extends SignScoring {
     const treatedIndexes: number[] = []
     const fireworks = this.panorama
     for (const index of fireworks.getIndexes()) {
-      const item = fireworks.getItem(index)!
+      const item = fireworks.getItem(index)
       const applauseCount = new ApplauseHelper(this.game, this.player).getExtinguishesCount(item, treatedIndexes)
       treatedIndexes.push(index)
       extinguished += applauseCount
