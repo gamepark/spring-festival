@@ -8,7 +8,6 @@ import { FireworkStoreDescription } from './description/FireworkStoreDescription
 export class FireworkStoreLocator extends Locator {
   location = { type: LocationType.FireworksStore }
   locationDescription = new FireworkStoreDescription()
-  position = { x: 0, y: 0, z: 0 }
 
   getRotateZ(location: Location, context: MaterialContext) {
     const distanceFromZero = new SearchPileHelper(context.rules.game, context.player ?? context.rules.players[0]).distanceFromPositionZero

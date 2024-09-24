@@ -38,7 +38,7 @@ export class HighlightLocator extends Locator {
       return { x: -9.7, y: 22, z: 10 }
     }
 
-    return { x: 0, y: 0, z: 0 }
+    return {}
   }
 }
 

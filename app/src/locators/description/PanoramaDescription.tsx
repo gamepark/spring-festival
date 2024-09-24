@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
-import { ComponentSize, DropAreaDescription, LocationContext, MaterialContext } from '@gamepark/react-game'
+import { ComponentSize, DropAreaDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
@@ -12,19 +11,6 @@ export class PanoramaDescription extends DropAreaDescription {
   height = fireworkDescription.height
   width = fireworkDescription.width
   borderRadius = fireworkDescription.borderRadius
-
-  getExtraCss(location: Location, _context: LocationContext) {
-    if (location.x !== undefined && location.y !== undefined) {
-      return
-    }
-    // TODO: Move it to specific location ?
-    return css`
-      //background-color: rgba(0, 128, 0, 0.5);
-      //border: 0.1em solid green;
-      pointer-events: none;
-    `
-
-  }
 
   getLocationSize(location: Location, context: MaterialContext): ComponentSize {
     if (location.x !== undefined && location.y !== undefined) {

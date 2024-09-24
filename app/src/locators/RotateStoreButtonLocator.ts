@@ -15,7 +15,6 @@ export class RotateStoreButtonLocator extends Locator {
   }
 
   locationDescription = new RotateStoreButtonDescription()
-  position = { x: 0, y: 0 }
 }
 
 export const rotateStoreButtonLocator = new RotateStoreButtonLocator()
