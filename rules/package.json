@@ -21,7 +21,7 @@
     "@gamepark/rules-api": ">=6.24"
   },
   "devDependencies": {
-    "@gamepark/rules-api": "~6.24.1",
+    "@gamepark/rules-api": "~6.24.3",
     "i18next": "^22.0.3"
   },
   "gitHead": "f3a6a3b03b5834e62762a82b4ecbad38dab1eae1"
