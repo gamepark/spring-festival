@@ -1,22 +1,17 @@
-/** @jsxImportSource @emotion/react */
-import { GameProvider, setupTranslation } from '@gamepark/react-game'
+import { GameProvider } from '@gamepark/react-game'
 import { SpringFestivalOptionsSpec } from '@gamepark/spring-festival/SpringFestivalOptions'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
 import { SpringFestivalSetup } from '@gamepark/spring-festival/SpringFestivalSetup'
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { springFestivalAnimations } from './animations/SpringFestivalAnimations'
-import App from './App'
+import { App } from './App'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { SpringFestivalScoringDescription } from './scoring/SpringFestivalScoringDescription'
-import translations from './translations.json'
 import { Tutorial } from './tutorial/Tutorial'
 
-setupTranslation(translations, { debug: false })
-
-
-ReactDOM.render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GameProvider
       game="spring-festival"
@@ -36,8 +31,7 @@ ReactDOM.render(
         }
       }}
     >
-      <App/>
+      <App />
     </GameProvider>
-  </StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 )

@@ -1,9 +1,8 @@
-/** @jsxImportSource @emotion/react */
 import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import { Trans } from 'react-i18next'
 import { getClockwise, getCounterClockwise } from '../utils/Clockwise'
 
@@ -22,7 +21,7 @@ export const RotateStoreHeader = () => {
   if (itsMe) {
     return (
       <Trans
-        defaults="header.rotate">
+        i18nKey="header.rotate">
         <PlayMoveButton move={clockwise} local/>
         <PlayMoveButton move={counterClockwise} local/>
         <PlayMoveButton move={validate}/>
@@ -31,6 +30,6 @@ export const RotateStoreHeader = () => {
   }
 
   return (
-    <Trans defaults="header.rotate.player" values={{ player: name}} />
+    <Trans i18nKey="header.rotate.player" values={{ player: name}} />
   )
 }

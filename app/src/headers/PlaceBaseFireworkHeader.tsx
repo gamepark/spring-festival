@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { isEndPlayerTurn } from '@gamepark/rules-api'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
@@ -13,14 +12,14 @@ export const PlaceBaseFireworkHeader = () => {
   const name = usePlayerName(players[0])
 
   if (itsMyTurn) {
-    if (!pass) return <Trans defaults="header.place.start" />
+    if (!pass) return <Trans i18nKey="header.place.start" />
     return (
-      <Trans defaults="header.validate.placement">
+      <Trans i18nKey="header.validate.placement">
         <PlayMoveButton move={pass}/>
       </Trans>
     )
   }
 
-  if (players.length > 1) return <Trans defaults="header.place.start.players" />
-  return <Trans defaults="header.place.start.player" values={{ player: name }} />
+  if (players.length > 1) return <Trans i18nKey="header.place.start.players" />
+  return <Trans i18nKey="header.place.start.player" values={{ player: name }} />
 }

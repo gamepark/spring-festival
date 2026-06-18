@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { HandLocator, LocationContext, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { getComputedIndex, getFourPlayerCoordinates, getThreePlayerCoordinates, getTwoPlayerCoordinates } from '../utils/PlayerPosition'

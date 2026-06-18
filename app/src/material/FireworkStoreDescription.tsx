@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { BoardDescription } from '@gamepark/react-game'
 import RocketStore from '../images/dispenser.jpg'
 import { FireworkStoreHelp } from './help/FireworkStoreHelp'

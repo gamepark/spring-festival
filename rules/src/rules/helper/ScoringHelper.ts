@@ -1,7 +1,7 @@
 import { MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import sum from 'lodash/sum'
+import { sum } from 'es-toolkit'
 import { colorCompositionDescriptions } from '../../material/ColorCompositionDescription'
-import { CompositionType } from '../../material/Composition'
+import { CompositionId, CompositionType } from '../../material/Composition'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { patternCompositionDescriptions } from '../../material/PatternCompositionDescription'
@@ -52,8 +52,8 @@ export class ScoringHelper extends MaterialRulesPart {
       this.material(MaterialType.Composition)
         .location(LocationType.PlayerDoneComposition)
         .player(this.player)
-        .getItems()
-        .map((item) => (item.id.back === CompositionType.Pattern ? patternCompositionDescriptions : colorCompositionDescriptions)[item.id.front].points)
+        .getItems<CompositionId>()
+        .map((item) => (item.id.back === CompositionType.Pattern ? patternCompositionDescriptions : colorCompositionDescriptions)[item.id.front]!.points)
     )
   }
 

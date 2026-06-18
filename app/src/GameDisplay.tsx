@@ -1,16 +1,11 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { GameTable, GameTableNavigation, MaterialContext, useMaterialContext } from '@gamepark/react-game'
+import { DevToolsHub, GameTable, GameTableNavigation, MaterialContext, useMaterialContext } from '@gamepark/react-game'
 import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
 import { FC, useMemo } from 'react'
 import { PlayerPanels } from './panels/PlayerPanels'
 import { getComputedIndex, gridHeight, gridWidth } from './utils/PlayerPosition'
 
-type GameDisplayProps = {
-  players: number
-}
-
-export const GameDisplay: FC<GameDisplayProps> = () => {
+export const GameDisplay: FC = () => {
   const context: MaterialContext = useMaterialContext()
   const extraSpace = useMemo(() => getExtraSpace(context), [context])
   return <>
@@ -21,10 +16,10 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
       yMin={-28 - extraSpace.yMin}
       yMax={28 + extraSpace.yMax}
       margin={{ top: 7.5, left: 0, right: 0, bottom: 0 }}
-      //css={css`background-color: rgba(255, 255, 255, 0.5)`}
     >
       <GameTableNavigation css={navigationCss} scaleStep={0.2}/>
       <PlayerPanels/>
+      {process.env.NODE_ENV === 'development' && <DevToolsHub fabBottom="calc(5em)"/>}
     </GameTable>
   </>
 }

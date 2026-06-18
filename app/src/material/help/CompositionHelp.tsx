@@ -1,20 +1,20 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialComponent, MaterialHelpProps, PlayMoveButton, useLegalMoves, usePlayerId, useRules } from '@gamepark/react-game'
 import { isCustomMoveType } from '@gamepark/rules-api'
 import { colorCompositionDescriptions } from '@gamepark/spring-festival/material/ColorCompositionDescription'
-import { isPattern } from '@gamepark/spring-festival/material/Composition'
+import { CompositionId, isPattern } from '@gamepark/spring-festival/material/Composition'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { patternCompositionDescriptions } from '@gamepark/spring-festival/material/PatternCompositionDescription'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import { FC, useMemo } from 'react'
 import { Trans } from 'react-i18next'
 
 export const CompositionHelp: FC<MaterialHelpProps> = (props) => {
   const { item, itemIndex, closeDialog } = props
+  const compositionId: CompositionId = item.id
   const rules = useRules<SpringFestivalRules>()!
   const legalMoves = useLegalMoves()
   const playerId = usePlayerId()
@@ -24,33 +24,33 @@ export const CompositionHelp: FC<MaterialHelpProps> = (props) => {
     const indexes = [...rules.material(MaterialType.Firework).selected().getIndexes()].sort()
     return legalMoves.find((move) => isCustomMoveType(CustomMoveType.Composition)(move) && isEqual(indexes, move.data.indexes) && itemIndex === move.data.comp)
   }, [rules, item, itemIndex, legalMoves, playerId])
-  const isPatternComposition = isPattern(item.id.front)
+  const isPatternComposition = isPattern(compositionId.front)
 
   return (
     <>
-      {<h2><Trans defaults={isPatternComposition ? 'help.composition.pattern' : 'help.composition.color'}/></h2>}
+      {<h2><Trans i18nKey={isPatternComposition ? 'help.composition.pattern' : 'help.composition.color'}/></h2>}
       {validateComposition && (
         <p>
-          <Trans defaults="header.composition.validate">
+          <Trans i18nKey="header.composition.validate">
             <PlayMoveButton move={validateComposition} onPlay={closeDialog}/>
           </Trans>
         </p>
       )}
-      { item.id.front !== undefined && (
+      { compositionId.front !== undefined && (
         <p>
-          <Trans defaults="help.composition.text" values={{ number: (isPatternComposition? patternCompositionDescriptions: colorCompositionDescriptions)[item.id.front].points }}/>
+          <Trans i18nKey="help.composition.text" values={{ number: (isPatternComposition? patternCompositionDescriptions: colorCompositionDescriptions)[compositionId.front]!.points }}/>
         </p>
       )}
       <p>
-        <Trans defaults={isPatternComposition ? 'help.composition.pattern.text' : 'help.composition.color.text'}>
+        <Trans i18nKey={isPatternComposition ? 'help.composition.pattern.text' : 'help.composition.color.text'}>
           <strong/>
         </Trans>
       </p>
       <p>
-        <Trans defaults="help.composition.blank"/>
+        <Trans i18nKey="help.composition.blank"/>
       </p>
       <p>
-        <Trans defaults="help.composition.rotation"/>
+        <Trans i18nKey="help.composition.rotation"/>
       </p>
       {item.location?.type !== LocationType.ColorComposition && item.location?.type !== LocationType.PatternComposition && (
         <>

@@ -16,23 +16,23 @@ export const GrandeFinaleHeader: FC = () => {
   if (iMustPlay) {
     if (pass) {
       return (
-        <Trans defaults="header.grandfinal.validate">
+        <Trans i18nKey="header.grandfinal.validate">
           <PlayMoveButton move={pass} />
         </Trans>
       )
     }
     return (
-      <Trans defaults="header.grandfinal" />
+      <Trans i18nKey="header.grandfinal" />
     )
   }
 
   if (rules?.game.rule?.players?.length === 1) {
     return (
-      <Trans defaults="header.grandfinal.player" values={{ player: name }} />
+      <Trans i18nKey="header.grandfinal.player" values={{ player: name }} />
     )
   }
 
   return (
-    <Trans defaults="header.grandfinal.players" />
+    <Trans i18nKey="header.grandfinal.players" />
   )
 }

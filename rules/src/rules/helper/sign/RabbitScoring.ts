@@ -1,6 +1,7 @@
 import { XYCoordinates } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
-import uniqWith from 'lodash/uniqWith'
+import { isEqual } from 'es-toolkit'
+import { uniqWith } from 'es-toolkit'
+import { FireworkId } from '../../../material/Firework'
 import { fireworkDescriptions } from '../../../material/FireworkDescription'
 import { SignScoring } from './SignScoring'
 
@@ -21,7 +22,7 @@ export class RabbitScoring extends SignScoring {
     const panorama = this.panorama
     const itemIndexes: number[][] = []
     const treatedIndexes: number[] = []
-    const allFireworks = this.panorama.filter((item) => fireworkDescriptions[item.id.front].explosions.length === explosionsCount)
+    const allFireworks = this.panorama.filter<FireworkId>((item) => fireworkDescriptions[item.id.front].explosions.length === explosionsCount)
     const indexes = allFireworks.getIndexes()
     for (const index of indexes) {
       const item = panorama.getItem(index)

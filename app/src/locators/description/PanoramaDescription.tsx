@@ -1,9 +1,8 @@
-/** @jsxImportSource @emotion/react */
 import { ComponentSize, DropAreaDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import { fireworkDescription } from '../../material/FireworkDescription'
 import { gridHeight, gridWidth } from '../../utils/PlayerPosition'
 

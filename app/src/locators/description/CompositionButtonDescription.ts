@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationDescription } from '@gamepark/react-game'
 import { CompositionButton } from '../component/CompositionButton'
 

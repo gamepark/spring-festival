@@ -1,6 +1,8 @@
 import { getEnumValues } from '@gamepark/rules-api'
 import { PlayerSymbol } from '../PlayerSymbol'
 
+export type FireworkId = { front: Firework }
+
 export enum Firework {
   BaseFirework1_1 = 1,
   BaseFirework1_2,

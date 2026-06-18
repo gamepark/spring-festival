@@ -1,5 +1,5 @@
 import { Composition } from '@gamepark/spring-festival/material/Composition'
-import { Firework } from '@gamepark/spring-festival/material/Firework'
+import { Firework, FireworkId } from '@gamepark/spring-festival/material/Firework'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { SpringFestivalSetup } from '@gamepark/spring-festival/SpringFestivalSetup'
@@ -24,7 +24,7 @@ export class TutorialSetup extends SpringFestivalSetup {
     if (tileOnTargetItem.id.front === firework) return
     const fireworkToMove = this
       .material(MaterialType.Firework)
-      .id(({ front }: any) => front === firework)
+      .id(({ front }: FireworkId) => front === firework)
 
     const fireworkToMoveItem = fireworkToMove.getItem()!
     const oldLocation = fireworkToMoveItem.location

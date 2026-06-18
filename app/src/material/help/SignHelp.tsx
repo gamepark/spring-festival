@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { MaterialHelpProps, usePlayerId, useRules } from '@gamepark/react-game'
 import { ScoringHelper } from '@gamepark/spring-festival/rules/helper/ScoringHelper'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
@@ -15,19 +14,19 @@ export const SignHelp: FC<MaterialHelpProps> = (props) => {
   return (
     <>
       <h2>
-        <Trans defaults="help.chinese-sign"/>
+        <Trans i18nKey="help.chinese-sign"/>
       </h2>
       <p>
-        <Trans defaults="help.chinese-sign.vp"/>
+        <Trans i18nKey="help.chinese-sign.vp"/>
       </p>
       <p>
-        <Trans defaults={`help.chinese-sign.${item.id}`}>
+        <Trans i18nKey={`help.chinese-sign.${item.id}`}>
           <strong />
         </Trans>
       </p>
       { score !== undefined && (
         <p>
-          <Trans defaults="help.chinese-sign.score" values={{ score: score }} />
+          <Trans i18nKey="help.chinese-sign.score" values={{ score: score }} />
         </p>
       )}
     </>

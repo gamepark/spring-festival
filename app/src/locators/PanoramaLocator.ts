@@ -1,9 +1,10 @@
-/** @jsxImportSource @emotion/react */
 import { LocationContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Location, XYCoordinates } from '@gamepark/rules-api'
+import { LocationType } from '@gamepark/spring-festival/material/LocationType'
+import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { AvailableSpaceHelper } from '@gamepark/spring-festival/rules/helper/AvailableSpaceHelper'
-import { PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
+import { Boundaries, PlayerBoundaries } from '@gamepark/spring-festival/rules/helper/PlayerBoundaries'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import { fireworkDescription } from '../material/FireworkDescription'
@@ -62,7 +63,7 @@ export class PanoramaLocator extends Locator {
     }
   }
 
-  computeYForTopPlayer(boundaries: any, context: LocationContext) {
+  computeYForTopPlayer(boundaries: Boundaries, context: LocationContext) {
     const yLimit = gridMinY(context.rules.players.length) - 0.5
 
     const overflowTop = boundaries.minY < -yLimit
@@ -80,7 +81,7 @@ export class PanoramaLocator extends Locator {
     return y
   }
 
-  computeYForBottomPlayer(boundaries: any, context: LocationContext, margin?: boolean) {
+  computeYForBottomPlayer(boundaries: Boundaries, context: LocationContext, margin?: boolean) {
     const yLimit = gridMinY(context.rules.players.length) - (margin ? 1.5 : 0.5)
 
 
@@ -97,7 +98,7 @@ export class PanoramaLocator extends Locator {
     return y
   }
 
-  computeXForRightPlayers(boundaries: any) {
+  computeXForRightPlayers(boundaries: Boundaries) {
     const xLimit = gridMinX - 0.5
 
     const overflowLeft = boundaries.minX < -xLimit
@@ -113,7 +114,7 @@ export class PanoramaLocator extends Locator {
     return x
   }
 
-  computeXForLeftPlayers(boundaries: any, margin?: boolean) {
+  computeXForLeftPlayers(boundaries: Boundaries, margin?: boolean) {
 
     const xLimit = gridMinX - (margin ? 1.5 : 0.5)
 
@@ -161,6 +162,15 @@ export class PanoramaLocator extends Locator {
     }
 
     return 0
+  }
+
+  getPositionDependencies(location: Location, context: MaterialContext) {
+    return context.rules
+      .material(MaterialType.Firework)
+      .location(LocationType.Panorama)
+      .player(location.player!)
+      .getItems()
+      .map((item) => item.location)
   }
 }
 

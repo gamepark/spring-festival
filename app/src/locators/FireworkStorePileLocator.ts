@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { DeckLocator, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
@@ -39,6 +38,10 @@ export class FireworkStorePileLocator extends DeckLocator {
     const { rules } = context
     const parentRotation = rules.material(this.parentItemType).getItem(location.parent!)
     return -fireworkStoreLocator.getRotateZ(parentRotation.location, context)
+  }
+
+  getPositionDependencies(_location: Location, context: MaterialContext) {
+    return new SearchPileHelper(context.rules.game, context.player ?? context.rules.players[0]).pile
   }
 
   navigationSorts = []

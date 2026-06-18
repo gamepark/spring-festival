@@ -1,9 +1,10 @@
 import { CustomMove, Material, MaterialGame, MaterialItem, MaterialRulesPart } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
-import uniqWith from 'lodash/uniqWith'
+import { isEqual } from 'es-toolkit'
+import { uniqWith } from 'es-toolkit'
 import { Color } from '../../material/Color'
 import { colorCompositionDescriptions } from '../../material/ColorCompositionDescription'
-import { CompositionType } from '../../material/Composition'
+import { CompositionId, CompositionType } from '../../material/Composition'
+import { FireworkId } from '../../material/Firework'
 import { fireworkDescriptions } from '../../material/FireworkDescription'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -13,7 +14,7 @@ import { CustomMoveType } from '../CustomMoveType'
 import { PlayerBoundaries } from './PlayerBoundaries'
 
 export class CompositionHelper extends MaterialRulesPart {
-  constructor(game: MaterialGame<any, any, any>, readonly player: PlayerSymbol) {
+  constructor(game: MaterialGame, readonly player: PlayerSymbol) {
     super(game)
   }
 
@@ -27,7 +28,7 @@ export class CompositionHelper extends MaterialRulesPart {
       for (let y = boundaries.minY; y <= boundaries.maxY; y++) {
 
         for (const compositionIndex of compositions.getIndexes()) {
-          const item = compositions.getItem(compositionIndex)
+          const item = compositions.getItem<CompositionId>(compositionIndex)
           const combinations = this.getValidCombinations(item, compositionIndex, panorama, x, y)
 
           if (combinations.length) {
@@ -46,13 +47,13 @@ export class CompositionHelper extends MaterialRulesPart {
     return uniqWith(combinations, isEqual)
   }
 
-  getValidCombinations(composition: MaterialItem, compositionIndex: number, panorama: Material, x: number, y: number) {
+  getValidCombinations(composition: MaterialItem<PlayerSymbol, LocationType, CompositionId>, compositionIndex: number, panorama: Material, x: number, y: number) {
     const description = composition.id.back === CompositionType.Color? colorCompositionDescriptions: patternCompositionDescriptions
-    const comp = description[composition.id.front].composition
+    const comp = description[composition.id.front]!.composition
     const indexes: { comp: number, indexes: number[] }[] = []
     for (const combination of comp) {
       let valid = true
-      let currentCombinationIndexes: number[] = []
+      const currentCombinationIndexes: number[] = []
       for (let compX = 0; compX < combination.length; compX++) {
         const yLine = combination[compX]
         if (!valid) continue
@@ -97,7 +98,7 @@ export class CompositionHelper extends MaterialRulesPart {
     const firework = panorama
       .location((l) => l.x === (x + deltaY) && l.y === (y + deltaX) && l.rotation === true)
     if (firework.length) {
-      const item = firework.getItem()!
+      const item = firework.getItem<FireworkId>()!
       const explosionCount = fireworkDescriptions[item.id.front].explosions.length
       if (requiredExplosionCount === -1 || explosionCount === requiredExplosionCount) {
         return firework.getIndex()
@@ -112,7 +113,7 @@ export class CompositionHelper extends MaterialRulesPart {
     const firework = panorama
       .location((l) => l.x === (x + deltaY) && l.y === (y + deltaX) && l.rotation === true)
     if (firework.length) {
-      const item = firework.getItem()!
+      const item = firework.getItem<FireworkId>()!
       const fireworkColor = fireworkDescriptions[item.id.front].color
       if (color === Color.Any || color === fireworkColor) {
         return firework.getIndex()

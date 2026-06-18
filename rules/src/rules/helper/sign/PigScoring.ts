@@ -1,4 +1,5 @@
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
+import { FireworkId } from '../../../material/Firework'
 import { fireworkDescriptions } from '../../../material/FireworkDescription'
 import { SignScoring } from './SignScoring'
 
@@ -13,14 +14,14 @@ export class PigScoring extends SignScoring {
     const treatedIndexes: number[] = []
     const panorama = this.panorama
     for (const index of panorama.getIndexes()) {
-      const item = panorama.getItem(index)
+      const item = panorama.getItem<FireworkId>(index)
       const adjacent = this
         .getTileThatWillExplode(item, treatedIndexes)
-        .filter(
+        .filter<FireworkId>(
           (a) =>
-            fireworkDescriptions[a.id.front].explosions.some((explosion: any) => isEqual(
+            fireworkDescriptions[a.id.front].explosions.some((explosion) => isEqual(
                 { x: item.location.x, y: item.location.y },
-                { x: a.location.x + explosion.x, y: a.location.y + explosion.y }
+                { x: a.location.x! + explosion.x, y: a.location.y! + explosion.y }
               )
             )
         )

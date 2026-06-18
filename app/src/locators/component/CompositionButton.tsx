@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons/faRotateRight'
@@ -10,7 +9,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { CompositionHelper } from '@gamepark/spring-festival/rules/helper/CompositionHelper'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import { FC } from 'react'
 import { getClockwise } from '../../utils/Clockwise'
 import { playerCompositionLocator } from '../PlayerCompositionLocator'

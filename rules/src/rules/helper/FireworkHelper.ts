@@ -1,5 +1,6 @@
 import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
+import { FireworkId } from '../../material/Firework'
 import { fireworkDescriptions } from '../../material/FireworkDescription'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -28,7 +29,7 @@ export class FireworkHelper extends MaterialRulesPart {
 
   fillAdjacentFireworks(moves: MaterialMove[], treatedIndex: number[], tile: Material, originalCoordinates: XYCoordinates) {
     const panorama = this.panorama
-    const item = tile.getItem()!
+    const item = tile.getItem<FireworkId>()!
     const location = { x: item.location.x!, y: item.location.y! }
     const fireworks = panorama
       .location((l) => {

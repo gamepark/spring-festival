@@ -80,6 +80,8 @@ export enum CompositionType {
   Pattern
 }
 
+export type CompositionId = { front: Composition, back: CompositionType }
+
 export const getColor = (c: Composition) => Math.floor(c / 100) + 1
 export const isPattern = (c: Composition) => c > Composition.ColorComposition36
 export const isColor = (c: Composition) => c < Composition.PatternComposition1

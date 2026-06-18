@@ -1,11 +1,10 @@
-/** @jsxImportSource @emotion/react */
 import { PlayMoveButton, useLegalMove, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { isCustomMoveType, isEndPlayerTurn } from '@gamepark/rules-api'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import { Trans } from 'react-i18next'
 
 export const PlaceFireworkHeader = () => {
@@ -21,7 +20,7 @@ export const PlaceFireworkHeader = () => {
   if (itsMyTurn) {
     if (!rules.remind(Memory.Placed, player)) {
       return (
-        <Trans defaults="header.place" />
+        <Trans i18nKey="header.place" />
       )
     } else {
       const selectedIndexes = [...rules.material(MaterialType.Firework).selected().getIndexes()].sort()
@@ -29,17 +28,17 @@ export const PlaceFireworkHeader = () => {
 
       if (selection.length === 1) {
         return (
-          <Trans defaults="header.composition.validate">
+          <Trans i18nKey="header.composition.validate">
             <PlayMoveButton move={selection[0]}/>
           </Trans>
         )
       } else if (selection.length > 1) {
         return (
-          <Trans defaults="header.compositions.validate" />
+          <Trans i18nKey="header.compositions.validate" />
         )
       } else {
         return (
-          <Trans defaults="header.composition">
+          <Trans i18nKey="header.composition">
             <PlayMoveButton move={pass} />
           </Trans>
         )
@@ -51,15 +50,15 @@ export const PlaceFireworkHeader = () => {
   if (!playerThatMustPlace.length) {
     const playerThatMustCombine = players.filter((p) => rules.remind(Memory.Placed, p))
     if (playerThatMustCombine.length === 1) {
-      return <Trans defaults="header.composition.player" values={{ player: name }}/>
+      return <Trans i18nKey="header.composition.player" values={{ player: name }}/>
     } else {
-      return <Trans defaults="header.composition.players"/>
+      return <Trans i18nKey="header.composition.players"/>
     }
   } else {
     if (playerThatMustPlace.length === 1) {
-      return <Trans defaults="header.place.player" values={{ player: name }}/>
+      return <Trans i18nKey="header.place.player" values={{ player: name }}/>
     } else {
-      return <Trans defaults="header.place.players"/>
+      return <Trans i18nKey="header.place.players"/>
     }
   }
 }

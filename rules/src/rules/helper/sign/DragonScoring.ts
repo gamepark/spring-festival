@@ -1,3 +1,4 @@
+import { FireworkId } from '../../../material/Firework'
 import { ApplauseHelper } from '../ApplauseHelper'
 import { SignScoring } from './SignScoring'
 
@@ -12,7 +13,7 @@ export class DragonScoring extends SignScoring {
     const treatedIndexes: number[] = []
     const fireworks = this.panorama
     for (const index of fireworks.getIndexes()) {
-      const item = fireworks.getItem(index)
+      const item = fireworks.getItem<FireworkId>(index)
       const applauseCount = new ApplauseHelper(this.game, this.player).getExtinguishesCount(item, treatedIndexes)
       treatedIndexes.push(index)
       extinguished += applauseCount

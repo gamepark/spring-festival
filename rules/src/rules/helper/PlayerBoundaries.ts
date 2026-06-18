@@ -3,12 +3,21 @@ import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PlayerSymbol } from '../../PlayerSymbol'
 
+export type Boundaries = {
+  minX: number
+  maxX: number
+  minY: number
+  maxY: number
+  deltaX: number
+  deltaY: number
+}
+
 export class PlayerBoundaries extends MaterialRulesPart {
   constructor(game: MaterialGame, readonly player: PlayerSymbol) {
     super(game);
   }
 
-  get boudaries() {
+  get boudaries(): Boundaries {
     const panorama = this.panorama
     if (!panorama.length) {
       return {

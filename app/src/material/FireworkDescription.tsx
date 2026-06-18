@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { CustomMove, isCustomMoveType, MaterialItem, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
@@ -8,7 +7,7 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { Memory } from '@gamepark/spring-festival/rules/Memory'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import BaseFirework1_1Back from '../images/firework/explosion/BaseFirework1_1.jpg'
 import BaseFirework1_2Back from '../images/firework/explosion/BaseFirework1_2.jpg'
 import BaseFirework1_3Back from '../images/firework/explosion/BaseFirework1_3.jpg'

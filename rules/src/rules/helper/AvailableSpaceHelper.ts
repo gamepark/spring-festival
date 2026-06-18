@@ -1,5 +1,5 @@
 import { Location, MaterialGame, MaterialRulesPart } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { PlayerSymbol } from '../../PlayerSymbol'

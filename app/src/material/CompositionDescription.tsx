@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { CardDescription, ItemContext, MaterialContext } from '@gamepark/react-game'
 import { CustomMove, isCustomMoveType, MaterialItem } from '@gamepark/rules-api'
@@ -7,7 +6,7 @@ import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { CustomMoveType } from '@gamepark/spring-festival/rules/CustomMoveType'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
 import ColorComposition1 from '../images/composition/color/ColorComposition1.jpg'
 import ColorComposition10 from '../images/composition/color/ColorComposition10.jpg'
 import ColorComposition11 from '../images/composition/color/ColorComposition11.jpg'

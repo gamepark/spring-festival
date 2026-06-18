@@ -1,9 +1,8 @@
 import { MaterialGame } from '@gamepark/rules-api'
-import groupBy from 'lodash/groupBy'
-import mapValues from 'lodash/mapValues'
+import { groupBy, mapValues } from 'es-toolkit'
 import { Color } from '../../../material/Color'
 import { PlayerSymbol } from '../../../PlayerSymbol'
-import { PlayerBoundaries } from '../PlayerBoundaries'
+import { Boundaries, PlayerBoundaries } from '../PlayerBoundaries'
 import { SignScoring } from './SignScoring'
 
 export class TigerScoring extends SignScoring {
@@ -20,10 +19,11 @@ export class TigerScoring extends SignScoring {
   get maxAreaSize(): number {
     const areaNumbers = this.areas.flat()
     const areaLength = mapValues(groupBy(areaNumbers, (areaNumber) => areaNumber), (v) => v.length)
-    let maxArea: string | undefined = undefined
+    let maxArea: number | undefined = undefined
     for (const key of Object.keys(areaLength)) {
-      if (+key === 0) continue
-      if (!maxArea || areaLength[key] > areaLength[maxArea]) maxArea = key
+      const area = +key
+      if (area === 0) continue
+      if (maxArea === undefined || areaLength[area] > areaLength[maxArea]) maxArea = area
     }
 
     if (maxArea === undefined || areaLength[maxArea] === 1) return 0
@@ -62,7 +62,7 @@ export class TigerScoring extends SignScoring {
     }
   }
 
-  replaceArea(boundaries: any, a: number, b: number) {
+  replaceArea(boundaries: Boundaries, a: number, b: number) {
     for (let yIndex = 0; yIndex <= boundaries.deltaY; yIndex++) {
       for (let xIndex = 0; xIndex <= boundaries.deltaX; xIndex++) {
         const x = boundaries.minX + xIndex

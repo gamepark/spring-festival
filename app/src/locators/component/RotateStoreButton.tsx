@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons/faRotateLeft'
@@ -9,8 +8,8 @@ import { Location } from '@gamepark/rules-api'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { SpringFestivalRules } from '@gamepark/spring-festival/SpringFestivalRules'
-import isEqual from 'lodash/isEqual'
-import { FC } from 'react'
+import { isEqual } from 'es-toolkit'
+import { FC, MouseEvent } from 'react'
 import { getClockwise, getCounterClockwise } from '../../utils/Clockwise'
 
 export const RotateStoreButton: FC<{ location: Location }> = () => {
@@ -27,7 +26,7 @@ export const RotateStoreButton: FC<{ location: Location }> = () => {
   const validation = rules.material(MaterialType.FireworksStore).moveItem(storeLocation)
   const validate = useLegalMove((move) => isEqual(move, validation))
   const play = usePlay()
-  const preventAction = (action: () => void) => (event: any) => {
+  const preventAction = (action: () => void) => (event: MouseEvent) => {
     event.stopPropagation()
     action()
   }

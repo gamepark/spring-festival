@@ -1,7 +1,8 @@
 import { getDistanceBetweenSquares, MaterialGame, MaterialItem, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
-import uniqWith from 'lodash/uniqWith'
+import { isEqual } from 'es-toolkit'
+import { uniqWith } from 'es-toolkit'
 import { Color } from '../../../material/Color'
+import { FireworkId } from '../../../material/Firework'
 import { fireworkDescriptions } from '../../../material/FireworkDescription'
 import { LocationType } from '../../../material/LocationType'
 import { MaterialType } from '../../../material/MaterialType'
@@ -24,7 +25,7 @@ export abstract class SignScoring extends MaterialRulesPart {
   countCardsWithSameColorForCoordinates(color: Color, coordinates: XYCoordinates[]) {
     const panorama = this.panorama
     const itemIndexes: number[] = []
-    const explodedFireworks = this.panorama.filter((item) => fireworkDescriptions[item.id.front].color === color)
+    const explodedFireworks = this.panorama.filter<FireworkId>((item) => fireworkDescriptions[item.id.front].color === color)
     const indexes = explodedFireworks.getIndexes()
     for (const index of indexes) {
       const item = panorama.getItem(index)
@@ -38,14 +39,14 @@ export abstract class SignScoring extends MaterialRulesPart {
     return uniqWith(itemIndexes, isEqual).length
   }
 
-  getTileThatWillExplode(tile: MaterialItem, ignoredTiles: number[] = []) {
+  getTileThatWillExplode(tile: MaterialItem<PlayerSymbol, LocationType, FireworkId>, ignoredTiles: number[] = []) {
     return this
       .panorama
       .filter((item, index) =>
         !ignoredTiles.includes(index)
-        && fireworkDescriptions[tile.id.front].explosions.some((e: any) => isEqual(
+        && fireworkDescriptions[tile.id.front].explosions.some((e) => isEqual(
         { x: item.location.x, y: item.location.y },
-        { x: tile.location.x + e.x, y: tile.location.y + e.y }
+        { x: tile.location.x! + e.x, y: tile.location.y! + e.y }
       )))
   }
 
@@ -57,7 +58,7 @@ export abstract class SignScoring extends MaterialRulesPart {
   }
 
   getCardWithColor(color: Color) {
-    return this.panorama.filter((item) => fireworkDescriptions[item.id.front].color === color)
+    return this.panorama.filter<FireworkId>((item) => fireworkDescriptions[item.id.front].color === color)
   }
 
   get boundaries() {

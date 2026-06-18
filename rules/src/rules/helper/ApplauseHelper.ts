@@ -1,5 +1,6 @@
 import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialItem, MaterialMove, MaterialRulesPart, XYCoordinates } from '@gamepark/rules-api'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'es-toolkit'
+import { FireworkId } from '../../material/Firework'
 import { fireworkDescriptions } from '../../material/FireworkDescription'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
@@ -17,10 +18,10 @@ export class ApplauseHelper extends MaterialRulesPart {
     return this.getApplauseMoves(tile)
   }
 
-  getExtinguishesCount(tile: MaterialItem, alreadyCountedTiles: number[] = []) {
+  getExtinguishesCount(tile: MaterialItem<PlayerSymbol, LocationType, FireworkId>, alreadyCountedTiles: number[] = []) {
     const panorama = this.panorama
     const location = { x: tile.location.x!, y: tile.location.y! }
-    const fireworks = !alreadyCountedTiles.length? panorama.getItems(): panorama.index((i) => !alreadyCountedTiles.includes(i)).getItems()
+    const fireworks = !alreadyCountedTiles.length? panorama.getItems<FireworkId>(): panorama.index((i) => !alreadyCountedTiles.includes(i)).getItems<FireworkId>()
     let applauseCount = 0
     for (const firework of fireworks) {
       const l = firework.location

@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { ScoringDescription } from '@gamepark/react-client'
+import { ScoringDescription } from '@gamepark/react-game'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { PlayerSymbol } from '@gamepark/spring-festival/PlayerSymbol'
 import { ScoringHelper } from '@gamepark/spring-festival/rules/helper/ScoringHelper'
@@ -39,17 +38,17 @@ export class SpringFestivalScoringDescription implements ScoringDescription<Play
   getScoringHeader(key: ScoringKeys) {
     switch (key) {
       case ScoringKeys.GrandeFinale:
-        return <Trans defaults="scoring.grande-finale"/>
+        return <Trans i18nKey="scoring.grande-finale"/>
       case ScoringKeys.Applause:
-        return <Trans defaults="scoring.applause"/>
+        return <Trans i18nKey="scoring.applause"/>
       case ScoringKeys.ApplauseMajority:
-        return <Trans defaults="scoring.applause.majority"/>
+        return <Trans i18nKey="scoring.applause.majority"/>
       case ScoringKeys.Composition:
-        return <Trans defaults="scoring.compositions"/>
+        return <Trans i18nKey="scoring.compositions"/>
       case ScoringKeys.ChineseSign:
-        return <Trans defaults="scoring.chinese-sign"/>
+        return <Trans i18nKey="scoring.chinese-sign"/>
       case ScoringKeys.Total:
-        return <div css={bold}><Trans defaults="scoring.total"/></div>
+        return <div css={bold}><Trans i18nKey="scoring.total"/></div>
     }
   }
 

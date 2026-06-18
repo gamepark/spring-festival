@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
 import { usePlayers } from '@gamepark/react-game'
 import { FC } from 'react'
 import { createPortal } from 'react-dom'
 import { SpringFestivalPlayerPanel } from './SpringFestivalPlayerPanel'
 
-export const PlayerPanels: FC<any> = () => {
+export const PlayerPanels: FC = () => {
   const players = usePlayers({ sortFromMe: true })
   const root = document.getElementById('root')
   if (!root) return null

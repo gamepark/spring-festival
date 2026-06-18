@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { RoundTokenDescription } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import ApplauseToken from '../images/token/applause.jpg'

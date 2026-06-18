@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { Player } from '@gamepark/react-client'
 import { StyledPlayerPanel, useFocusContext, useMaterialContext, usePlayerId, useRules } from '@gamepark/react-game'
@@ -57,7 +56,7 @@ export const SpringFestivalPlayerPanel: FC<SpringFestivalPlayerPanelProps> = (pr
       player={player}
       onClick={focusPlayer}
       css={panelPosition(getComputedIndex(context, player.id))}
-      backgroundImage={playerBackground[player.id]}
+      backgroundImage={playerBackground[player.id as PlayerSymbol]}
       mainCounter={isEnded ? {
         image: TotalIcon,
         value: new ScoringHelper(rules.game, player.id).score,

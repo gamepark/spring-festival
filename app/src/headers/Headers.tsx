@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
 import { ComponentType } from 'react'
 import { GrandeFinaleHeader } from './GrandeFinaleHeader'

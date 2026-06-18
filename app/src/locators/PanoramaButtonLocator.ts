@@ -2,7 +2,7 @@ import { LocationContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 import { RuleId } from '@gamepark/spring-festival/rules/RuleId'
-import { Location } from '../../../../rules-api/src'
+import { Location } from '@gamepark/rules-api'
 import { PanoramaButtonDescription } from './description/PanoramaButtonDescription'
 import { panoramaLocator } from './PanoramaLocator'
 
@@ -34,6 +34,15 @@ export class PanoramaButtonLocator extends Locator {
       y: coordinates.y,
       z: 0.5
     }
+  }
+
+  getPositionDependencies(_location: Location, context: MaterialContext) {
+    return context.rules
+      .material(MaterialType.Firework)
+      .location(LocationType.Panorama)
+      .player(context.player!)
+      .getItems()
+      .map((item) => item.location)
   }
 }
 

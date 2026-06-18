@@ -1,9 +1,8 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { MaterialComponent, MaterialTutorial, TutorialStep } from '@gamepark/react-game'
 import { isCreateItemType, isCustomMoveType, isEndPlayerTurn, isMoveItemType, MaterialGame } from '@gamepark/rules-api'
-import { CompositionType } from '@gamepark/spring-festival/material/Composition'
-import { Firework } from '@gamepark/spring-festival/material/Firework'
+import { CompositionId, CompositionType } from '@gamepark/spring-festival/material/Composition'
+import { Firework, FireworkId } from '@gamepark/spring-festival/material/Firework'
 import { fireworkDescriptions } from '@gamepark/spring-festival/material/FireworkDescription'
 import { LocationType } from '@gamepark/spring-festival/material/LocationType'
 import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
@@ -30,14 +29,14 @@ export class Tutorial extends MaterialTutorial {
 
   steps: TutorialStep[] = [
     {
-      popup: { text: () => <Trans defaults="tuto.welcome"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.welcome"><strong/><em/></Trans> }
     },
     {
-      popup: { text: () => <Trans defaults="tuto.goal"><strong/><em/></Trans> }
+      popup: { text: () => <Trans i18nKey="tuto.goal"><strong/><em/></Trans> }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.starting"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.starting"><strong/><em/></Trans>,
         position: { y: -15 }
       },
       focus: (game) => ({
@@ -48,7 +47,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.composition"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.composition"><strong/><em/></Trans>,
         position: { x: -25, y: 5 }
       },
       focus: (game) => ({
@@ -64,7 +63,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.starting.place"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.starting.place"><strong/><em/></Trans>,
         position: { x: 0, y: 0 }
       },
       focus: (game) => ({
@@ -82,12 +81,12 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_4].color }}><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_4].color }}><strong/><em/></Trans>,
         position: { x: 0, y: 0 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.BaseFirework1_4)
+          this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.BaseFirework1_4)
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(0).y(0).location
@@ -104,12 +103,12 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_1].color }}><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_1].color }}><strong/><em/></Trans>,
         position: { x: 0, y: 0 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.BaseFirework1_1)
+          this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.BaseFirework1_1)
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(1).y(0).location
@@ -127,12 +126,12 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_2].color }}><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_2].color }}><strong/><em/></Trans>,
         position: { x: 0, y: 0 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.BaseFirework1_2)
+          this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.BaseFirework1_2)
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(0).y(-1).location
@@ -150,12 +149,12 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_3].color }}><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.place" values={{ color: fireworkDescriptions[Firework.BaseFirework1_3].color }}><strong/><em/></Trans>,
         position: { x: 0, y: 0 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.BaseFirework1_3)
+          this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.BaseFirework1_3)
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(1).y(-1).location
@@ -173,7 +172,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.validate"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.validate"><strong/><em/></Trans>,
         position: { x: 0, y: -23 }
       },
       focus: () => ({
@@ -211,13 +210,13 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.start"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.start"><strong/><em/></Trans>,
         position: { x: 0, y: 0 }
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.active"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.active"><strong/><em/></Trans>,
         position: { x: 0, y: -15 }
       },
       focus: (game) => ({
@@ -231,7 +230,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.store"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.store"><strong/><em/></Trans>,
         position: { x: -35, y: 3 }
       },
       focus: (game) => ({
@@ -248,13 +247,13 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.rotate"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.rotate"><strong/><em/></Trans>,
         position: { x: -37, y: 3 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.FireworksStore),
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework14)
+          this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.Firework14)
         ],
         margin: {
           left: 28,
@@ -270,12 +269,12 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.take.place"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.take.place"><strong/><em/></Trans>,
         position: { x: -15, y: 15 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework14)
+          this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.Firework14)
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(2).y(-1).location
@@ -295,7 +294,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.explode"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.explode"><strong/><em/></Trans>,
         position: { y: 25 }
       },
       focus: (game) => ({
@@ -309,7 +308,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.will-explode"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.will-explode"><strong/><em/></Trans>,
         position: { y: 25 }
       },
       focus: (game) => ({
@@ -323,7 +322,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.chain"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.chain"><strong/><em/></Trans>,
         position: { y: 25 }
       },
       focus: (game) => ({
@@ -344,7 +343,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.phase"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.compo.phase"><strong/><em/></Trans>,
         position: { x: -45, y: 15 }
       },
       focus: (game) => ({
@@ -361,7 +360,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.validate"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.compo.validate"><strong/><em/></Trans>,
         position: { x: -45, y: 15 }
       },
       focus: (game) => ({
@@ -378,7 +377,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.pattern"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.compo.pattern"><strong/><em/></Trans>,
         position: { x: -45, y: 15 }
       },
       focus: (game) => ({
@@ -404,7 +403,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.explain"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.compo.explain"><strong/><em/></Trans>,
         position: { y: 30 }
       },
       focus: (game) => ({
@@ -420,7 +419,7 @@ export class Tutorial extends MaterialTutorial {
       popup: {
         text: (_: TFunction, game: MaterialGame) => {
           const rules = new SpringFestivalRules(game)
-          const doneCompositionItem = rules.material(MaterialType.Composition).player(me).location(LocationType.PlayerDoneComposition).getItem()!
+          const doneCompositionItem = rules.material(MaterialType.Composition).player(me).location(LocationType.PlayerDoneComposition).getItem<CompositionId>()!
           return (
             <span css={css`display: flex;
               flex-direction: row;
@@ -432,7 +431,7 @@ export class Tutorial extends MaterialTutorial {
               />
               <div css={highlightCss}/>
               <span css={css`margin-left: 8.5em`}>
-                <Trans defaults="tuto.compo.new" values={{ points: patternCompositionDescriptions[doneCompositionItem.id.front].points }}>
+                <Trans i18nKey="tuto.compo.new" values={{ points: patternCompositionDescriptions[doneCompositionItem.id.front]!.points }}>
                   <strong/><em/>
                 </Trans>
               </span>
@@ -451,7 +450,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.compo.pass"><strong/><em/></Trans>
+        text: () => <Trans i18nKey="tuto.compo.pass"><strong/><em/></Trans>
       },
       move: {
         filter: (move) => isEndPlayerTurn(move)
@@ -470,7 +469,7 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.newround"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.newround"><strong/><em/></Trans>,
         position: { y: 25 }
       },
       focus: (game) => ({
@@ -495,12 +494,12 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.place.2"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.place.2"><strong/><em/></Trans>,
         position: { y: 30 }
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework25)
+          this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.Firework25)
         ],
         locations: [
           this.location(LocationType.Panorama).player(me).x(3).y(-1).location
@@ -520,13 +519,13 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.extinguish"><strong/><em/></Trans>,
+        text: () => <Trans i18nKey="tuto.extinguish"><strong/><em/></Trans>,
         position: { y: 15 }
       },
       focus: (game) => {
         return ({
           materials: [
-            this.material(game, MaterialType.Firework).id(({ front }: any) => front === Firework.Firework25 || front === Firework.Firework14)
+            this.material(game, MaterialType.Firework).id(({ front }: FireworkId) => front === Firework.Firework25 || front === Firework.Firework14)
           ],
           locations: [
             this
@@ -543,22 +542,22 @@ export class Tutorial extends MaterialTutorial {
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.end"><strong/><em/></Trans>
+        text: () => <Trans i18nKey="tuto.end"><strong/><em/></Trans>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.grandefinale"><strong/><em/></Trans>
+        text: () => <Trans i18nKey="tuto.grandefinale"><strong/><em/></Trans>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.scoring"><strong/><em/></Trans>
+        text: () => <Trans i18nKey="tuto.scoring"><strong/><em/></Trans>
       }
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.go"><strong/><em/></Trans>
+        text: () => <Trans i18nKey="tuto.go"><strong/><em/></Trans>
       }
     }
   ]
