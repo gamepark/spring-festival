@@ -1,4 +1,4 @@
-import { isEndGame, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext, RuleMove } from '@gamepark/rules-api'
+import { isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule, PlayMoveContext } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { SearchPileHelper } from './helper/SearchPileHelper'
@@ -8,7 +8,9 @@ import { RuleId } from './RuleId'
 export class RotateStoreRule extends PlayerTurnRule {
   onRuleStart() {
     this.game.players.forEach((p) => this.forget(Memory.Placed, p))
-    if (!this.piles.length) return [this.startSimultaneousRule(RuleId.GrandeFinale, this.game.players)]
+    if (!this.piles.length) {
+      return [...this.autoRotateStoreMoves(), this.startSimultaneousRule(RuleId.GrandeFinale, this.game.players)]
+    }
     this.forget(Memory.HasRotated)
     return this.moveFirstPlayer()
   }
@@ -42,10 +44,24 @@ export class RotateStoreRule extends PlayerTurnRule {
     } else {
       this.forget(Memory.RotationPreview)
       this.memorize(Memory.HasRotated, true)
-      // No changes
-      return [this.startSimultaneousRule(RuleId.PlaceFirework, this.game.players)]
+      return [...this.autoRotateStoreMoves(), this.startSimultaneousRule(RuleId.PlaceFirework, this.game.players)]
     }
     return []
+  }
+
+  /**
+   * If the active player leaves this rule without having rotated the store himself, automatically rotate it so it
+   * faces his search pile.
+   *
+   * This consequence used to be returned from `onRuleEnd`, but consequences returned there are played inside the
+   * *next* rule step (see MaterialRulesPart#onRuleEnd doc). We now play it from the move handlers that leave this
+   * rule, so it runs within the RotateStore context, before transitioning.
+   */
+  autoRotateStoreMoves(): MaterialMove[] {
+    if (this.remind(Memory.HasRotated)) return []
+    const newRotation = new SearchPileHelper(this.game, this.player).pile
+    if (this.storeItem.location.rotation === newRotation) return []
+    return [this.store.rotateItem(newRotation)]
   }
 
   get storeItem() {
@@ -60,18 +76,5 @@ export class RotateStoreRule extends PlayerTurnRule {
     return this
       .material(MaterialType.Firework)
       .location(LocationType.FireworksStorePile)
-  }
-
-  onRuleEnd(move: RuleMove) {
-    if (isEndGame(move)) return []
-    if (!this.remind(Memory.HasRotated)) {
-      const newRotation = new SearchPileHelper(this.game, this.player).pile
-      if (this.storeItem.location.rotation === newRotation) return []
-      return [
-        this.material(MaterialType.FireworksStore).rotateItem(newRotation)
-      ]
-    }
-
-    return []
   }
 }
