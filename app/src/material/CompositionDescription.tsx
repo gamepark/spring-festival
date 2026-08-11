@@ -180,14 +180,13 @@ export class CompositionDescription extends CardDescription {
     const legalMoves = context.rules.getLegalMoves(context.player)
     const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
     const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes) && context.index === move.data.comp)
+    // The marker is drawn as an outline on the faces themselves rather than as a pseudo element of their preserve-3d
+    // parent: the front face carries a translateZ(0.001px) (framework workaround for backface-visibility on iOS), so
+    // in a 3d rendering context it sorts in front of anything left at z = 0 and Firefox paints the card over it.
     return css`
-      > *:after {
-        content: '';
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        border: 0.2em solid ${valid? 'green': 'red'};
-        border-radius: 0.4em;
+      > * > * {
+        outline: 0.2em solid ${valid? 'green': 'red'};
+        outline-offset: -0.2em;
       }
     `
   }

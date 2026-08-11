@@ -295,14 +295,11 @@ class FireworkDescription extends CardDescription {
     const legalMoves = context.rules.getLegalMoves(context.player)
     const moves: CustomMove[] = legalMoves.filter((move) => isCustomMoveType(CustomMoveType.Composition)(move)) as CustomMove[]
     const valid = moves.some((move) => isEqual(selectedIndexes, move.data.indexes))
+    // Outline on the faces rather than a pseudo element of their preserve-3d parent, see CompositionDescription
     return css`
-      > *:after {
-        content: '';
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        border: 0.2em solid ${valid ? 'green' : 'red'};
-        border-radius: 0.4em;
+      > * > * {
+        outline: 0.2em solid ${valid ? 'green' : 'red'};
+        outline-offset: -0.2em;
       }
     `
   }
