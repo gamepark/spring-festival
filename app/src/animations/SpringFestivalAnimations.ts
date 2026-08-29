@@ -5,36 +5,29 @@ import { MaterialType } from '@gamepark/spring-festival/material/MaterialType'
 export const springFestivalAnimations = new MaterialGameAnimations()
 
 springFestivalAnimations
-  .when()
-  .move((move, context) => isMoveItemType(MaterialType.FireworksStore)(move) && !context.action.local)
-  .duration(0.8)
+  .configure((move, context) => isMoveItemType(MaterialType.FireworksStore)(move) && !context.action.local)
+  .duration(800)
 
 springFestivalAnimations
-  .when()
-  .move((move, context) => isMoveItemType(MaterialType.FireworksStore)(move) && !!context.action.local)
-  .duration(0.4)
+  .configure((move, context) => isMoveItemType(MaterialType.FireworksStore)(move) && !!context.action.local)
+  .duration(400)
 
 springFestivalAnimations
-  .when()
-  .move((move) => isMoveItemType(MaterialType.Composition)(move) && move.location.rotation !== undefined)
-  .duration(0.2)
+  .configure((move) => isMoveItemType(MaterialType.Composition)(move) && move.location.rotation !== undefined)
+  .duration(200)
 
 springFestivalAnimations
-  .when()
-  .move(isDeleteItemType(MaterialType.Firework))
-  .duration(0)
+  .configure(isDeleteItemType(MaterialType.Firework))
+  .skip()
 
 springFestivalAnimations
-  .when()
-  .move((move) => isMoveItemType(MaterialType.Firework)(move) && move.location.rotation !== undefined)
-  .duration(0.5)
+  .configure((move) => isMoveItemType(MaterialType.Firework)(move) && move.location.rotation !== undefined)
+  .duration(500)
 
 springFestivalAnimations
-  .when()
-  .move(isMoveItemType(MaterialType.ApplauseToken))
-  .duration(0.5)
+  .configure(isMoveItemType(MaterialType.ApplauseToken))
+  .duration(500)
 
 springFestivalAnimations
-  .when()
-  .move(isMoveItemType(MaterialType.Composition))
-  .duration(0.5)
+  .configure(isMoveItemType(MaterialType.Composition))
+  .duration(500)
